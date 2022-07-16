@@ -10,9 +10,10 @@ public class Inventory {
 
     private Address address;
 
-    private HashMap<Integer, Double> items;
+    /** This stores Item Identifier, amount pairs.*/
+    private HashMap<Integer, ItemAmount> items;
 
-    public Inventory(int id, String name, Address address, HashMap<Integer, Double> items) {
+    public Inventory(int id, String name, Address address, HashMap<Integer, ItemAmount> items) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -54,56 +55,25 @@ public class Inventory {
         this.address = address;
     }
 
-    public HashMap<Integer, Double> getAllItems() {
+    public HashMap<Integer, ItemAmount> getAllItems() {
         return items;
     }
 
-    public double getItemAmount(int itemIdentifier) {
-        return items.getOrDefault(itemIdentifier, 0.0);
-        /*
-        if (items.get(itemIdentifier) == null) {
-            return 0;
-        } else {
-            return items.get(itemIdentifier);
-        }
-         */
+    public ItemAmount getItemAmount(int itemIdentifier) {
+        return items.getOrDefault(itemIdentifier, new ItemAmount(0.0, 0.0));
     }
 
     public void addItem(int id, double amount) {
-      double current = items.getOrDefault(id, 0.0);
-      items.put(id, amount + current);
+      ItemAmount current = items.getOrDefault(id, new ItemAmount(0.0, 0.0));
+      items.put(id, new ItemAmount(
+              amount + current.getTotalAmount(),
+              current.getReservedAmount())
+      );
     }
 
-    public void setItems(HashMap<Integer, Double> items) {
+    /* ezt majd a logikába kell betenni */
+    public void setItems(HashMap<Integer, ItemAmount> items) {
         this.items = items;
-    }
-
-
-    public static void main(String[] args) {
-
-        Address address = new Address(
-                3903,
-                "Bekecs",
-                "Tűzoltó út",
-                "28",
-                "06901123456");
-        HashMap<Integer, Double> map = new HashMap<>();
-        map.put(8000, 250.0);
-        map.put(4000, 3789.0);
-        map.put(0004, 2.0);
-
-        Inventory i = new Inventory(
-                        001,
-                        "Próba",
-                address,
-                map
-            );
-        System.out.println(map);
-        System.out.println(i.getAllItems());
-        System.out.println(i.getItemAmount(8000));
-        i.addItem(8000, 50);
-        System.out.println(i.getItemAmount(8000));
-
     }
 
     /*
