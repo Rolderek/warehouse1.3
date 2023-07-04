@@ -2,7 +2,7 @@ import java.time.Instant;
 import java.util.HashMap;
 
 public class ItemReservation {
-    // foglalási akapot csinál az inventoryból/nak/nek
+ /** foglalási alapot csinál az inventoryból/nak/nek */
 
     private HashMap<Integer, Double> items;
 

@@ -1,10 +1,10 @@
 import junit.framework.TestCase;
-import org.junit.jupiter.api.BeforeEach;
 
 import java.util.HashMap;
 
 
-public class InventoryTest extends TestCase {
+public class WarehouseInventoryTest extends TestCase {
+
 
     public void testGetId() {
         Address address = new Address(
@@ -14,13 +14,13 @@ public class InventoryTest extends TestCase {
                 "12/A",
                 "+3645123456");
         HashMap<Integer, Double> items = new HashMap<>();
-        Inventory inventory = new Inventory(
+        WarehouseInventory warehouseInventory = new WarehouseInventory(
                 010,
                 "Raktár",
-                address,
-                items
+                address
+
         );
-        assertEquals(010, inventory.getId());
+        assertEquals(010, warehouseInventory.getWarehouseId());
     }
 
     public void testSetId() {
@@ -31,14 +31,13 @@ public class InventoryTest extends TestCase {
                 "12/A",
                 "+3645123456");
         HashMap<Integer, Double> items = new HashMap<>();
-        Inventory inventory = new Inventory(
+        WarehouseInventory warehouseInventory = new WarehouseInventory(
                 010,
                 "Raktár",
-                address,
-                items
+                address
         );
-        inventory.setId(999);
-        assertEquals(999, inventory.getId());
+        warehouseInventory.setWarehouseId(999);
+        assertEquals(999, warehouseInventory.getWarehouseId());
     }
 
     public void testTestGetName() {
@@ -49,13 +48,12 @@ public class InventoryTest extends TestCase {
                 "12/A",
                 "+3645123456");
         HashMap<Integer, Double> items = new HashMap<>();
-        Inventory inventory = new Inventory(
+        WarehouseInventory warehouseInventory = new WarehouseInventory(
                 010,
                 "Raktár",
-                address,
-                items
+                address
         );
-        assertEquals("Raktár", inventory.getName());
+        assertEquals("Raktár", warehouseInventory.getName());
     }
 
     public void testTestSetName() {
@@ -66,14 +64,13 @@ public class InventoryTest extends TestCase {
                 "12/A",
                 "+3645123456");
         HashMap<Integer, Double> items = new HashMap<>();
-        Inventory inventory = new Inventory(
+        WarehouseInventory warehouseInventory = new WarehouseInventory(
                 010,
                 "Raktár",
-                address,
-                items
+                address
         );
-        inventory.setName("Valami");
-        assertEquals("Valami", inventory.getName());
+        warehouseInventory.setName("Valami");
+        assertEquals("Valami", warehouseInventory.getName());
     }
 
     public void testGetAddress() {
@@ -84,13 +81,12 @@ public class InventoryTest extends TestCase {
                 "12/A",
                 "+3645123456");
         HashMap<Integer, Double> items = new HashMap<>();
-        Inventory inventory = new Inventory(
+        WarehouseInventory warehouseInventory = new WarehouseInventory(
                 010,
                 "Raktár",
-                address,
-                items
+                address
         );
-        assertEquals(address, inventory.getAddress());
+        assertEquals(address, warehouseInventory.getAddress());
     }
 
     public void testSetAddress() {
@@ -101,11 +97,10 @@ public class InventoryTest extends TestCase {
                 "12/A",
                 "+3645123456");
         HashMap<Integer, Double> items = new HashMap<>();
-        Inventory inventory = new Inventory(
+        WarehouseInventory warehouseInventory = new WarehouseInventory(
                 010,
                 "Raktár",
-                address,
-                items
+                address
         );
         Address addy = new Address(
                 9999,
@@ -113,8 +108,8 @@ public class InventoryTest extends TestCase {
                 "izé",
                 "hozé",
                 "753");
-        inventory.setAddress(addy);
-        assertEquals(addy, inventory.getAddress());
+        warehouseInventory.setAddress(addy);
+        assertEquals(addy, warehouseInventory.getAddress());
     }
 
     public void testGetAllItems() {
@@ -124,13 +119,6 @@ public class InventoryTest extends TestCase {
                 "Arany utca",
                 "12/A",
                 "+3645123456");
-        HashMap<Integer, Double> items = new HashMap<>();
-        Inventory inventory = new Inventory(
-                010,
-                "Raktár",
-                address,
-                items
-        );
         Item itemOne = new Item(
                 9000,
                 "Toll",
@@ -155,10 +143,14 @@ public class InventoryTest extends TestCase {
                 100,
                 127
         );
-        items.put(itemOne.hashCode(), 200.0);
-        items.put(itemThree.hashCode(), 5.0);
-        items.put(itemTwo.hashCode(), 30.0);
-        assertEquals(items.toString(), inventory.getAllItems().toString());
+
+        HashMap<Integer, ItemAmount> items = new HashMap<>();
+
+        items.put(itemOne.hashCode(), new ItemAmount(200.0));
+        items.put(itemThree.hashCode(), new ItemAmount(5.0));
+        items.put(itemTwo.hashCode(), new ItemAmount(30.0));
+        WarehouseInventory warehouseInventory = new WarehouseInventory(010, "Raktár", address, items);
+        assertEquals(items.toString(), warehouseInventory.getAllItems().toString());
     }
 
     public void testGetItemAmount() {
@@ -168,8 +160,8 @@ public class InventoryTest extends TestCase {
                 "Arany utca",
                 "12/A",
                 "+3645123456");
-        HashMap<Integer, Double> items = new HashMap<>();
-        Inventory inventory = new Inventory(
+        HashMap<Integer, ItemAmount> items = new HashMap<>();
+        WarehouseInventory warehouseInventory = new WarehouseInventory(
                 010,
                 "Raktár",
                 address,
@@ -199,11 +191,10 @@ public class InventoryTest extends TestCase {
                 100,
                 127
         );
-        items.put(itemOne.hashCode(), 200.0);
-        items.put(itemThree.hashCode(), 5.0);
-        items.put(itemTwo.hashCode(), 30.0);
-        assertEquals(200.0,inventory.getItemAmount(itemOne.getIdentifier())
-        );
+        items.put(itemOne.hashCode(), new ItemAmount(200.0));
+        items.put(itemThree.hashCode(), new ItemAmount(5.0));
+        items.put(itemTwo.hashCode(), new ItemAmount(30.0));
+        assertEquals(200.0, warehouseInventory.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
     }
 
     public void testAddItem() {
@@ -213,8 +204,8 @@ public class InventoryTest extends TestCase {
             "Arany utca",
             "12/A",
             "+3645123456");
-        HashMap<Integer, Double> items = new HashMap<>();
-        Inventory inventory = new Inventory(
+        HashMap<Integer, ItemAmount> items = new HashMap<>();
+        WarehouseInventory warehouseInventory = new WarehouseInventory(
                 010,
                 "Raktár",
                 address,
@@ -228,20 +219,23 @@ public class InventoryTest extends TestCase {
                 700.50,
                 900.50
         );
-        items.put(itemOne.getIdentifier(), 50.0);
-        inventory.addItem(itemOne.getIdentifier(), 10);
-        assertEquals(60.0, inventory.getItemAmount(itemOne.getIdentifier()));
+        items.put(itemOne.getIdentifier(), new ItemAmount(50.0));
+        warehouseInventory.addItem(itemOne.getIdentifier(), 10);
+        assertEquals(60.0, warehouseInventory.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
     }
 
     public void testSetItems() {
+        /**
+        ez még nem biztos hogy jó, mert önmagát hasonlitja magához
+         */
         Address address = new Address(
                 1234,
                 "Pest",
                 "Arany utca",
                 "12/A",
                 "+3645123456");
-        HashMap<Integer, Double> items = new HashMap<>();
-        Inventory inventory = new Inventory(
+        HashMap<Integer, ItemAmount> items = new HashMap<>();
+        WarehouseInventory warehouseInventory = new WarehouseInventory(
                 010,
                 "Raktár",
                 address,
@@ -263,10 +257,10 @@ public class InventoryTest extends TestCase {
                 500,
                 680
         );
-        inventory.addItem(itemOne.getIdentifier(), 10);
-        HashMap<Integer, Double> stuff = new HashMap<>();
-        stuff.putIfAbsent(itemTwo.getIdentifier(), 20.0);
-        inventory.setItems(stuff);
-        assertEquals(stuff, inventory.getAllItems());
+        warehouseInventory.addItem(itemOne.getIdentifier(), 10);
+        HashMap<Integer, ItemAmount> stuff = new HashMap<>();
+        stuff.putIfAbsent(itemTwo.getIdentifier(), new ItemAmount(20.0));
+        warehouseInventory.setItems(stuff);
+        assertEquals(stuff, warehouseInventory.getAllItems());
     }
 }

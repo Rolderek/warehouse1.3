@@ -1,6 +1,6 @@
 import java.time.Instant;
 import java.util.HashMap;
-
+/** ellenőrzött rendeléseket fogad és befoglal a küldő inventory-ban */
 public class TransitBundle {
 
     /** This stores Item Identifier, amount pairs.*/
@@ -14,19 +14,14 @@ public class TransitBundle {
 
     private String notes;
 
-    public TransitBundle(HashMap<Integer, Double> items,
-                         int senderId,
-                         int recipientId) {
+    public TransitBundle(HashMap<Integer, Double> items, int senderId, int recipientId) {
         this.items = items;
         this.senderId = senderId;
         this.recipientId = recipientId;
         this.sendTime = Instant.now();
     }
 
-    public TransitBundle(HashMap<Integer, Double> items,
-                         int senderId,
-                         int recipientId,
-                         String notes) {
+    public TransitBundle(HashMap<Integer, Double> items, int senderId, int recipientId, String notes) {
         this.items = items;
         this.senderId = senderId;
         this.recipientId = recipientId;

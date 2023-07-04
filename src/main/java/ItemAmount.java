@@ -1,5 +1,5 @@
 import java.util.InputMismatchException;
-
+/** foglalt/szabad készlet kezelése */
 public class ItemAmount {
 
     private double totalAmount;

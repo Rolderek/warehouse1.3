@@ -1,32 +1,32 @@
 import java.util.HashMap;
-
+/** Az összes raktárat ez tárolja */
 public class InventoryContainer {
 
-    /* stores Inventory and TransitInventory classes */
+    /** stores Inventory and TransitInventory classes */
 
-    private HashMap<Integer, Inventory> inventories;
+    private HashMap<Integer, WarehouseInventory> inventories;
 
-    private TransitInvertory transitInvertory;
+    private TransitInventory transitInventory;
 
-    public InventoryContainer(HashMap<Integer, Inventory> inventories, TransitInvertory transitInvertory) {
+    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory) {
         this.inventories = inventories;
-        this.transitInvertory = transitInvertory;
+        this.transitInventory = transitInventory;
     }
 
-    public HashMap<Integer, Inventory> getAllInventories() {
+    public HashMap<Integer, WarehouseInventory> getAllInventories() {
         return inventories;
     }
 
-    public Inventory getInventory(int inventoryId) {
+    public WarehouseInventory getInventory(int inventoryId) {
         return inventories.get(inventoryId);
     }
 
-    public TransitInvertory getTransitInvertory() {
-        return transitInvertory;
+    public TransitInventory getTransitInvertory() {
+        return transitInventory;
     }
 
-    public boolean addInventory(Inventory newInventory) {
-        Inventory result = inventories.putIfAbsent(newInventory.getId(), newInventory);
+    public boolean addInventory(WarehouseInventory newWarehouseInventory) {
+        WarehouseInventory result = inventories.putIfAbsent(newWarehouseInventory.getWarehouseId(), newWarehouseInventory);
         if (result == null) {
             return true;
         }
