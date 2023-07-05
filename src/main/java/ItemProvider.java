@@ -17,10 +17,10 @@ public class ItemProvider {
         return newReservation;
     }
 
-    public ItemReservation reserveAllAmount(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
-        /** a végső metódus*/
+    public TransitBundle reserveAllAmount(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
         reserveAllAmountHelper(itemsToReservate, senderId);
-        return makeReservation(itemsToReservate, senderId, recipientId);
+        makeReservation(itemsToReservate, senderId, recipientId);
+        return new TransitBundle(makeReservation(itemsToReservate, senderId, recipientId).getItems(), senderId, recipientId);
         }
 
     public void reserveAllAmountHelper(HashMap<Integer, Double> itemsToReservate, int senderId) {
