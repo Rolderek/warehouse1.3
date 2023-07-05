@@ -1,19 +1,77 @@
 import java.util.HashMap;
 
-/** ellenőrzi a küldeni kívánt item-ek készletét és csinál belőle egy transitInventoryn-t */
+/** ez komunikál a felhasználókkal és az InventoryMover-nek tovább adja a feladatokat. */
 public class ItemProvider {
 
 
     private InventoryContainer inventories;
-/** ellenőrzi a rendelni kivűnt termékeket és visszajelez a transitBundle-nek */
+
     public ItemProvider(InventoryContainer inventories) {
         this.inventories = inventories;
     }
 
-    public void sendInventoryToInventory(InventoryContainer inventoryContainer, HashMap<Integer, Double> itemsToGet, int senderId, int recipientId) {
-        // létrehoz egy foglalást a küldő raktárában, nem mehetsz minuszba ebben az esetben
-        //beteszi a TransitInventoryba
+    public ItemReservation makeReservation(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
+        /** elkésziti a fogalást */
+        ItemReservation newReservation = new ItemReservation(itemListCheck(inventories, itemsToReservate, senderId), senderId, recipientId);
+        reserveAllAmount(itemsToReservate, senderId, recipientId);
+        return newReservation;
+    }
 
+    public ItemReservation reserveAllAmount(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
+        /** a végső metódus*/
+        reserveAllAmountHelper(itemsToReservate, senderId);
+        return makeReservation(itemsToReservate, senderId, recipientId);
+        }
+
+    public void reserveAllAmountHelper(HashMap<Integer, Double> itemsToReservate, int senderId) {
+        /** szóval, végigfoglalja, majd ellenőriz és ha nem jó akkor vissza állitja az eredetire a foglalt mennyiséget
+         * kell e az if-ekhez és a for-hoz egyszerűsitő metódus? */
+        HashMap<Integer, Double> originalList  = new HashMap<Integer, Double>();
+        HashMap<Integer, Double> newList  = new HashMap<Integer, Double>();
+        for (int itemId : itemsToReservate.keySet()) {
+            originalList.put(itemId, inventories.getInventory(senderId).getItemAmount(itemId).getReservedAmount());
+            newList.put(itemId, itemsToReservate.get(itemId) + originalList.get(itemId));
+            inventories.getInventory(senderId).getItemAmount(itemId).reserveAmount(itemsToReservate.get(itemId));
+            if (newList.get(itemId) != inventories.getInventory(senderId).getItemAmount(itemId).getReservedAmount()) {
+                inventories.getInventory(senderId).getItemAmount(itemId).reserveAmount(0 - itemsToReservate.get(itemId));
+            }
+        }
+    }
+
+    public HashMap<Integer, Double> itemListCheck(InventoryContainer inventoryContainer, HashMap<Integer, Double> itemsToReservate, int senderId) {
+        /** ellenőrzi az szabad készletet és visszaad egy listát vagy hibát */
+        HashMap<Integer, Double> gooditems  = new HashMap<Integer, Double>();
+        HashMap<Integer, Double> missingItems  = new HashMap<Integer, Double>();
+        for ( int key : itemsToReservate.keySet()) {
+            if (!amountControlAmount(inventoryContainer.getInventory(senderId), key, itemsToReservate.get(key))) {
+                missingItems.put(key, itemsToReservate.get(key));
+            }
+            else {
+                gooditems.put(key, itemsToReservate.get(key));
+            }
+        }
+        try {
+            if (!missingItems.isEmpty()) {
+                    throw new ThereIsAMissingItem("Something went wrong!");
+                }
+            } catch (ThereIsAMissingItem e) {
+            throw new RuntimeException(e);
+        }
+        return gooditems;
+    }
+
+    public boolean amountControlAmount(WarehouseInventory sender, int item, double amount) {
+        /** segéd metódus az ellenőrzéshez */
+        boolean result = false;
+        if (sender.getItemAmount(item).getFreeAmount() >= amount ) {
+            result = true;
+        }
+        return result;
+    }
+
+    /**
+    public void sendInventoryToInventory(InventoryContainer inventoryContainer, HashMap<Integer, Double> itemsToGet, int senderId, int recipientId) {
+         //példa kedvéért maradt itt
         HashMap<Integer, Double> gooditems  = new HashMap<Integer, Double>();
         HashMap<Integer, Double> missingItems  = new HashMap<Integer, Double>();
         for ( int key : itemsToGet.keySet()) {
@@ -27,16 +85,11 @@ public class ItemProvider {
         }
         ItemReservation newReservation = new ItemReservation(gooditems, senderId, recipientId);
         TransitBundle newBundle = new TransitBundle(newReservation.getItems(), newReservation.getSenderId(), newReservation.getReciverId());
-        /** küldön forba kell írnom és egy külön metódusba */
+        //külön forba kell írnom és egy külön metódusba
         inventories.getInventory(senderId).getItemAmount(5).reserveAmount(10);
     }
+    */
 
-    public boolean amountControlAmount(WarehouseInventory sender, int item, double amount) {
-        boolean result = false;
-        if (sender.getItemAmount(item).getFreeAmount() >= amount ) {
-            result = true;
-        }
-        return result;
-    }
+
 
 }
