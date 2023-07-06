@@ -13,6 +13,10 @@ public class InventoryContainer {
         this.transitInventory = transitInventory;
     }
 
+    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories) {
+        this.inventories = inventories;
+    }
+
     public HashMap<Integer, WarehouseInventory> getAllInventories() {
         return inventories;
     }
@@ -32,5 +36,6 @@ public class InventoryContainer {
         }
         return false;
     }
+
 
 }

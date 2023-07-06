@@ -1,6 +1,6 @@
 import java.time.Instant;
 import java.util.HashMap;
-/** ellenőrzött rendeléseket fogad és befoglal a küldő inventory-ban */
+/** ellenőrzött rendeléseket fogad  */
 public class TransitBundle {
 
     /** This stores Item Identifier, amount pairs.*/

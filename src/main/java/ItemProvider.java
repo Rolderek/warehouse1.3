@@ -11,16 +11,18 @@ public class ItemProvider {
     }
 
     public ItemReservation makeReservation(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
-        /** elkésziti a fogalást */
+        /** ItemReservation-t csinál */
         ItemReservation newReservation = new ItemReservation(itemListCheck(inventories, itemsToReservate, senderId), senderId, recipientId);
-        reserveAllAmount(itemsToReservate, senderId, recipientId);
         return newReservation;
     }
 
     public TransitBundle reserveAllAmount(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
+        /** elvégzi a piszkos munkát teljesen */
         reserveAllAmountHelper(itemsToReservate, senderId);
         makeReservation(itemsToReservate, senderId, recipientId);
-        return new TransitBundle(makeReservation(itemsToReservate, senderId, recipientId).getItems(), senderId, recipientId);
+        TransitBundle transitBundle = new TransitBundle(makeReservation(itemsToReservate, senderId, recipientId).getItems(), senderId, recipientId);
+        inventories.getTransitInvertory().addBoundle(transitBundle);
+        return transitBundle;
         }
 
     public void reserveAllAmountHelper(HashMap<Integer, Double> itemsToReservate, int senderId) {
@@ -50,13 +52,13 @@ public class ItemProvider {
                 gooditems.put(key, itemsToReservate.get(key));
             }
         }
-        try {
+        /** try {
             if (!missingItems.isEmpty()) {
                     throw new ThereIsAMissingItem("Something went wrong!");
                 }
             } catch (ThereIsAMissingItem e) {
             throw new RuntimeException(e);
-        }
+        } */
         return gooditems;
     }
 
@@ -67,6 +69,10 @@ public class ItemProvider {
             result = true;
         }
         return result;
+    }
+
+    public InventoryContainer getInventories() {
+        return inventories;
     }
 
     /**
