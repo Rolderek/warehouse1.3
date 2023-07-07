@@ -24,7 +24,7 @@ public class TestMain {
         HashMap<Integer, Double> itemsToSend1 = new HashMap<Integer, Double>();
         itemsToSend1.put(itemOne.getIdentifier(), 4.0);
         itemsToSend1.put(itemTwo.getIdentifier(), 1.0);
-        itemsToSend1.put(itemThree.getIdentifier(), 3.0);
+        itemsToSend1.put(itemThree.getIdentifier(), 2.0);
 
         HashMap<Integer, WarehouseInventory> inventories = new HashMap<>();
         inventories.put(501, w1);
@@ -37,20 +37,19 @@ public class TestMain {
 
         ItemProvider provider = new ItemProvider(inventoryContainer);
 
-        System.out.println(w1.getItemAmount(itemOne.getIdentifier()).getReservedAmount());
-        System.out.println(w1.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
-        System.out.println(w1.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
+        System.out.println("Foglalás előtti foglalt készlet: " + w1.getItemAmount(itemOne.getIdentifier()).getReservedAmount());
+        System.out.println("Foglalás előtto szabad készlet: " + w1.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
+        System.out.println("Foglalás előtti teljes készlet: " + w1.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
 
         provider.reserveAllAmount(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId());
-        provider.reserveAllAmount(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId());
 
-        System.out.println(w1.getItemAmount(itemOne.getIdentifier()).getReservedAmount());
-        System.out.println(w1.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
-        System.out.println(w1.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
+        System.out.println("Foglalás utáni foglalt mennyiség: " + w1.getItemAmount(itemOne.getIdentifier()).getReservedAmount());
+        System.out.println("Foglalás utáni szabad mennyiség: " + w1.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
+        System.out.println("Foglalás utáni teljes mennyiség: " + w1.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
 
-        System.out.println(inventoryContainer.getTransitInvertory());
         /** sajnos null-t ad vissza, valamiért nem teszi be a transitInvetory-ba a T.bundle-eket
-         * nem jó az exception-öm */
+         * nem jó az exception-öm
+         * System.out.println(inventoryContainer.getTransitInvertory());*/
     }
 
 }

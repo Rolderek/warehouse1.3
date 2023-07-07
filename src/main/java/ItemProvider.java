@@ -16,12 +16,16 @@ public class ItemProvider {
         return newReservation;
     }
 
+    public void putTransitBundleToTransitInventory(TransitBundle bundle) {
+        inventories.getTransitInvertory()./** itt elakad a counter miatt */addBoundle(bundle);
+    }
+
     public TransitBundle reserveAllAmount(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
         /** elvégzi a piszkos munkát teljesen */
         reserveAllAmountHelper(itemsToReservate, senderId);
         makeReservation(itemsToReservate, senderId, recipientId);
         TransitBundle transitBundle = new TransitBundle(makeReservation(itemsToReservate, senderId, recipientId).getItems(), senderId, recipientId);
-        inventories.getTransitInvertory().addBoundle(transitBundle);
+        putTransitBundleToTransitInventory(transitBundle);
         return transitBundle;
         }
 
@@ -52,13 +56,12 @@ public class ItemProvider {
                 gooditems.put(key, itemsToReservate.get(key));
             }
         }
-        /** try {
-            if (!missingItems.isEmpty()) {
+         try {
+            if (missingItems.size() >= 0 || !missingItems.isEmpty()) {
                     throw new ThereIsAMissingItem("Something went wrong!");
                 }
             } catch (ThereIsAMissingItem e) {
-            throw new RuntimeException(e);
-        } */
+        }
         return gooditems;
     }
 
