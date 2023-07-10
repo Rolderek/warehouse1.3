@@ -4,7 +4,7 @@ public class TransitInventory implements Inventory {
 
     private HashMap<Integer, TransitBundle> bundles;
 
-    private GreviousGenerator counter;
+    private GreviousGenerator counter = new GreviousGenerator();
 
     public TransitInventory(HashMap<Integer, TransitBundle> bundles) {
         this.bundles = bundles;

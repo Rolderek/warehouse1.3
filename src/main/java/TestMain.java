@@ -24,7 +24,7 @@ public class TestMain {
         HashMap<Integer, Double> itemsToSend1 = new HashMap<Integer, Double>();
         itemsToSend1.put(itemOne.getIdentifier(), 4.0);
         itemsToSend1.put(itemTwo.getIdentifier(), 1.0);
-        itemsToSend1.put(itemThree.getIdentifier(), 2.0);
+        itemsToSend1.put(itemThree.getIdentifier(), 4.0);
 
         HashMap<Integer, WarehouseInventory> inventories = new HashMap<>();
         inventories.put(501, w1);
@@ -33,23 +33,18 @@ public class TestMain {
         HashMap<Integer, TransitBundle> bundles = new HashMap<>();
         TransitInventory ti = new TransitInventory(bundles);
         InventoryContainer inventoryContainer = new InventoryContainer(inventories, ti);
-        /** GreviousGenerator-al van egy kis gubanc, nem generál semmit mert null a számlálója */
 
         ItemProvider provider = new ItemProvider(inventoryContainer);
 
-        System.out.println("Foglalás előtti foglalt készlet: " + w1.getItemAmount(itemOne.getIdentifier()).getReservedAmount());
-        System.out.println("Foglalás előtto szabad készlet: " + w1.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
-        System.out.println("Foglalás előtti teljes készlet: " + w1.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
+        System.out.println("Foglalás előtti foglalt készlet: " + w1.getItemAmount(itemThree.getIdentifier()).getReservedAmount());
+        System.out.println("Foglalás előtto szabad készlet: " + w1.getItemAmount(itemThree.getIdentifier()).getFreeAmount());
+        System.out.println("Foglalás előtti teljes készlet: " + w1.getItemAmount(itemThree.getIdentifier()).getTotalAmount());
 
         provider.reserveAllAmount(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId());
 
-        System.out.println("Foglalás utáni foglalt mennyiség: " + w1.getItemAmount(itemOne.getIdentifier()).getReservedAmount());
-        System.out.println("Foglalás utáni szabad mennyiség: " + w1.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
-        System.out.println("Foglalás utáni teljes mennyiség: " + w1.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
-
-        /** sajnos null-t ad vissza, valamiért nem teszi be a transitInvetory-ba a T.bundle-eket
-         * nem jó az exception-öm
-         * System.out.println(inventoryContainer.getTransitInvertory());*/
+        System.out.println("Foglalás utáni foglalt mennyiség: " + w1.getItemAmount(itemThree.getIdentifier()).getReservedAmount());
+        System.out.println("Foglalás utáni szabad mennyiség: " + w1.getItemAmount(itemThree.getIdentifier()).getFreeAmount());
+        System.out.println("Foglalás utáni teljes mennyiség: " + w1.getItemAmount(itemThree.getIdentifier()).getTotalAmount());
     }
 
 }

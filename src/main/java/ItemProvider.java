@@ -45,24 +45,22 @@ public class ItemProvider {
     }
 
     public HashMap<Integer, Double> itemListCheck(InventoryContainer inventoryContainer, HashMap<Integer, Double> itemsToReservate, int senderId) {
-        /** ellenőrzi az szabad készletet és visszaad egy listát vagy hibát */
-        HashMap<Integer, Double> gooditems  = new HashMap<Integer, Double>();
-        HashMap<Integer, Double> missingItems  = new HashMap<Integer, Double>();
-        for ( int key : itemsToReservate.keySet()) {
-            if (!amountControlAmount(inventoryContainer.getInventory(senderId), key, itemsToReservate.get(key))) {
+        /** ellenőrzi az szabad készletet és visszaad egy listát vagy hibát
+         * foglal minuszba, de miért? */
+        HashMap<Integer, Double> gooditems = new HashMap<Integer, Double>();
+        HashMap<Integer, Double> missingItems = new HashMap<Integer, Double>();
+        for (int key : itemsToReservate.keySet()) {
+            if (amountControlAmount(inventoryContainer.getInventory(senderId), key, itemsToReservate.get(key)) == true) {
+                gooditems.put(key, itemsToReservate.get(key));
+            } else {
                 missingItems.put(key, itemsToReservate.get(key));
             }
-            else {
-                gooditems.put(key, itemsToReservate.get(key));
-            }
         }
-         try {
-            if (missingItems.size() >= 0 || !missingItems.isEmpty()) {
-                    throw new ThereIsAMissingItem("Something went wrong!");
-                }
-            } catch (ThereIsAMissingItem e) {
+        if (missingItems.isEmpty() || missingItems.size() < 0) {
+            return gooditems;
+        } else {
+            return new HashMap<Integer, Double>();
         }
-        return gooditems;
     }
 
     public boolean amountControlAmount(WarehouseInventory sender, int item, double amount) {
@@ -97,7 +95,34 @@ public class ItemProvider {
         //külön forba kell írnom és egy külön metódusba
         inventories.getInventory(senderId).getItemAmount(5).reserveAmount(10);
     }
-    */
+
+Átdolgozni!
+     public HashMap<Integer, Double> itemListCheck(InventoryContainer inventoryContainer, HashMap<Integer, Double> itemsToReservate, int senderId) {
+     /** ellenőrzi az szabad készletet és visszaad egy listát vagy hibát
+     * foglal minuszba, de miért?
+    HashMap<Integer, Double> gooditems = new HashMap<Integer, Double>();
+    HashMap<Integer, Double> missingItems = new HashMap<Integer, Double>();
+        for (int key : itemsToReservate.keySet()) {
+        if (amountControlAmount(inventoryContainer.getInventory(senderId), key, itemsToReservate.get(key)) == true) {
+            gooditems.put(key, itemsToReservate.get(key));
+        } else {
+            missingItems.put(key, itemsToReservate.get(key));
+        }
+    }
+        try {
+        if (missingItems.size() < 1 || missingItems.isEmpty()) {
+            return gooditems;
+        } else {
+            throw new ThereIsAMissingItem("Something went wrong!");
+        }
+    } catch (ThereIsAMissingItem e) {
+    }
+        if (missingItems.isEmpty()) {
+        return gooditems;
+    } else {
+        return missingItems;
+    }
+} */
 
 
 
