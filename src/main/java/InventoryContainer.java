@@ -1,3 +1,5 @@
+import java.sql.Time;
+import java.time.Instant;
 import java.util.HashMap;
 /** Az összes raktárat ez tárolja */
 public class InventoryContainer {
@@ -7,6 +9,14 @@ public class InventoryContainer {
     private HashMap<Integer, WarehouseInventory> inventories;
 
     private TransitInventory transitInventory;
+
+    private HashMap<Instant, ItemReservation> reservations;
+
+    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory, HashMap<Instant, ItemReservation> reservations) {
+        this.inventories = inventories;
+        this.transitInventory = transitInventory;
+        this.reservations = reservations;
+    }
 
     public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory) {
         this.inventories = inventories;
@@ -28,6 +38,19 @@ public class InventoryContainer {
     public TransitInventory getTransitInvertory() {
         return transitInventory;
     }
+
+    public HashMap<Instant, ItemReservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(HashMap<Instant, ItemReservation> newReservation) {
+        this.reservations = reservations;
+    }
+    /**
+    public void addReservation(ItemReservation newReservation) {
+        reservations.put(Instant.now(), newReservation);
+    }
+     */
 
     public boolean addInventory(WarehouseInventory newWarehouseInventory) {
         WarehouseInventory result = inventories.putIfAbsent(newWarehouseInventory.getWarehouseId(), newWarehouseInventory);

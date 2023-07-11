@@ -10,23 +10,34 @@ public class ItemProvider {
         this.inventories = inventories;
     }
 
-    public ItemReservation makeReservation(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
+    public void makeReservation(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
         /** ItemReservation-t csinál */
-        ItemReservation newReservation = new ItemReservation(itemListCheck(inventories, itemsToReservate, senderId), senderId, recipientId);
-        return newReservation;
+        if (itemListCheck(inventories, itemsToReservate, senderId) == true) {
+           // inventories.addReservation(new ItemReservation(itemsToReservate, senderId, recipientId));
+        } else {
+            System.out.println("There is not enough free maount of some item!");
+        }
     }
 
     public void putTransitBundleToTransitInventory(TransitBundle bundle) {
-        inventories.getTransitInvertory()./** itt elakad a counter miatt */addBoundle(bundle);
+        inventories.getTransitInvertory().addBoundle(bundle);
     }
 
-    public TransitBundle reserveAllAmount(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
+    public void reserveAllAmount(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
         /** elvégzi a piszkos munkát teljesen */
-        reserveAllAmountHelper(itemsToReservate, senderId);
-        makeReservation(itemsToReservate, senderId, recipientId);
-        TransitBundle transitBundle = new TransitBundle(makeReservation(itemsToReservate, senderId, recipientId).getItems(), senderId, recipientId);
-        putTransitBundleToTransitInventory(transitBundle);
-        return transitBundle;
+        if (itemListCheck(inventories, itemsToReservate, senderId) == true) {
+            reserveAllAmountHelper(itemsToReservate, senderId);
+            makeReservation(itemsToReservate, senderId, recipientId);
+            TransitBundle transitBundle = new TransitBundle(itemsToReservate, senderId, recipientId);
+            putTransitBundleToTransitInventory(transitBundle);
+            //return transitBundle;
+        } else {
+           try  {
+                throw new ThereIsAMissingItem("There is no enough free amount of some item/items");
+            } catch (ThereIsAMissingItem e) {
+               System.out.println(e);
+           }
+        }
         }
 
     public void reserveAllAmountHelper(HashMap<Integer, Double> itemsToReservate, int senderId) {
@@ -44,7 +55,7 @@ public class ItemProvider {
         }
     }
 
-    public HashMap<Integer, Double> itemListCheck(InventoryContainer inventoryContainer, HashMap<Integer, Double> itemsToReservate, int senderId) {
+    public Boolean itemListCheck(InventoryContainer inventoryContainer, HashMap<Integer, Double> itemsToReservate, int senderId) {
         /** ellenőrzi az szabad készletet és visszaad egy listát vagy hibát
          * foglal minuszba, de miért? */
         HashMap<Integer, Double> gooditems = new HashMap<Integer, Double>();
@@ -57,9 +68,9 @@ public class ItemProvider {
             }
         }
         if (missingItems.isEmpty() || missingItems.size() < 0) {
-            return gooditems;
+            return true;
         } else {
-            return new HashMap<Integer, Double>();
+            return false;
         }
     }
 
@@ -122,7 +133,39 @@ public class ItemProvider {
     } else {
         return missingItems;
     }
-} */
+}
+
+     public HashMap<Integer, Double> itemListCheck(InventoryContainer inventoryContainer, HashMap<Integer, Double> itemsToReservate, int senderId) {
+     /** ellenőrzi az szabad készletet és visszaad egy listát vagy hibát
+     * foglal minuszba, de miért?
+    HashMap<Integer, Double> gooditems = new HashMap<Integer, Double>();
+    HashMap<Integer, Double> missingItems = new HashMap<Integer, Double>();
+        for (int key : itemsToReservate.keySet()) {
+        if (amountControlAmount(inventoryContainer.getInventory(senderId), key, itemsToReservate.get(key)) == true) {
+            gooditems.put(key, itemsToReservate.get(key));
+        } else {
+            missingItems.put(key, itemsToReservate.get(key));
+        }
+    }
+        if (missingItems.isEmpty() || missingItems.size() < 0) {
+        return gooditems;
+    } else {
+        return new HashMap<Integer, Double>();
+    }
+}
+
+
+     public TransitBundle reserveAllAmount(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
+     /** elvégzi a piszkos munkát teljesen
+    reserveAllAmountHelper(itemsToReservate, senderId);
+    makeReservation(itemsToReservate, senderId, recipientId);
+    TransitBundle transitBundle = new TransitBundle(itemsToReservate, senderId, recipientId);
+    putTransitBundleToTransitInventory(transitBundle);
+        return transitBundle;
+}
+
+
+     */
 
 
 

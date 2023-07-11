@@ -24,7 +24,7 @@ public class TestMain {
         HashMap<Integer, Double> itemsToSend1 = new HashMap<Integer, Double>();
         itemsToSend1.put(itemOne.getIdentifier(), 4.0);
         itemsToSend1.put(itemTwo.getIdentifier(), 1.0);
-        itemsToSend1.put(itemThree.getIdentifier(), 4.0);
+        itemsToSend1.put(itemThree.getIdentifier(), 1.0);
 
         HashMap<Integer, WarehouseInventory> inventories = new HashMap<>();
         inventories.put(501, w1);
