@@ -26,6 +26,11 @@ public class TestMain {
         itemsToSend1.put(itemTwo.getIdentifier(), 1.0);
         itemsToSend1.put(itemThree.getIdentifier(), 1.0);
 
+        HashMap<Integer, Double> itemsToSend2 = new HashMap<Integer, Double>();
+        itemsToSend1.put(itemOne.getIdentifier(), 1.0);
+        itemsToSend1.put(itemTwo.getIdentifier(), 1.0);
+        itemsToSend1.put(itemThree.getIdentifier(), 1.0);
+
         HashMap<Integer, WarehouseInventory> inventories = new HashMap<>();
         inventories.put(501, w1);
         inventories.put(102, w2);
@@ -41,10 +46,14 @@ public class TestMain {
         System.out.println("Foglalás előtti teljes készlet: " + w1.getItemAmount(itemThree.getIdentifier()).getTotalAmount());
 
         provider.reserveAllAmount(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId());
+        provider.reserveAllAmount(itemsToSend2, w1.getWarehouseId(), w2.getWarehouseId());
 
         System.out.println("Foglalás utáni foglalt mennyiség: " + w1.getItemAmount(itemThree.getIdentifier()).getReservedAmount());
         System.out.println("Foglalás utáni szabad mennyiség: " + w1.getItemAmount(itemThree.getIdentifier()).getFreeAmount());
         System.out.println("Foglalás utáni teljes mennyiség: " + w1.getItemAmount(itemThree.getIdentifier()).getTotalAmount());
+        System.out.println(inventoryContainer.getReservations().size());
+        System.out.println(inventoryContainer.getReservations().keySet());
+        System.out.println(inventoryContainer.getTransitInvertory().getBundles().size());
     }
 
 }

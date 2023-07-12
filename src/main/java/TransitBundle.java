@@ -14,11 +14,14 @@ public class TransitBundle {
 
     private String notes;
 
+    private TranstiBundleStatus status;
+
     public TransitBundle(HashMap<Integer, Double> items, int senderId, int recipientId) {
         this.items = items;
         this.senderId = senderId;
         this.recipientId = recipientId;
         this.sendTime = Instant.now();
+        this.status = TranstiBundleStatus.RESERVED;
     }
 
     public TransitBundle(HashMap<Integer, Double> items, int senderId, int recipientId, String notes) {
@@ -47,6 +50,14 @@ public class TransitBundle {
 
     public String getNotes() {
         return notes;
+    }
+
+    public TranstiBundleStatus getStatus() {
+        return status;
+    }
+
+    public void setStatusToSent() {
+       status = TranstiBundleStatus.SENT;
     }
 
     public void addNotes (String newNote) {

@@ -10,7 +10,7 @@ public class InventoryContainer {
 
     private TransitInventory transitInventory;
 
-    private HashMap<Instant, ItemReservation> reservations;
+    private HashMap<Instant, ItemReservation> reservations = new HashMap<Instant, ItemReservation>();
 
     public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory, HashMap<Instant, ItemReservation> reservations) {
         this.inventories = inventories;
@@ -46,11 +46,10 @@ public class InventoryContainer {
     public void setReservations(HashMap<Instant, ItemReservation> newReservation) {
         this.reservations = reservations;
     }
-    /**
-    public void addReservation(ItemReservation newReservation) {
-        reservations.put(Instant.now(), newReservation);
+
+    public void addReservation(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
+        reservations.put(Instant.now(), new ItemReservation(itemsToReservate, senderId, recipientId));
     }
-     */
 
     public boolean addInventory(WarehouseInventory newWarehouseInventory) {
         WarehouseInventory result = inventories.putIfAbsent(newWarehouseInventory.getWarehouseId(), newWarehouseInventory);

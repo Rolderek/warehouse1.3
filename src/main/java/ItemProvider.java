@@ -13,7 +13,7 @@ public class ItemProvider {
     public void makeReservation(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
         /** ItemReservation-t csinál */
         if (itemListCheck(inventories, itemsToReservate, senderId) == true) {
-           // inventories.addReservation(new ItemReservation(itemsToReservate, senderId, recipientId));
+            inventories.addReservation(itemsToReservate, senderId, recipientId);
         } else {
             System.out.println("There is not enough free maount of some item!");
         }
@@ -28,9 +28,8 @@ public class ItemProvider {
         if (itemListCheck(inventories, itemsToReservate, senderId) == true) {
             reserveAllAmountHelper(itemsToReservate, senderId);
             makeReservation(itemsToReservate, senderId, recipientId);
-            TransitBundle transitBundle = new TransitBundle(itemsToReservate, senderId, recipientId);
-            putTransitBundleToTransitInventory(transitBundle);
-            //return transitBundle;
+            //TransitBundle transitBundle = new TransitBundle(itemsToReservate, senderId, recipientId);
+            //putTransitBundleToTransitInventory(transitBundle); - ezt másnak kell csinálnia!
         } else {
            try  {
                 throw new ThereIsAMissingItem("There is no enough free amount of some item/items");

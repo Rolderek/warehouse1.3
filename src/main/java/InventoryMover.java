@@ -11,9 +11,8 @@ public class InventoryMover {
         this.transit = transit;
     }
 
-    public void sendItems(HashMap<Integer, Double> items, int senderId, int recipientId) {
+    public void sendItems(TransitBundle transitBundle, int senderId) {
         /** megkap egy bundle-t és átteszi a transit-ba */
-        provider.makeReservation(items, senderId, recipientId);
 
     }
 
@@ -36,6 +35,9 @@ public class InventoryMover {
 
     public void setTransit(TransitInventory newTransit) {
         transit = newTransit;
+    }
+
+    public void searchBundleInTransitInventory(int senderId, int reciverId) {
     }
 
 }
