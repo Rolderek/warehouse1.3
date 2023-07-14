@@ -48,12 +48,18 @@ public class ItemAmount {
         if (reservedAmount < amount) {
             throw new InputMismatchException("maximum reserved amount can be removed");
         }
-        if (totalAmount < amount ) {
-            throw new InputMismatchException("maximum total amount can be removed");
-        }
-
         reservedAmount = reservedAmount - amount;
+    }
+
+    public void sendAmount(double amount) {
+        if (amount > getTotalAmount()) {
+            throw new InputMismatchException("There is not enough amount of that item.");
+        }
+        if (amount <= 0 ) {
+            throw new InputMismatchException("amount must be positive");
+        }
         totalAmount = totalAmount - amount;
+        removeReservedAmount(amount);
     }
 
 

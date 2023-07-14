@@ -18,18 +18,17 @@ public class ItemProvider {
             System.out.println("There is not enough free maount of some item!");
         }
     }
-
+/**
     public void putTransitBundleToTransitInventory(TransitBundle bundle) {
         inventories.getTransitInvertory().addBoundle(bundle);
     }
+ */
 
     public void reserveAllAmount(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
         /** elvégzi a piszkos munkát teljesen */
         if (itemListCheck(inventories, itemsToReservate, senderId) == true) {
             reserveAllAmountHelper(itemsToReservate, senderId);
             makeReservation(itemsToReservate, senderId, recipientId);
-            //TransitBundle transitBundle = new TransitBundle(itemsToReservate, senderId, recipientId);
-            //putTransitBundleToTransitInventory(transitBundle); - ezt másnak kell csinálnia!
         } else {
            try  {
                 throw new ThereIsAMissingItem("There is no enough free amount of some item/items");
