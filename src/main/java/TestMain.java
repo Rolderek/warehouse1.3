@@ -62,10 +62,15 @@ public class TestMain {
         System.out.println("Foglalás előtti teljes készlet: " + w1.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
 
         itemProvider.reserveAllAmount(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId());
-        //provider.reserveAllAmount(itemsToSend2, w1.getWarehouseId(), w2.getWarehouseId());
-    /**
-        mover.sendItems(new TransitBundle(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId()));
+        itemProvider.reserveAllAmount(itemsToSend2, w1.getWarehouseId(), w2.getWarehouseId());
 
+        System.out.println(itemProvider.getInventories().getInventory(w2.getWarehouseId()).getItemAmount(itemOne.getIdentifier()).getTotalAmount());
+
+        mover.sendItems(new TransitBundle(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId()));
+        mover.reciveItems(new TransitBundle(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId()));
+
+        System.out.println(itemProvider.getInventories().getInventory(w2.getWarehouseId()).getItemAmount(itemOne.getIdentifier()).getTotalAmount());
+    /**
         System.out.println("w1 készlet: " + w1.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
         System.out.println("w2 készlet: " + w2.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
 
