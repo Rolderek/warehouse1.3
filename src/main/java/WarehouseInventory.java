@@ -1,7 +1,8 @@
+/** Raktárak készletetit tárolja. Elérhető és foglalt készletek. */
 import org.apache.camel.InOnly;
 
 import java.util.HashMap;
-/** Raktárak készletetit tárolja. Elérhető és foglalt készletek.*/
+
 public class WarehouseInventory implements Inventory {
 
     private int WarehouseId;

@@ -1,3 +1,5 @@
+/** folyamatosan növekvő számokat generál a TransitInventory-nak a TransitBundle-ök tárolásához.
+ * Ezt a számot nem lehet kisebbre módositani */
 public class GreviousGenerator {
 
     private int counter;

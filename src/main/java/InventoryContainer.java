@@ -1,7 +1,9 @@
+/** WarehouseInventory-kat tárol.
+ * */
 import java.sql.Time;
 import java.time.Instant;
 import java.util.HashMap;
-/** Az összes raktárat ez tárolja */
+
 public class InventoryContainer {
 
     /** stores Inventory and TransitInventory classes */
@@ -10,6 +12,7 @@ public class InventoryContainer {
 
     private TransitInventory transitInventory;
 
+    /** ezt át kell dolgozni, TransitBundle-ből kellene kinyernie az adatokat! */
     private HashMap<Instant, ItemReservation> reservations = new HashMap<Instant, ItemReservation>();
 
     public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory, HashMap<Instant, ItemReservation> reservations) {

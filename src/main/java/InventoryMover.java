@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-/** This class make the actual move between WarehouseInventories */
+/** WarehouseInventory-k között mozgatja a készleteket */
 public class InventoryMover {
 
     private ItemProvider provider;
@@ -22,7 +22,7 @@ public class InventoryMover {
         transit.addBoundle(transitBundle);
     }
 
-    /** valami nem kóser a levétellel*/
+    /** TransitBundle-t nem tudja beazonositani ezért nem veszi ki a rendelések küzül sem az ItemReservaton-t. */
     public void reciveItems(TransitBundle transitBundle) {
         /** megkap egy bundle-t és kiveszi a transit-ból és átteszi a fogadó félhez */
         for (int itemId : transitBundle.getItems().keySet()) {

@@ -61,13 +61,20 @@ public class TestMain {
         System.out.println("Foglalás előtti szabad készlet: " + w1.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
         System.out.println("Foglalás előtti teljes készlet: " + w1.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
 
-        itemProvider.reserveAllAmount(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId());
-        itemProvider.reserveAllAmount(itemsToSend2, w1.getWarehouseId(), w2.getWarehouseId());
+        //itemProvider.reserveAllAmountAndMakeTransitBundle(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId());
+        //itemProvider.reserveAllAmountAndMakeTransitBundle(itemsToSend2, w1.getWarehouseId(), w2.getWarehouseId());
 
         System.out.println(itemProvider.getInventories().getInventory(w2.getWarehouseId()).getItemAmount(itemOne.getIdentifier()).getTotalAmount());
-
+/**
         mover.sendItems(new TransitBundle(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId()));
         mover.reciveItems(new TransitBundle(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId()));
+*/
+        mover.sendItems(itemProvider.reserveAllAmountAndMakeTransitBundle(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId()));
+
+        System.out.println("Tranziban lévő listák: " + inventoryContainer.getTransitInvertory().getBundles().size());
+
+        mover.reciveItems(transitInventory.getBundles().get(0));
+
 
         System.out.println(itemProvider.getInventories().getInventory(w2.getWarehouseId()).getItemAmount(itemOne.getIdentifier()).getTotalAmount());
     /**

@@ -1,6 +1,6 @@
+/** ez komunikál a felhasználókkal és az InventoryMover-nek tovább adja a feladatokat. */
 import java.util.HashMap;
 
-/** ez komunikál a felhasználókkal és az InventoryMover-nek tovább adja a feladatokat. */
 public class ItemProvider {
 
 
@@ -25,7 +25,8 @@ public class ItemProvider {
  */
 
     public void reserveAllAmount(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
-        /** elvégzi a piszkos munkát teljesen */
+        /** elvégzi a piszkos munkát teljesen
+         * ezt kellene átirni hogy TransitBundle-t adjon vissza */
         if (itemListCheck(inventories, itemsToReservate, senderId) == true) {
             reserveAllAmountHelper(itemsToReservate, senderId);
             makeReservation(itemsToReservate, senderId, recipientId);
@@ -36,6 +37,21 @@ public class ItemProvider {
                System.out.println(e);
            }
         }
+        }
+
+    public TransitBundle reserveAllAmountAndMakeTransitBundle(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
+        /** átirt verzió, ehez még nincs a main-ben semmi */
+        try  {
+        if (itemListCheck(inventories, itemsToReservate, senderId) != true) {
+            throw new ThereIsAMissingItem("There is no enough free amount of some item/items");
+        }
+        } catch (ThereIsAMissingItem e) {
+            System.out.println(e);
+            }
+        reserveAllAmountHelper(itemsToReservate, senderId);
+        makeReservation(itemsToReservate, senderId, recipientId);
+        TransitBundle tb = new TransitBundle(itemsToReservate, senderId, recipientId);
+        return tb;
         }
 
     public void reserveAllAmountHelper(HashMap<Integer, Double> itemsToReservate, int senderId) {

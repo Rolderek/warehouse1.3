@@ -1,6 +1,6 @@
 import java.time.Instant;
 import java.util.HashMap;
-/** ellenőrzött rendeléseket fogad  */
+/** ellenőrzött rendeléseket tárol kétféle státusszal(RESERVED,SENT) */
 public class TransitBundle {
 
     /** This stores Item Identifier, amount pairs.*/

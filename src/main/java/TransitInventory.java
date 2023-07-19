@@ -1,5 +1,6 @@
+/** raktárak közötti mozgás naplója/tárolója TransitBundle alapján*/
 import java.util.HashMap;
-/** raktárak közötti mozgás naplója/tárolója */
+
 public class TransitInventory implements Inventory {
 
     private HashMap<Integer, TransitBundle> bundles;

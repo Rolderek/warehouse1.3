@@ -1,8 +1,9 @@
+/** foglalási alapot csinál az inventoryból/nak/nek
+ * át kell irni egy egyszerű tároló osztállyá, mert a TransiBundle és az ItemPackage-el kell dolgoznia! */
 import java.time.Instant;
 import java.util.HashMap;
 
 public class ItemReservation {
- /** foglalási alapot csinál az inventoryból/nak/nek */
 
     private HashMap<Integer, Double> items;
 
