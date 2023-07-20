@@ -73,7 +73,7 @@ public class TestMain {
 
         System.out.println("Tranziban lévő listák: " + inventoryContainer.getTransitInvertory().getBundles().size());
 
-        mover.reciveItems(transitInventory.getBundles().get(0));
+        mover.reciveItems(transitInventory.getBundles().get(0)); // ezt majd átnézni!
 
 
         System.out.println(itemProvider.getInventories().getInventory(w2.getWarehouseId()).getItemAmount(itemOne.getIdentifier()).getTotalAmount());
@@ -91,13 +91,10 @@ public class TestMain {
         System.out.println("Foglalás utáni szabad mennyiség: " + w1.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
         System.out.println("Foglalás utáni teljes mennyiség: " + w1.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
 
-        System.out.println("Foglalások: " + inventoryContainer.getReservations().size());
+        System.out.println("Foglalások: " + inventoryContainer.getReservations());
 
         System.out.println("Tranziban lévő listák: " + inventoryContainer.getTransitInvertory().getBundles().size());
 
-        /**
-         * Tehát a foglalásig teljesen jól működik, amikor küldeni kell akkor akad össze és nem csinálja rendesen. 07.14.
-         * */
     }
 
 }

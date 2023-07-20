@@ -16,13 +16,12 @@ public class InventoryMover {
          * ezt lehetne úgy is hogy csak egy metóduban csinálja a kiadást/bevételt attól fügőően hogy mi a TB tipusa,  ez lesz a superSendItems SSI*/
         for (int itemId : transitBundle.getItems().keySet()) {
             provider.getInventories().getInventory(transitBundle.getSenderId()).getItemAmount(itemId).sendAmount(transitBundle.getItems().get(itemId));
-            //provider.getInventories().getInventory(transitBundle.getSenderId()).getItemAmount(itemId).sendAmount(transitBundle.getItems().get(itemId));
         }
         transitBundle.setStatusToSent();
         transit.addBoundle(transitBundle);
+        /** itt még át kell billentenie az ItemReservation-t DONE-ra! */
     }
 
-    /** TransitBundle-t nem tudja beazonositani ezért nem veszi ki a rendelések küzül sem az ItemReservaton-t. */
     public void reciveItems(TransitBundle transitBundle) {
         /** megkap egy bundle-t és kiveszi a transit-ból és átteszi a fogadó félhez */
         for (int itemId : transitBundle.getItems().keySet()) {
@@ -48,6 +47,7 @@ public class InventoryMover {
     }
 
     public void searchBundleInTransitInventory(int senderId, int reciverId) {
+        /** végig iterál a TB-k között és visszaad egy listát amikre igazak a feltételek */
     }
 
 }

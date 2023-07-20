@@ -1,10 +1,44 @@
-/** foglalási alapot csinál az inventoryból/nak/nek
- * át kell irni egy egyszerű tároló osztállyá, mert a TransiBundle és az ItemPackage-el kell dolgoznia! */
 import java.time.Instant;
 import java.util.HashMap;
 
 public class ItemReservation {
 
+    private ItemPackage itemPackage;
+
+    private int senderId;
+
+    private int reciverId;
+
+    private ItemReservationStatus status;
+
+    public ItemReservation(ItemPackage itemPackage, int senderId, int reciverId) {
+        this.itemPackage = itemPackage;
+        this.senderId = senderId;
+        this.reciverId = reciverId;
+        this.status = ItemReservationStatus.NOTHING;
+    }
+
+    public ItemPackage getItemPackage() {
+        return itemPackage;
+    }
+
+    public int getSenderId() {
+        return senderId;
+    }
+
+    public int getReciverId() {
+        return reciverId;
+    }
+
+    public ItemReservationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatusToDone() {
+        this.status = ItemReservationStatus.DONE;
+    }
+
+    /**
     private HashMap<Integer, Double> items;
 
     private int senderId;
@@ -35,5 +69,6 @@ public class ItemReservation {
     public Instant getRecivTime() {
         return recivTime;
     }
+ */
 
 }

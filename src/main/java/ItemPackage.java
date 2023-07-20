@@ -1,22 +1,29 @@
-/** ezt kell használnom a WarehouseInventory-knál */
+/** elkészitési időt és cikk listát tárol, az InventoryContainer használja foglalás ellenőrzés és visszakeresés céljából (még nincs kész az új verzió ott)  */
+
+import java.time.Instant;
 import java.util.HashMap;
 
 public class ItemPackage {
 
-    /** tárolja foglalásonként milyen cikkek kerültek a csomagba  */
-    private HashMap<ItemReservation, HashMap<Integer, Double>> itemsByReservations;
 
+    private HashMap<Integer, Double> items;
+    private Instant time;
 
-public ItemPackage(HashMap<ItemReservation, HashMap<Integer, Double>> itemsByReservations) {
-    this.itemsByReservations = itemsByReservations;
-}
+    public ItemPackage(Instant time, HashMap<Integer, Double> items) {
+        this.time = Instant.now();
+        this.items = items;
+    }
 
-public HashMap<ItemReservation, HashMap<Integer, Double>> getItemsByReservations() {
-    return itemsByReservations;
-}
+    public Instant getTime() {
+        return time;
+    }
 
-public void setItemsByReservations(HashMap<ItemReservation, HashMap<Integer, Double>> newItemsByReservations) {
-    itemsByReservations = newItemsByReservations;
-}
+    public HashMap<Integer, Double> getItems() {
+        return items;
+    }
+
+    public void setItems(HashMap<Integer, Double> newItems) {
+        items = newItems;
+    }
 
 }

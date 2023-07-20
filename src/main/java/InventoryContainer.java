@@ -2,6 +2,7 @@
  * */
 import java.sql.Time;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InventoryContainer {
@@ -12,10 +13,10 @@ public class InventoryContainer {
 
     private TransitInventory transitInventory;
 
-    /** ezt át kell dolgozni, TransitBundle-ből kellene kinyernie az adatokat! */
-    private HashMap<Instant, ItemReservation> reservations = new HashMap<Instant, ItemReservation>();
+/** Itemreservation lista mai tárolja a feladó, cimzett és tétellistát egy osztály formájában */
+    private ArrayList<ItemReservation> reservations = new ArrayList<>();
 
-    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory, HashMap<Instant, ItemReservation> reservations) {
+    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory, ArrayList<ItemReservation> reservations) {
         this.inventories = inventories;
         this.transitInventory = transitInventory;
         this.reservations = reservations;
@@ -24,6 +25,10 @@ public class InventoryContainer {
     public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory) {
         this.inventories = inventories;
         this.transitInventory = transitInventory;
+    }
+
+    public ArrayList<ItemReservation> getPackage() {
+        return reservations;
     }
 
     public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories) {
@@ -42,17 +47,22 @@ public class InventoryContainer {
         return transitInventory;
     }
 
-    public HashMap<Instant, ItemReservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(HashMap<Instant, ItemReservation> newReservation) {
+    public void setReservations(ArrayList<ItemReservation> reservations) {
         this.reservations = reservations;
     }
 
-    public void addReservation(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
-        reservations.put(Instant.now(), new ItemReservation(itemsToReservate, senderId, recipientId));
+    public ArrayList<ItemReservation> getReservations() {
+        return reservations;
     }
+
+    public void addReservation(ItemReservation newReservation) {
+        reservations.add(newReservation);
+    }
+    /**
+     * public void addReservation(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
+     *         reservations.put(Instant.now(), new ItemReservation(itemsToReservate, senderId, recipientId));
+     *     }
+     *     */
 
     public boolean addInventory(WarehouseInventory newWarehouseInventory) {
         WarehouseInventory result = inventories.putIfAbsent(newWarehouseInventory.getWarehouseId(), newWarehouseInventory);
