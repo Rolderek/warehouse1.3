@@ -56,13 +56,9 @@ public class TestMain {
 
     /** Tényleges munkavégzés:*/
 
-
         System.out.println("Foglalás előtti foglalt készlet: " + w1.getItemAmount(itemOne.getIdentifier()).getReservedAmount());
         System.out.println("Foglalás előtti szabad készlet: " + w1.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
         System.out.println("Foglalás előtti teljes készlet: " + w1.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
-
-        //itemProvider.reserveAllAmountAndMakeTransitBundle(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId());
-        //itemProvider.reserveAllAmountAndMakeTransitBundle(itemsToSend2, w1.getWarehouseId(), w2.getWarehouseId());
 
         System.out.println(itemProvider.getInventories().getInventory(w2.getWarehouseId()).getItemAmount(itemOne.getIdentifier()).getTotalAmount());
 /**
@@ -91,7 +87,11 @@ public class TestMain {
         System.out.println("Foglalás utáni szabad mennyiség: " + w1.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
         System.out.println("Foglalás utáni teljes mennyiség: " + w1.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
 
-        System.out.println("Foglalások: " + inventoryContainer.getReservations());
+        for (ItemReservation r : itemProvider.getInventories().getReservations()) {
+            System.out.print(r.getStatus());
+        }
+
+        System.out.println();
 
         System.out.println("Tranziban lévő listák: " + inventoryContainer.getTransitInvertory().getBundles().size());
 

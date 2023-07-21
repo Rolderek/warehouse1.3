@@ -19,7 +19,17 @@ public class InventoryMover {
         }
         transitBundle.setStatusToSent();
         transit.addBoundle(transitBundle);
-        /** itt még át kell billentenie az ItemReservation-t DONE-ra! */
+        /** ittbillen át DONE-ra az ItemReservation */
+        makeItemReservationToDone(transitBundle);
+    }
+
+    public void makeItemReservationToDone(TransitBundle bundle) {
+        /** státusz átbillentő segéd metódus */
+        for (ItemReservation r : provider.getInventories().getReservations()) {
+            if (bundle.getItems() == r.getItemPackage().getItems() && bundle.getRecipientId() == r.getReciverId()) {
+                r.setStatusToDone();
+            }
+        }
     }
 
     public void reciveItems(TransitBundle transitBundle) {

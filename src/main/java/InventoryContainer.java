@@ -55,9 +55,11 @@ public class InventoryContainer {
         return reservations;
     }
 
-    public void addReservation(ItemReservation newReservation) {
+    public ItemReservation addReservation(ItemReservation newReservation) {
         reservations.add(newReservation);
+        return newReservation;
     }
+
     /**
      * public void addReservation(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
      *         reservations.put(Instant.now(), new ItemReservation(itemsToReservate, senderId, recipientId));
