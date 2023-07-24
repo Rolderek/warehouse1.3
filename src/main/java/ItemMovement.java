@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * tárolja az összes mozgást TransitBundle listában és ami még aktív azt a TransitInventory-ból ki lehet nyerni */
 public class ItemMovement {
 
-    private ArrayList<TransitBundle> wasMoving = new ArrayList<>();
+    private ArrayList<TransitBundle> wasMoving;
 
     public ItemMovement(ArrayList<TransitBundle> wasMoving) {
         this.wasMoving = wasMoving;

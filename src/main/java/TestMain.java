@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TestMain {
@@ -48,7 +49,7 @@ public class TestMain {
         HashMap<Integer, TransitBundle> bundles = new HashMap<>();
         TransitInventory transitInventory = new TransitInventory(bundles);
     /** InventoryContainer létrehozása */
-        InventoryContainer inventoryContainer = new InventoryContainer(inventories, transitInventory);
+        InventoryContainer inventoryContainer = new InventoryContainer(inventories, transitInventory, new ItemMovement(new ArrayList<TransitBundle>()));
     /** ItemProvider létrehozása */
         ItemProvider itemProvider = new ItemProvider(inventoryContainer);
     /** InventoryMover létrehozása */

@@ -1,5 +1,6 @@
 /** WarehouseInventory-kat tárol.
  * */
+import java.sql.Array;
 import java.sql.Time;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -13,9 +14,11 @@ public class InventoryContainer {
 
     private TransitInventory transitInventory;
 
-    private ArrayList<TransitBundle> reservations = new ArrayList<>();
+    //private ArrayList<TransitBundle> reservations = new ArrayList<>();
+    /** itt még a getter és setter dolgokat finomhangolni kell */
+    private ItemMovement reservations;
 
-    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory, ArrayList<TransitBundle> reservations) {
+    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory, ItemMovement reservations) {
         this.inventories = inventories;
         this.transitInventory = transitInventory;
         this.reservations = reservations;
@@ -26,8 +29,19 @@ public class InventoryContainer {
         this.transitInventory = transitInventory;
     }
 
-    public ArrayList<TransitBundle> getPackage() {
+    public ItemMovement getReservationsAllInOne() {
         return reservations;
+    }
+
+    public ArrayList<TransitBundle> getMyReservation(int senderId) {
+        ArrayList<TransitBundle> sortedList = new ArrayList<>();
+        for (int i = 0; i < 0; i++) {
+            if (senderId != reservations.getWasMoving().get(i).getSenderId()) {
+                System.out.println("No result.");
+            }
+            sortedList.add(reservations.getWasMoving().get(i));
+        }
+        return sortedList;
     }
 
     public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories) {
@@ -46,16 +60,16 @@ public class InventoryContainer {
         return transitInventory;
     }
 
-    public void setReservations(ArrayList<TransitBundle> reservations) {
+    public void setReservations(ItemMovement reservations) {
         this.reservations = reservations;
     }
 
-    public ArrayList<TransitBundle> getReservations() {
+    public ItemMovement getReservations() {
         return reservations;
     }
 
     public TransitBundle addReservation(TransitBundle newReservation) {
-        reservations.add(newReservation);
+        reservations.addBundleToWasMovingList(newReservation);
         return newReservation;
     }
 
