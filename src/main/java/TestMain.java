@@ -66,13 +66,17 @@ public class TestMain {
         mover.reciveItems(new TransitBundle(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId()));
 */
         mover.sendItems(itemProvider.reserveAllAmountAndMakeTransitBundle(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId()));
+        /** ha duplikálom a sort nem fordul le! */
 
         System.out.println("Tranziban lévő listák: " + inventoryContainer.getTransitInvertory().getBundles().size());
+
+        //System.out.println(transitInventory.getBundles().get(0).getSendTime());
 
         mover.reciveItems(transitInventory.getBundles().get(0)); // ezt majd átnézni!
 
 
         System.out.println(itemProvider.getInventories().getInventory(w2.getWarehouseId()).getItemAmount(itemOne.getIdentifier()).getTotalAmount());
+
     /**
         System.out.println("w1 készlet: " + w1.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
         System.out.println("w2 készlet: " + w2.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
@@ -86,12 +90,6 @@ public class TestMain {
         System.out.println("Foglalás utáni foglalt mennyiség: " + w1.getItemAmount(itemOne.getIdentifier()).getReservedAmount());
         System.out.println("Foglalás utáni szabad mennyiség: " + w1.getItemAmount(itemOne.getIdentifier()).getFreeAmount());
         System.out.println("Foglalás utáni teljes mennyiség: " + w1.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
-
-        for (ItemReservation r : itemProvider.getInventories().getReservations()) {
-            System.out.print(r.getStatus());
-        }
-
-        System.out.println();
 
         System.out.println("Tranziban lévő listák: " + inventoryContainer.getTransitInvertory().getBundles().size());
 

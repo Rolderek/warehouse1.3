@@ -11,17 +11,17 @@ public class ItemProvider {
         this.inventories = inventories;
     }
 
-    public void makeReservation(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
+    public TransitBundle makeReservation(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
         /** ItemReservation-t csinál */
-        if (itemListCheck(inventories, itemsToReservate, senderId) == true) {
-            inventories.addReservation(new ItemReservation(new ItemPackage(Instant.now(), itemsToReservate), senderId, recipientId));
-        } else {
+        if (itemListCheck(inventories, itemsToReservate, senderId) != true) {
             System.out.println("There is not enough free maount of some item!");
         }
+        TransitBundle tb = new TransitBundle(itemsToReservate, senderId, recipientId);
+        inventories.addReservation(tb);
+        return tb;
     }
 
     public TransitBundle reserveAllAmountAndMakeTransitBundle(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId) {
-        /** átirt verzió, ehez még nincs a main-ben semmi */
         try  {
         if (itemListCheck(inventories, itemsToReservate, senderId) != true) {
             throw new ThereIsAMissingItem("There is no enough free amount of some item/items");
@@ -30,9 +30,7 @@ public class ItemProvider {
             System.out.println(e);
             }
         reserveAllAmountHelper(itemsToReservate, senderId);
-        makeReservation(itemsToReservate, senderId, recipientId);
-        TransitBundle tb = new TransitBundle(itemsToReservate, senderId, recipientId);
-        return tb;
+        return makeReservation(itemsToReservate, senderId, recipientId);
         }
 
     public void reserveAllAmountHelper(HashMap<Integer, Double> itemsToReservate, int senderId) {

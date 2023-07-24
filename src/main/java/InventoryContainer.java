@@ -13,10 +13,9 @@ public class InventoryContainer {
 
     private TransitInventory transitInventory;
 
-/** Itemreservation lista mai tárolja a feladó, cimzett és tétellistát egy osztály formájában */
-    private ArrayList<ItemReservation> reservations = new ArrayList<>();
+    private ArrayList<TransitBundle> reservations = new ArrayList<>();
 
-    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory, ArrayList<ItemReservation> reservations) {
+    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory, ArrayList<TransitBundle> reservations) {
         this.inventories = inventories;
         this.transitInventory = transitInventory;
         this.reservations = reservations;
@@ -27,7 +26,7 @@ public class InventoryContainer {
         this.transitInventory = transitInventory;
     }
 
-    public ArrayList<ItemReservation> getPackage() {
+    public ArrayList<TransitBundle> getPackage() {
         return reservations;
     }
 
@@ -47,15 +46,15 @@ public class InventoryContainer {
         return transitInventory;
     }
 
-    public void setReservations(ArrayList<ItemReservation> reservations) {
+    public void setReservations(ArrayList<TransitBundle> reservations) {
         this.reservations = reservations;
     }
 
-    public ArrayList<ItemReservation> getReservations() {
+    public ArrayList<TransitBundle> getReservations() {
         return reservations;
     }
 
-    public ItemReservation addReservation(ItemReservation newReservation) {
+    public TransitBundle addReservation(TransitBundle newReservation) {
         reservations.add(newReservation);
         return newReservation;
     }
@@ -74,5 +73,30 @@ public class InventoryContainer {
         return false;
     }
 
+    /** private ArrayList<ItemReservation> reservations = new ArrayList<>();
+     *
+     * public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory, ArrayList<ItemReservation> reservations) {
+     *         this.inventories = inventories;
+     *         this.transitInventory = transitInventory;
+     *         this.reservations = reservations;
+     *     }
+     *
+     * public ArrayList<ItemReservation> getPackage() {
+     *         return reservations;
+     *     }
+     *
+     * public void setReservations(ArrayList<ItemReservation> reservations) {
+     *         this.reservations = reservations;
+     *     }
+     *
+     * public ArrayList<ItemReservation> getReservations() {
+     *         return reservations;
+     *     }
+     *
+     *     public ItemReservation addReservation(ItemReservation newReservation) {
+     *         reservations.add(newReservation);
+     *         return newReservation;
+     *     }
+     *     */
 
 }

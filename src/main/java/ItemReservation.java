@@ -1,3 +1,4 @@
+/** leváltja az ItemMovement amint átírom! */
 import java.time.Instant;
 import java.util.HashMap;
 

@@ -12,25 +12,26 @@ public class InventoryMover {
     }
 
     public void sendItems(TransitBundle transitBundle) {
-        /** megkap egy bundle-t és átteszi a transit-ba
-         * ezt lehetne úgy is hogy csak egy metóduban csinálja a kiadást/bevételt attól fügőően hogy mi a TB tipusa,  ez lesz a superSendItems SSI*/
+        // megkap egy bundle-t és átteszi a transit-ba
+        // ezt lehetne úgy is hogy csak egy metóduban csinálja a kiadást/bevételt attól fügőően hogy mi a TB tipusa,  ez lesz a superSendItems SSI
         for (int itemId : transitBundle.getItems().keySet()) {
             provider.getInventories().getInventory(transitBundle.getSenderId()).getItemAmount(itemId).sendAmount(transitBundle.getItems().get(itemId));
         }
         transitBundle.setStatusToSent();
         transit.addBoundle(transitBundle);
-        /** ittbillen át DONE-ra az ItemReservation */
-        makeItemReservationToDone(transitBundle);
     }
 
-    public void makeItemReservationToDone(TransitBundle bundle) {
-        /** státusz átbillentő segéd metódus */
+    /**
+     public void makeItemReservationToDone(TransitBundle bundle) {
+        // státusz átbillentő segéd metódus
         for (ItemReservation r : provider.getInventories().getReservations()) {
             if (bundle.getItems() == r.getItemPackage().getItems() && bundle.getRecipientId() == r.getReciverId()) {
                 r.setStatusToDone();
             }
         }
     }
+     */
+
 
     public void reciveItems(TransitBundle transitBundle) {
         /** megkap egy bundle-t és kiveszi a transit-ból és átteszi a fogadó félhez */
