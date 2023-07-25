@@ -17,7 +17,6 @@ public class ItemProvider {
             System.out.println("There is not enough free maount of some item!");
         }
         TransitBundle tb = new TransitBundle(itemsToReservate, senderId, recipientId);
-        inventories.addReservation(tb);
         return tb;
     }
 

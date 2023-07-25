@@ -1,8 +1,6 @@
 /** WarehouseInventory-kat tárol.
  * */
-import java.sql.Array;
-import java.sql.Time;
-import java.time.Instant;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
