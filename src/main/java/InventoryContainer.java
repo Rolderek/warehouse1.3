@@ -1,10 +1,11 @@
-/** WarehouseInventory-kat tárol.
- * */
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class InventoryContainer {
+/**
+ * A mindenkori raktárak gyűjtő osztálya
+ */
+public class InventoryContainer
+{
 
     /** stores Inventory and TransitInventory classes */
 
@@ -12,29 +13,34 @@ public class InventoryContainer {
 
     private TransitInventory transitInventory;
 
-    //private ArrayList<TransitBundle> reservations = new ArrayList<>();
     /** itt még a getter és setter dolgokat finomhangolni kell */
     private ItemMovement reservations;
 
-    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory, ItemMovement reservations) {
+    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory, ItemMovement reservations)
+    {
         this.inventories = inventories;
         this.transitInventory = transitInventory;
         this.reservations = reservations;
     }
 
-    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory) {
+    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory)
+    {
         this.inventories = inventories;
         this.transitInventory = transitInventory;
     }
 
-    public ItemMovement getReservationsAllInOne() {
+    public ItemMovement getReservationsAllInOne()
+    {
         return reservations;
     }
 
-    public ArrayList<TransitBundle> getMyReservation(int senderId) {
+    public ArrayList<TransitBundle> getMyReservation(int senderId)
+    {
         ArrayList<TransitBundle> sortedList = new ArrayList<>();
-        for (int i = 0; i < 0; i++) {
-            if (senderId != reservations.getWasMoving().get(i).getSenderId()) {
+        for (int i = 0; i < 0; i++)
+        {
+            if (senderId != reservations.getWasMoving().get(i).getSenderId())
+            {
                 System.out.println("No result.");
             }
             sortedList.add(reservations.getWasMoving().get(i));
@@ -42,31 +48,38 @@ public class InventoryContainer {
         return sortedList;
     }
 
-    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories) {
+    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories)
+    {
         this.inventories = inventories;
     }
 
-    public HashMap<Integer, WarehouseInventory> getAllInventories() {
+    public HashMap<Integer, WarehouseInventory> getAllInventories()
+    {
         return inventories;
     }
 
-    public WarehouseInventory getInventory(int inventoryId) {
+    public WarehouseInventory getInventory(int inventoryId)
+    {
         return inventories.get(inventoryId);
     }
 
-    public TransitInventory getTransitInvertory() {
+    public TransitInventory getTransitInvertory()
+    {
         return transitInventory;
     }
 
-    public void setReservations(ItemMovement reservations) {
+    public void setReservations(ItemMovement reservations)
+    {
         this.reservations = reservations;
     }
 
-    public ItemMovement getReservations() {
+    public ItemMovement getReservations()
+    {
         return reservations;
     }
 
-    public TransitBundle addReservation(TransitBundle newReservation) {
+    public TransitBundle addReservation(TransitBundle newReservation)
+    {
         reservations.addBundleToWasMovingList(newReservation);
         return newReservation;
     }
@@ -77,9 +90,11 @@ public class InventoryContainer {
      *     }
      *     */
 
-    public boolean addInventory(WarehouseInventory newWarehouseInventory) {
+    public boolean addInventory(WarehouseInventory newWarehouseInventory)
+    {
         WarehouseInventory result = inventories.putIfAbsent(newWarehouseInventory.getWarehouseId(), newWarehouseInventory);
-        if (result == null) {
+        if (result == null)
+        {
             return true;
         }
         return false;

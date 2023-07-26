@@ -1,9 +1,11 @@
-/** Raktárak készletetit tárolja. Elérhető és foglalt készletek. */
 import org.apache.camel.InOnly;
-
 import java.util.HashMap;
 
-public class WarehouseInventory implements Inventory {
+/**
+ * Egy adott raktár készleteit tárolja. Elérhető és foglalt készletek.
+ */
+public class WarehouseInventory implements Inventory
+{
 
     private int WarehouseId;
 
@@ -14,77 +16,93 @@ public class WarehouseInventory implements Inventory {
     /** This stores Item Identifier, amount pairs.*/
     private HashMap<Integer, ItemAmount> items;
 
-    public WarehouseInventory(int WarehouseId, String name, Address address, HashMap<Integer, ItemAmount> items) {
+    public WarehouseInventory(int WarehouseId, String name, Address address, HashMap<Integer, ItemAmount> items)
+    {
         this.WarehouseId = WarehouseId;
         this.name = name;
         this.address = address;
         this.items = items;
     }
 
-    public WarehouseInventory(int WarehouseId, String name, Address address) {
+    public WarehouseInventory(int WarehouseId, String name, Address address)
+    {
         this.WarehouseId = WarehouseId;
         this.name = name;
         this.address = address;
     }
 
-    public WarehouseInventory(int WarehouseId, String name) {
+    public WarehouseInventory(int WarehouseId, String name)
+    {
         this.WarehouseId = WarehouseId;
         this.name = name;
     }
 
-    public int getWarehouseId() {
+    public int getWarehouseId()
+    {
         return WarehouseId;
     }
 
-    public void setWarehouseId(int warehouseId) {
+    public void setWarehouseId(int warehouseId)
+    {
         this.WarehouseId = warehouseId;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public Address getAddress() {
+    public Address getAddress()
+    {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(Address address)
+    {
         this.address = address;
     }
 
-    public HashMap<Integer, ItemAmount> getAllItems() {
+    public HashMap<Integer, ItemAmount> getAllItems()
+    {
         return items;
     }
 
     @Override
-    public HashMap<Integer, Double> getAllItemsOfWarehouse(int warehouseId) {
+    public HashMap<Integer, Double> getAllItemsOfWarehouse(int warehouseId)
+    {
         HashMap<Integer, Double> warehouseItems = new HashMap<>();
-        if (warehouseId == this.WarehouseId) {
-            for (int key : items.keySet()) {
+        if (warehouseId == this.WarehouseId)
+        {
+            for (int key : items.keySet())
+            {
                 warehouseItems.put(key, items.get(key).getFreeAmount());
             }
         }
         return warehouseItems;
     }
 
-    public ItemAmount getItemAmount(int itemIdentifier) {
+    public ItemAmount getItemAmount(int itemIdentifier)
+    {
         return items.getOrDefault(itemIdentifier, new ItemAmount(0.0, 0.0));
     }
 
-    public void addItem(int id, double amount) {
-      ItemAmount current = items.getOrDefault(id, new ItemAmount(0.0, 0.0));
-      items.put(id, new ItemAmount(
-              amount + current.getTotalAmount(),
-              current.getReservedAmount())
-      );
+    public void addItem(int id, double amount)
+    {
+        ItemAmount current = items.getOrDefault(id, new ItemAmount(0.0, 0.0));
+        items.put(id, new ItemAmount(
+                amount + current.getTotalAmount(),
+                current.getReservedAmount())
+        );
     }
 
     /** ezt majd a logikába kell betenni */
-    public void setItems(HashMap<Integer, ItemAmount> items) {
+    public void setItems(HashMap<Integer, ItemAmount> items)
+    {
         this.items = items;
     }
 

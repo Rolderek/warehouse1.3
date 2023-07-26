@@ -1,3 +1,6 @@
+/**
+ * Egy adott raktár címe.
+ */
 public class Address {
 
     private int zipcode;

@@ -1,4 +1,6 @@
-/** termék/cikk */
+/**
+ * termék/cikk
+ */
 public class Item {
 
     private int identifier;
