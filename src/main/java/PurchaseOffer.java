@@ -18,6 +18,19 @@ public class PurchaseOffer
 
     private LocalDate recivingDate;
 
+    private String note;
+
+
+    public PurchaseOffer(int id, HashMap<Integer, AmountAndPrice> items, Address address, LocalDate recivingDate, String note)
+    {
+        this.id = id;
+        this.items = items;
+        this.makingDate = Instant.now();
+        this.reciverAddres = address;
+        this.recivingDate = recivingDate;
+        this.note = note;
+    }
+
     public PurchaseOffer(int id, HashMap<Integer, AmountAndPrice> items, Address address, LocalDate recivingDate)
     {
         this.id = id;
