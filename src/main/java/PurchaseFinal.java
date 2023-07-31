@@ -6,7 +6,7 @@ import java.util.HashMap;
   */
 public class PurchaseFinal
 {
-    private PurchaseConfirmation confirmation;
+    private int purchaseConfirmationId;
 
     private int purchaseFinalId;
 
@@ -16,26 +16,26 @@ public class PurchaseFinal
 
     private String note;
 
-    public PurchaseFinal(PurchaseConfirmation confirmation, int purchaseFinalId, HashMap<Integer, AmountAndPrice> items, String note)
+    public PurchaseFinal(int purchaseConfirmationId, int purchaseFinalId, HashMap<Integer, AmountAndPrice> items, String note)
     {
-        this.confirmation = confirmation;
+        this.purchaseConfirmationId = purchaseConfirmationId;
         this.purchaseFinalId = purchaseFinalId;
         this.items = items;
         this.note = note;
         this.makingDate = Instant.now();
     }
 
-    public PurchaseFinal(PurchaseConfirmation confirmation, int purchaseFinalId, HashMap<Integer, AmountAndPrice> items)
+    public PurchaseFinal(int purchaseConfirmationId, int purchaseFinalId, HashMap<Integer, AmountAndPrice> items)
     {
-        this.confirmation = confirmation;
+        this.purchaseConfirmationId = purchaseConfirmationId;
         this.purchaseFinalId = purchaseFinalId;
         this.items = items;
         this.makingDate = Instant.now();
     }
 
-    public PurchaseConfirmation getConfirmation()
+    public int getPurchaseConfirmationId()
     {
-        return confirmation;
+        return purchaseConfirmationId;
     }
 
     public int getPurchaseFinalId()

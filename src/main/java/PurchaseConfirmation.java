@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class PurchaseConfirmation
 {
 
-    private PurchaseOffer offer;
+    private int purchaseOfferId;
 
     private int confirmationId;
 
@@ -17,17 +17,17 @@ public class PurchaseConfirmation
 
     private String note;
 
-    public PurchaseConfirmation(PurchaseOffer offer, int confirmationId, HashMap<Integer, AmountAndPrice> confirmedItems, String note)
+    public PurchaseConfirmation(int purchaseOfferId, int confirmationId, HashMap<Integer, AmountAndPrice> confirmedItems, String note)
     {
-        this.offer = offer;
+        this.purchaseOfferId = purchaseOfferId;
         this.confirmationId = confirmationId;
         this.confirmedItems = confirmedItems;
         this.makingDate = Instant.now();
         this.note = note;
     }
-    public PurchaseConfirmation(PurchaseOffer offer, int confirmationId, HashMap<Integer, AmountAndPrice> confirmedItems)
+    public PurchaseConfirmation(int purchaseOfferId, int confirmationId, HashMap<Integer, AmountAndPrice> confirmedItems)
     {
-        this.offer = offer;
+        this.purchaseOfferId = purchaseOfferId;
         this.confirmationId = confirmationId;
         this.confirmedItems = confirmedItems;
         this.makingDate = Instant.now();
@@ -43,9 +43,9 @@ public class PurchaseConfirmation
         this.note = note;
     }
 
-    public PurchaseOffer getOffer()
+    public int getPurchaseOfferId()
     {
-        return offer;
+        return purchaseOfferId;
     }
 
     public int getConfirmationId()
