@@ -3,7 +3,9 @@ import java.util.HashMap;
 /**
   * Tárolja az össze Purchase-t minden stádiumában.
   */
-public class PurchaseContainer {
+public class PurchaseContainer
+{
+
     private HashMap<Integer, PurchaseOffer> purchaseOffers = new HashMap<>();
 
     private HashMap<Integer, PurchaseConfirmation> purchaseConfirmations = new HashMap<>();

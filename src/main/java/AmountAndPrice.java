@@ -8,10 +8,23 @@ public class AmountAndPrice {
 
     private double price;
 
-    public AmountAndPrice(double amount, double price)
+    private Currency currency;
+
+    public AmountAndPrice(double amount, double price, Currency currency)
     {
         this.amount = amount;
         this.price = price;
+        this.currency = currency;
+    }
+
+    public Currency getCurrency()
+    {
+        return currency;
+    }
+
+    public void setCurrency(Currency newCurrency)
+    {
+        currency = currency;
     }
 
     public double getAmount()
