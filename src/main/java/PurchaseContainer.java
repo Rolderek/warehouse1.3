@@ -12,12 +12,14 @@ public class PurchaseContainer
 
     private HashMap<Integer, PurchaseFinal> purchaseFinals = new HashMap<>();
 
-    public void addOffer(PurchaseOffer newOffer) {
+    public void addOffer(PurchaseOffer newOffer)
+    {
         int id = newOffer.getId();
         purchaseOffers.put(id, newOffer);
     }
 
-    public void addConfirmation(PurchaseConfirmation newConfirmation) {
+    public void addConfirmation(PurchaseConfirmation newConfirmation)
+    {
         int id = newConfirmation.getConfirmationId();
         purchaseConfirmations.put(id, newConfirmation);
     }
@@ -27,53 +29,68 @@ public class PurchaseContainer
         purchaseFinals.put(id, newFinal);
     }
 
-    public PurchaseOffer getPurchaseOfferById(int id) {
+    public PurchaseOffer getPurchaseOfferById(int id)
+    {
         return purchaseOffers.get(id);
     }
 
-    public PurchaseConfirmation getPurchaseConfirmationById(int id) {
+    public PurchaseConfirmation getPurchaseConfirmationById(int id)
+    {
         return purchaseConfirmations.get(id);
     }
 
-    public PurchaseFinal getPurchaseFinalById(int id) {
+    public PurchaseFinal getPurchaseFinalById(int id)
+    {
         return purchaseFinals.get(id);
     }
 
-    public HashMap<Integer, PurchaseOffer> getPurchaseOffers() {
+    public HashMap<Integer, PurchaseOffer> getPurchaseOffers()
+    {
         return purchaseOffers;
     }
 
-    public HashMap<Integer, PurchaseConfirmation> getPurchaseConfirmations() {
+    public HashMap<Integer, PurchaseConfirmation> getPurchaseConfirmations()
+    {
         return purchaseConfirmations;
     }
 
-    public HashMap<Integer, PurchaseFinal> getPurchaseFinals() {
+    public HashMap<Integer, PurchaseFinal> getPurchaseFinals()
+    {
         return purchaseFinals;
     }
 
     /**
      * ezek lehet nem fognak kelleni:
      */
-    public boolean isContainOffer(int id) {
-        if (purchaseOffers.containsKey(id) == true) {
+    public boolean isContainOffer(int id)
+    {
+        if (purchaseOffers.containsKey(id) == true)
+        {
             return true;
-        } else {
+        } else
+        {
             return false;
         }
     }
 
-    public boolean isContainConfirmation(int id) {
-        if (purchaseConfirmations.containsKey(id) == true) {
+    public boolean isContainConfirmation(int id)
+    {
+        if (purchaseConfirmations.containsKey(id) == true)
+        {
             return true;
-        } else {
+        } else
+        {
             return false;
         }
     }
 
-    public boolean isContainFinal(int id) {
-        if (purchaseFinals.containsKey(id) == true) {
+    public boolean isContainFinal(int id)
+    {
+        if (purchaseFinals.containsKey(id) == true)
+        {
             return true;
-        } else {
+        } else
+        {
             return false;
         }
     }

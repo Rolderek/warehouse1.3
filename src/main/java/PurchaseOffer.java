@@ -20,8 +20,10 @@ public class PurchaseOffer
 
     private String note;
 
+    private int warehouseId;
 
-    public PurchaseOffer(int id, HashMap<Integer, AmountAndPrice> items, Address address, LocalDate recivingDate, String note)
+
+    public PurchaseOffer(int id, HashMap<Integer, AmountAndPrice> items, Address address, LocalDate recivingDate, String note, int warehouseId)
     {
         this.id = id;
         this.items = items;
@@ -29,15 +31,27 @@ public class PurchaseOffer
         this.reciverAddres = address;
         this.recivingDate = recivingDate;
         this.note = note;
+        this.warehouseId = warehouseId;
     }
 
-    public PurchaseOffer(int id, HashMap<Integer, AmountAndPrice> items, Address address, LocalDate recivingDate)
+    public PurchaseOffer(int id, HashMap<Integer, AmountAndPrice> items, Address address, LocalDate recivingDate, int warehouseId)
     {
         this.id = id;
         this.items = items;
         this.makingDate = Instant.now();
         this.reciverAddres = address;
         this.recivingDate = recivingDate;
+        this.warehouseId = warehouseId;
+    }
+
+    public int getWarehouseId()
+    {
+        return warehouseId;
+    }
+
+    public void setWarehouseId(int newId)
+    {
+        warehouseId = newId;
     }
 
     public int getId()
@@ -45,7 +59,8 @@ public class PurchaseOffer
         return id;
     }
 
-    public HashMap<Integer, AmountAndPrice> getItems() {
+    public HashMap<Integer, AmountAndPrice> getItems()
+    {
         return items;
     }
 
