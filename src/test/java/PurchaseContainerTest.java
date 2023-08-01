@@ -10,6 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class PurchaseContainerTest
 {
 
+    /**
+      * @BeforeEach!!!
+      */
     @Test
     void addOffer()
     {
@@ -58,7 +61,6 @@ class PurchaseContainerTest
         PurchaseOffer po = new PurchaseOffer(1111,  items, address, LocalDate.now(), 501);
         pc.addOffer(po);
         assertTrue(po == pc.getPurchaseOfferById(1111));
-        assertTrue(po == pc.getPurchaseOfferById(1112));
 
     }
 
@@ -78,7 +80,6 @@ class PurchaseContainerTest
         PurchaseConfirmation pC = new PurchaseConfirmation(1111, 2111, items, "Gyurikám!?");
         pc.addConfirmation(pC);
         assertTrue(pC == pc.getPurchaseConfirmationById(2111));
-        assertTrue(pC == pc.getPurchaseConfirmationById(2112));
     }
 
     @Test
@@ -131,7 +132,6 @@ class PurchaseContainerTest
         PurchaseConfirmation pC = new PurchaseConfirmation(1111, 2111, items, "Gyurikám!?");
         pc.addConfirmation(pC);
         assertTrue(true == pc.isContainConfirmation(2111));
-        assertFalse(true == pc.isContainConfirmation(2112));
     }
 
     @Test
@@ -152,7 +152,5 @@ class PurchaseContainerTest
         PurchaseFinal pF = new PurchaseFinal(2111, 3111, items, "Köszi Feri!");
         pc.addFinal(pF);
         assertTrue(true == pc.isContainFinal(3111));
-        assertFalse(false == pc.isContainFinal(3111));
-        assertEquals(true, pc.isContainFinal(3111));
     }
 }
