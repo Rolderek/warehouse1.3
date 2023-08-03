@@ -3,6 +3,7 @@ import java.util.HashMap;
 /**
   * Tárolja az össze Purchase-t minden stádiumában.
   */
+
 public class PurchaseContainer
 {
 
@@ -24,7 +25,8 @@ public class PurchaseContainer
         purchaseConfirmations.put(id, newConfirmation);
     }
 
-    public void addFinal(PurchaseFinal newFinal) {
+    public void addFinal(PurchaseFinal newFinal)
+    {
         int id = newFinal.getPurchaseFinalId();
         purchaseFinals.put(id, newFinal);
     }
