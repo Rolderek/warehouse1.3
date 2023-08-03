@@ -16,11 +16,11 @@ public class ItemProvider
     }
 
     public TransitBundle makeReservation(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId)
+    /**
+     * TransitBundle-t csinál
+     * @return egy TransitBundle-t az adott foglalással ha sikeres volt, egyébként null
+     */
     {
-        /**
-         * TransitBundle-t csinál
-         * @return egy TransitBundle-t az adott foglalással ha sikeres volt, egyébként null
-         */
         if (itemListCheck(inventories, itemsToReservate, senderId) != true)
         {
             System.out.println("There is not enough free amount of some item!");
@@ -31,9 +31,9 @@ public class ItemProvider
     }
 
     /**
-     * TransitBundle-t csinál és le is foglalja,
-     * @return TransitBundle ha sikerült, null amennyiben nem.
-     */
+      * TransitBundle-t csinál és le is foglalja,
+      * @return TransitBundle ha sikerült, null amennyiben nem.
+      */
     public TransitBundle reserveAllAmountAndMakeTransitBundle(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId)
     {
         if (itemListCheck(inventories, itemsToReservate, senderId) != true)
@@ -46,8 +46,8 @@ public class ItemProvider
     }
 
     /** szóval, végigfoglalja, majd ellenőriz és ha nem jó akkor visszaállitja az eredetire a foglalt mennyiséget
-     * kell e az if-ekhez és a for-hoz egyszerűsitő metódus?
-     */
+      * kell e az if-ekhez és a for-hoz egyszerűsitő metódus?
+      */
     public void reserveAllAmountHelper(HashMap<Integer, Double> itemsToReservate, int senderId)
     {
         HashMap<Integer, Double> originalList = new HashMap<Integer, Double>();
