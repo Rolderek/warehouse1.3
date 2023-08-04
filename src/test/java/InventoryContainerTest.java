@@ -6,8 +6,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InventoryContainerTest
-{
+class InventoryContainerTest {
     Item itemOne;
     Item itemTwo;
     Item itemThree;
@@ -34,10 +33,10 @@ class InventoryContainerTest
     TransitInventory transitInventory;
     ItemProvider itemProvider;
     ItemMovement itemMovement;
+    InventoryMover mover;
 
     @BeforeEach
-    public void setUp()
-    {
+    public void setUp() {
         /**
          * address készités
          */
@@ -114,13 +113,36 @@ class InventoryContainerTest
         inventoryContainer = new InventoryContainer(inventories, transitInventory, new ItemMovement(new ArrayList<TransitBundle>()));
         itemProvider = new ItemProvider(inventoryContainer);
         itemMovement = new ItemMovement(new ArrayList<TransitBundle>());
+        /**
+         * InventoryMover létrehozása
+         */
+        mover = new InventoryMover(itemProvider, transitInventory);
 
     }
 
     @Test
-    void getAllInventories()
-    {
+    void getAllInventories() {
         assertEquals(inventories, inventoryContainer.getAllInventories());
+    }
+
+    @Test
+    void getReservation() {
+        itemProvider.reserveAllAmountAndMakeTransitBundle(itemsToSend1, 501, 102);
+        assertEquals(1, inventoryContainer.getMyReservation(501).size());
+    }
+
+    @Test
+    void addInventoryAlreadyInTheList()
+    {
+        assertFalse(inventoryContainer.addInventory(w1));
+    }
+
+    @Test
+    void addInventoryNotInTheList()
+    {
+        WarehouseInventory w4 = new WarehouseInventory(666, "legújabb",
+                new Address(2222, "Büdös", "Macska", "12", "+36301114444"));
+        assertTrue(inventoryContainer.addInventory(w4));
     }
 
     /**

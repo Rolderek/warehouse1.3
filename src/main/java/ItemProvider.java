@@ -15,11 +15,11 @@ public class ItemProvider
         this.inventories = inventories;
     }
 
-    public TransitBundle makeReservation(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId)
     /**
      * TransitBundle-t csinál
      * @return egy TransitBundle-t az adott foglalással ha sikeres volt, egyébként null
      */
+    public TransitBundle makeReservation(HashMap<Integer, Double> itemsToReservate, int senderId, int recipientId)
     {
         if (itemListCheck(inventories, itemsToReservate, senderId) != true)
         {
@@ -27,6 +27,7 @@ public class ItemProvider
             return null;
         }
         TransitBundle tb = new TransitBundle(itemsToReservate, senderId, recipientId);
+        inventories.getReservations().addBundleToWasMovingList(tb);
         return tb;
     }
 

@@ -216,7 +216,7 @@ class ItemProviderTest
     }
 
     /**
-      * reserveAllAmountHelper -> elég egyszerű, majd meglátjuk
+      * reserveAllAmountHelper -> még hátra van
       */
 
 }

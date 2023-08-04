@@ -13,7 +13,7 @@ public class InventoryContainer
 
     private TransitInventory transitInventory;
 
-    /** itt még a getter és setter dolgokat finomhangolni kell */
+    /** nem kerül be a listába a foglalás */
     private ItemMovement reservations;
 
     public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory, ItemMovement reservations)
@@ -34,10 +34,13 @@ public class InventoryContainer
         return reservations;
     }
 
+    /**
+      * valami nem kóser vele!
+      */
     public ArrayList<TransitBundle> getMyReservation(int senderId)
     {
         ArrayList<TransitBundle> sortedList = new ArrayList<>();
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < reservations.getWasMoving().size(); i++)
         {
             if (senderId != reservations.getWasMoving().get(i).getSenderId())
             {
@@ -76,12 +79,6 @@ public class InventoryContainer
     public ItemMovement getReservations()
     {
         return reservations;
-    }
-
-    public TransitBundle addReservation(TransitBundle newReservation)
-    {
-        reservations.addBundleToWasMovingList(newReservation);
-        return newReservation;
     }
 
     /**

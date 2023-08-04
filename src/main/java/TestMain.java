@@ -98,6 +98,9 @@ public class TestMain
 
         System.out.println("Tranziban lévő listák: " + inventoryContainer.getTransitInvertory().getBundles().size());
 
+        System.out.println(inventoryContainer.getReservations().getWasMoving().size());
+
+        System.out.println(inventoryContainer.getMyReservation(501).size());
     }
 
 }
