@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -57,9 +58,17 @@ public class InventoryMover
         transit = newTransit;
     }
 
-    public void searchBundleInTransitInventory(int senderId, int reciverId)
+    public ArrayList<TransitBundle> searchBundleInTransitInventory(int senderId, int reciverId)
     {
-        /** végig iterál a TB-k között és visszaad egy listát amikre igazak a feltételek */
+        ArrayList<TransitBundle> sortedList = new ArrayList<>();
+        for (int id : transit.getBundles().keySet())
+        {
+            if (transit.getBundles().get(id).getSenderId() == senderId && transit.getBundles().get(id).getRecipientId() == reciverId)
+            {
+                sortedList.add(transit.getBundles().get(id));
+            }
+        }
+        return sortedList;
     }
 
 }
