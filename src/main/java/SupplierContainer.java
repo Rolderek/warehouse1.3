@@ -1,6 +1,7 @@
 import java.util.HashMap;
 
-public class SupplierContainer {
+public class SupplierContainer
+{
 
     private HashMap<Integer, Supplier> suppliers;
 

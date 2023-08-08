@@ -38,6 +38,7 @@ public class TransitBundle
         this.recipientId = recipientId;
         this.sendTime = Instant.now();
         this.notes = notes;
+        this.status = TranstiBundleStatus.RESERVED;
     }
 
     public HashMap<Integer, Double> getItems()
@@ -77,6 +78,13 @@ public class TransitBundle
 
     public void addNotes(String newNote)
     {
-        this.notes = notes.concat("\n" + newNote);
+        if (notes == null)
+        {
+            notes = newNote;
+        } else
+            {
+            notes = notes.concat("\n" + newNote);
+            }
     }
+
 }
