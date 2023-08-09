@@ -1,7 +1,8 @@
 /**
  * Egy adott raktár címe.
  */
-public class Address {
+public class Address
+{
 
     private int zipcode;
 
@@ -13,7 +14,8 @@ public class Address {
 
     private String phoneNumber;
 
-    public Address(int zipcode, String city, String street, String streetNumber, String phoneNumber) {
+    public Address(int zipcode, String city, String street, String streetNumber, String phoneNumber)
+    {
         this.zipcode = zipcode;
         this.city = city;
         this.street = street;
@@ -21,48 +23,59 @@ public class Address {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getZipcode() {
+    public int getZipcode()
+    {
         return zipcode;
     }
 
-    public void setZipcode(int zipcode) {
+    public void setZipcode(int zipcode)
+    {
         this.zipcode = zipcode;
     }
 
-    public String getCity() {
+    public String getCity()
+    {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(String city)
+    {
         this.city = city;
     }
 
-    public String getStreet() {
+    public String getStreet()
+    {
         return street;
     }
 
-    public void setStreet(String street) {
+    public void setStreet(String street)
+    {
         this.street = street;
     }
 
-    public String getStreetNumber() {
+    public String getStreetNumber()
+    {
         return streetNumber;
     }
 
-    public void setStreetNumber(String streetNumber) {
+    public void setStreetNumber(String streetNumber)
+    {
         this.streetNumber = streetNumber;
     }
 
-    public String getPhoneNumber() {
+    public String getPhoneNumber()
+    {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber)
+    {
         this.phoneNumber = phoneNumber;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return this.zipcode + "," +
         this.city + "," +
         this.street + "," +

@@ -2,7 +2,8 @@
   * segéd osztály a PurchaseOffer-hez
   */
 
-public class AmountAndPrice {
+public class AmountAndPrice
+{
 
     private double amount;
 
@@ -24,7 +25,7 @@ public class AmountAndPrice {
 
     public void setCurrency(Currency newCurrency)
     {
-        currency = currency;
+        currency = newCurrency;
     }
 
     public double getAmount()

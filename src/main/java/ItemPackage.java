@@ -11,7 +11,7 @@ public class ItemPackage
     private HashMap<Integer, Double> items;
     private Instant time;
 
-    public ItemPackage(Instant time, HashMap<Integer, Double> items)
+    public ItemPackage(HashMap<Integer, Double> items)
     {
         this.time = Instant.now();
         this.items = items;
