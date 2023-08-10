@@ -7,8 +7,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PurchaseFinalTest
-{
+class PurchaseFinalTest {
 
     PurchaseConfirmation purchaseConfirmation;
     PurchaseFinal purchaseFinal;
@@ -19,8 +18,7 @@ class PurchaseFinalTest
     Instant time;
 
     @BeforeEach
-    public void setUp()
-    {
+    public void setUp() {
         time = Instant.now();
         address = new Address(5, "a", "b", "c", "d");
         date = LocalDate.of(2023, 12, 8);
@@ -29,10 +27,23 @@ class PurchaseFinalTest
         items.put(2, new AmountAndPrice(3.0, 10, Currency.EUR));
         items.put(3, new AmountAndPrice(1.0, 5, Currency.EUR));
         purchaseOffer = new PurchaseOffer(48, items, address, date, 501);
-        purchaseConfirmation = new PurchaseConfirmation(31, 48, items, "valami");
-        purchaseFinal = new PurchaseFinal(48, 26, items, "bombajó a duma");
+        purchaseConfirmation = new PurchaseConfirmation(31, 48, items, "valami", 501);
+        purchaseFinal = new PurchaseFinal(48, 26, items, "bombajó a duma", 501);
 
     }
+
+    @Test
+    void getWarehouseId() {
+        assertEquals(501, purchaseFinal.getWarehouseId());
+    }
+
+    @Test
+    void setWarehouseId()
+    {
+        purchaseFinal.setWarehouseId(600);
+        assertEquals(600, purchaseFinal.getWarehouseId());
+    }
+
     @Test
     void getPurchaseConfirmationId()
     {

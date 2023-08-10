@@ -32,9 +32,9 @@ class PurchaseContainerTest
         newAAP = new AmountAndPrice(4.0, 11.0, Currency.EUR);
         newItems = new HashMap<>();
         newItems.put(9000, newAAP);
-        pC = new PurchaseConfirmation(1111, 2111, items, "Gyurikám!?");
+        pC = new PurchaseConfirmation(1111, 2111, items, "Gyurikám!?", 501);
         pc.addConfirmation(pC);
-        pF = new PurchaseFinal(2111, 3111, items, "Köszi Feri!");
+        pF = new PurchaseFinal(2111, 3111, items, "Köszi Feri!", 501);
         pc.addFinal(pF);
     }
     @Test

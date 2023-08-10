@@ -17,20 +17,34 @@ public class PurchaseConfirmation
 
     private String note;
 
-    public PurchaseConfirmation(int purchaseOfferId, int confirmationId, HashMap<Integer, AmountAndPrice> confirmedItems, String note)
+    private int warehouseId;
+
+    public PurchaseConfirmation(int purchaseOfferId, int confirmationId, HashMap<Integer, AmountAndPrice> confirmedItems, String note, int warehouseId)
     {
         this.purchaseOfferId = purchaseOfferId;
         this.confirmationId = confirmationId;
         this.confirmedItems = confirmedItems;
         this.makingDate = Instant.now();
         this.note = note;
+        this.warehouseId = warehouseId;
     }
-    public PurchaseConfirmation(int purchaseOfferId, int confirmationId, HashMap<Integer, AmountAndPrice> confirmedItems)
+    public PurchaseConfirmation(int purchaseOfferId, int confirmationId, HashMap<Integer, AmountAndPrice> confirmedItems, int warehouseId)
     {
         this.purchaseOfferId = purchaseOfferId;
         this.confirmationId = confirmationId;
         this.confirmedItems = confirmedItems;
         this.makingDate = Instant.now();
+        this.warehouseId = warehouseId;
+    }
+
+    public int getWarehouseId()
+    {
+        return warehouseId;
+    }
+
+    public void setWarehouseId(int newId)
+    {
+        warehouseId = newId;
     }
 
     public String getNote()

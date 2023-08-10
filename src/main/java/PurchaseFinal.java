@@ -16,21 +16,35 @@ public class PurchaseFinal
 
     private String note;
 
-    public PurchaseFinal(int purchaseConfirmationId, int purchaseFinalId, HashMap<Integer, AmountAndPrice> items, String note)
+    private int warehouseId;
+
+    public PurchaseFinal(int purchaseConfirmationId, int purchaseFinalId, HashMap<Integer, AmountAndPrice> items, String note, int warehouseId)
     {
         this.purchaseConfirmationId = purchaseConfirmationId;
         this.purchaseFinalId = purchaseFinalId;
         this.items = items;
         this.note = note;
         this.makingDate = Instant.now();
+        this.warehouseId = warehouseId;
     }
 
-    public PurchaseFinal(int purchaseConfirmationId, int purchaseFinalId, HashMap<Integer, AmountAndPrice> items)
+    public PurchaseFinal(int purchaseConfirmationId, int purchaseFinalId, HashMap<Integer, AmountAndPrice> items, int warehouseId)
     {
         this.purchaseConfirmationId = purchaseConfirmationId;
         this.purchaseFinalId = purchaseFinalId;
         this.items = items;
         this.makingDate = Instant.now();
+        this.warehouseId = warehouseId;
+    }
+
+    public int getWarehouseId()
+    {
+        return warehouseId;
+    }
+
+    public void setWarehouseId(int newId)
+    {
+        warehouseId = newId;
     }
 
     public int getPurchaseConfirmationId()

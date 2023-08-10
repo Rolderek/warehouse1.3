@@ -9,12 +9,66 @@ public class InventoryMover
 
     private ItemProvider provider;
     private TransitInventory transit;
+    private PurchaseContainer purchaseContainer;
 
     public InventoryMover(ItemProvider provider, TransitInventory transit)
     {
         this.provider = provider;
         this.transit = transit;
     }
+
+    /**
+      * innen kezdődik a hozzáirt funkció:
+      */
+
+    public InventoryMover(ItemProvider provider, TransitInventory transit, PurchaseContainer purchaseContainer)
+    {
+        this.provider = provider;
+        this.transit = transit;
+        this.purchaseContainer = purchaseContainer;
+    }
+
+    public PurchaseContainer getPurchaseContainer()
+    {
+        return purchaseContainer;
+    }
+
+    public void setPurchaseContainer(PurchaseContainer newContainer)
+    {
+        purchaseContainer = newContainer;
+    }
+
+    /**
+      * első
+      */
+    public PurchaseFinal findPurchaseFinalInPurchaseContainer(int finalId)
+    {
+        return purchaseContainer.getPurchaseFinalById(finalId);
+    }
+
+    /**
+     * második
+     */
+
+    public void recivePurchase(PurchaseFinal purchaseFinal)
+    {
+        for (int itemId : purchaseFinal.getItems().keySet())
+        {
+            // egyszerűsiteni kell !!!!!!
+            provider.getInventories()
+                    .getInventory(purchaseFinal
+                            .getWarehouseId())
+                    .getItemAmount(itemId)
+                    .addAmount(purchaseFinal
+                            .getItems()
+                            .get(itemId)
+                            .getAmount());
+        }
+    }
+
+    /**
+      * Eddig tart.
+      */
 
     public void sendItems(TransitBundle transitBundle)
     {
@@ -37,6 +91,8 @@ public class InventoryMover
         }
         transit.removeBundle(transitBundle);
     }
+
+
 
     public ItemProvider getProvider()
     {

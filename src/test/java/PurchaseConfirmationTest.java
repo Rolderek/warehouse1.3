@@ -32,7 +32,20 @@ class PurchaseConfirmationTest
         anotherItems = new HashMap<>();
         anotherItems.put(4, new AmountAndPrice(1.0, 100, Currency.USD));
         purchaseOffer = new PurchaseOffer(48, items, address, date, 501);
-        purchaseConfirmation = new PurchaseConfirmation(48, 31, items, note);
+        purchaseConfirmation = new PurchaseConfirmation(48, 31, items, note, 501);
+    }
+
+    @Test
+    void getWarehouseId()
+    {
+        assertEquals(501, purchaseConfirmation.getWarehouseId());
+    }
+
+    @Test
+    void setWarehouseId()
+    {
+        purchaseConfirmation.setWarehouseId(400);
+        assertEquals(400, purchaseConfirmation.getWarehouseId());
     }
 
     @Test
