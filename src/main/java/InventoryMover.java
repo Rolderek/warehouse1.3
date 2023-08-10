@@ -64,6 +64,7 @@ public class InventoryMover
                             .get(itemId)
                             .getAmount());
         }
+        purchaseFinal.setStatusToRecived();
     }
 
     /**

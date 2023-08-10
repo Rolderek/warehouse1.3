@@ -18,6 +18,8 @@ public class PurchaseFinal
 
     private int warehouseId;
 
+    private PurchaseFinalStatus status;
+
     public PurchaseFinal(int purchaseConfirmationId, int purchaseFinalId, HashMap<Integer, AmountAndPrice> items, String note, int warehouseId)
     {
         this.purchaseConfirmationId = purchaseConfirmationId;
@@ -26,6 +28,7 @@ public class PurchaseFinal
         this.note = note;
         this.makingDate = Instant.now();
         this.warehouseId = warehouseId;
+        this.status = PurchaseFinalStatus.JUSTORDER;
     }
 
     public PurchaseFinal(int purchaseConfirmationId, int purchaseFinalId, HashMap<Integer, AmountAndPrice> items, int warehouseId)
@@ -35,6 +38,17 @@ public class PurchaseFinal
         this.items = items;
         this.makingDate = Instant.now();
         this.warehouseId = warehouseId;
+        this.status = PurchaseFinalStatus.JUSTORDER;
+    }
+
+    public PurchaseFinalStatus getStatus()
+    {
+        return status;
+    }
+
+    public void setStatusToRecived()
+    {
+        status = PurchaseFinalStatus.RECIVED;
     }
 
     public int getWarehouseId()

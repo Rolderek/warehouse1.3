@@ -132,6 +132,7 @@ class InventoryMoverTest
         assertEquals(15.0, mover.getProvider().getInventories().getInventory(501).getItemAmount(9000).getTotalAmount());
         assertEquals(12.0, mover.getProvider().getInventories().getInventory(501).getItemAmount(8000).getTotalAmount());
         assertEquals(9.0, mover.getProvider().getInventories().getInventory(501).getItemAmount(50).getTotalAmount());
+        assertEquals(PurchaseFinalStatus.RECIVED, mover.findPurchaseFinalInPurchaseContainer(26).getStatus());
     }
 
     @Test
