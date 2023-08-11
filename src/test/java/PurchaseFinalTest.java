@@ -26,10 +26,16 @@ class PurchaseFinalTest {
         items.put(1, new AmountAndPrice(5.0, 50, Currency.EUR));
         items.put(2, new AmountAndPrice(3.0, 10, Currency.EUR));
         items.put(3, new AmountAndPrice(1.0, 5, Currency.EUR));
-        purchaseOffer = new PurchaseOffer(48, items, address, date, 501);
-        purchaseConfirmation = new PurchaseConfirmation(31, 48, items, "valami", 501);
-        purchaseFinal = new PurchaseFinal(48, 26, items, "bombajó a duma", 501);
+        purchaseOffer = new PurchaseOffer(items, address, date, 501);
+        purchaseConfirmation = new PurchaseConfirmation(1, items, "valami", 501);
+        purchaseFinal = new PurchaseFinal(9999, items, "bombajó a duma", 501);
 
+    }
+
+    @Test
+    void purchaseFinalStatusJustOrder()
+    {
+        assertEquals(PurchaseFinalStatus.JUSTORDER, purchaseFinal.getStatus());
     }
 
     @Test

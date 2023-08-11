@@ -28,7 +28,7 @@ class PurchaseOfferTest
         items.put(0, amountAndPriceOne);
         items.put(1, amountAndPriceTwo);
         now = Instant.now();
-        purchaseOffer = new PurchaseOffer(54321, items, addressOne, date, 501);
+        purchaseOffer = new PurchaseOffer( items, addressOne, date, 501);
 
     }
 

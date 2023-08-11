@@ -31,8 +31,8 @@ class PurchaseConfirmationTest
         items.put(3, new AmountAndPrice(1.0, 5, Currency.EUR));
         anotherItems = new HashMap<>();
         anotherItems.put(4, new AmountAndPrice(1.0, 100, Currency.USD));
-        purchaseOffer = new PurchaseOffer(48, items, address, date, 501);
-        purchaseConfirmation = new PurchaseConfirmation(48, 31, items, note, 501);
+        purchaseOffer = new PurchaseOffer( items, address, date, 501);
+        purchaseConfirmation = new PurchaseConfirmation(48, items, note, 501);
     }
 
     @Test
@@ -70,7 +70,7 @@ class PurchaseConfirmationTest
     @Test
     void getConfirmationId()
     {
-        assertEquals(31, purchaseConfirmation.getConfirmationId());
+        assertEquals(9999, purchaseConfirmation.getConfirmationId());
     }
 
     @Test

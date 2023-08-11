@@ -20,10 +20,13 @@ public class PurchaseFinal
 
     private PurchaseFinalStatus status;
 
-    public PurchaseFinal(int purchaseConfirmationId, int purchaseFinalId, HashMap<Integer, AmountAndPrice> items, String note, int warehouseId)
+    private PurchaseFinalIdGenerator finalIdGenerator;
+
+    public PurchaseFinal(int purchaseConfirmationId, HashMap<Integer, AmountAndPrice> items, String note, int warehouseId)
     {
+        this.finalIdGenerator = new PurchaseFinalIdGenerator();
         this.purchaseConfirmationId = purchaseConfirmationId;
-        this.purchaseFinalId = purchaseFinalId;
+        this.purchaseFinalId = finalIdGenerator.PurchaseFinalIdGenerator();
         this.items = items;
         this.note = note;
         this.makingDate = Instant.now();
@@ -31,10 +34,10 @@ public class PurchaseFinal
         this.status = PurchaseFinalStatus.JUSTORDER;
     }
 
-    public PurchaseFinal(int purchaseConfirmationId, int purchaseFinalId, HashMap<Integer, AmountAndPrice> items, int warehouseId)
+    public PurchaseFinal(int purchaseConfirmationId, HashMap<Integer, AmountAndPrice> items, int warehouseId)
     {
         this.purchaseConfirmationId = purchaseConfirmationId;
-        this.purchaseFinalId = purchaseFinalId;
+        this.purchaseFinalId = finalIdGenerator.PurchaseFinalIdGenerator();
         this.items = items;
         this.makingDate = Instant.now();
         this.warehouseId = warehouseId;

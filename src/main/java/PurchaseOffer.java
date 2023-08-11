@@ -23,9 +23,9 @@ public class PurchaseOffer
     private int warehouseId;
 
 
-    public PurchaseOffer(int id, HashMap<Integer, AmountAndPrice> items, Address address, LocalDate recivingDate, String note, int warehouseId)
+    public PurchaseOffer(HashMap<Integer, AmountAndPrice> items, Address address, LocalDate recivingDate, String note, int warehouseId)
     {
-        this.id = id;
+        this.id = new PurchaseOfferIdGenerator().PurchaseOfferIdGenerator();
         this.items = items;
         this.makingDate = Instant.now();
         this.reciverAddres = address;
@@ -34,14 +34,19 @@ public class PurchaseOffer
         this.warehouseId = warehouseId;
     }
 
-    public PurchaseOffer(int id, HashMap<Integer, AmountAndPrice> items, Address address, LocalDate recivingDate, int warehouseId)
+    public PurchaseOffer(HashMap<Integer, AmountAndPrice> items, Address address, LocalDate recivingDate, int warehouseId)
     {
-        this.id = id;
+        this.id = new PurchaseOfferIdGenerator().PurchaseOfferIdGenerator();
         this.items = items;
         this.makingDate = Instant.now();
         this.reciverAddres = address;
         this.recivingDate = recivingDate;
         this.warehouseId = warehouseId;
+    }
+
+    public void setRecivingDate(LocalDate newDate)
+    {
+        recivingDate = newDate;
     }
 
     public int getWarehouseId()
@@ -77,5 +82,10 @@ public class PurchaseOffer
     public Instant getMakingDate()
     {
         return makingDate;
+    }
+
+    public String getNote()
+    {
+        return note;
     }
 }

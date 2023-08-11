@@ -45,10 +45,16 @@ class InventoryMoverTest
     LocalDate date;
     Instant time;
     String note;
+    HashMap<Integer, PurchaseOffer> purchaseOffers;
+    HashMap<Integer, PurchaseConfirmation> purchaseConfirmations;
+    HashMap<Integer, PurchaseFinal> purchaseFinals;
 
     @BeforeEach
     public void setUp()
     {
+        purchaseOffers = new HashMap<>();
+        purchaseConfirmations = new HashMap<>();
+        purchaseFinals = new HashMap<>();
         address1 = new Address(3903, "Bekecs", "Tűzoltó út", "28", "06901123456");
         address2 = new Address(4000, "Debrecen", "Fing utca", "3", "11111111111");
         itemOne = new Item(9000, "Toll", "sima kék", "XZ789", 700.50, 900.50);
@@ -95,10 +101,10 @@ class InventoryMoverTest
         itemsForPurchase.put(50, new AmountAndPrice(1.0, 5, Currency.EUR));
         anotherItems = new HashMap<>();
         anotherItems.put(4, new AmountAndPrice(1.0, 100, Currency.USD));
-        purchaseOffer = new PurchaseOffer(48, itemsForPurchase, address, date, 501);
-        purchaseConfirmation = new PurchaseConfirmation(48, 31, itemsForPurchase, note, 501);
-        purchaseFinal = new PurchaseFinal(48, 26, itemsForPurchase, "bombajó a duma", 501);
-        purchaseContainer = new PurchaseContainer();
+        purchaseOffer = new PurchaseOffer(itemsForPurchase, address, date, 501);
+        purchaseConfirmation = new PurchaseConfirmation(1, itemsForPurchase, note, 501);
+        purchaseFinal = new PurchaseFinal(9999, itemsForPurchase, "bombajó a duma", 501);
+        purchaseContainer = new PurchaseContainer(purchaseOffers, purchaseConfirmations, purchaseFinals);
         purchaseContainer.addOffer(purchaseOffer);
         purchaseContainer.addConfirmation(purchaseConfirmation);
         purchaseContainer.addFinal(purchaseFinal);
@@ -114,7 +120,7 @@ class InventoryMoverTest
     @Test
     void setPurchaseContainer()
     {
-        PurchaseContainer pc = new PurchaseContainer();
+        PurchaseContainer pc = new PurchaseContainer(purchaseOffers, purchaseConfirmations, purchaseFinals);
         mover.setPurchaseContainer(pc);
         assertEquals(pc, mover.getPurchaseContainer());
     }

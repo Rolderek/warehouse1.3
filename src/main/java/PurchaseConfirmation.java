@@ -19,19 +19,25 @@ public class PurchaseConfirmation
 
     private int warehouseId;
 
-    public PurchaseConfirmation(int purchaseOfferId, int confirmationId, HashMap<Integer, AmountAndPrice> confirmedItems, String note, int warehouseId)
+    private PurchaseConfirmationIdGenerator confirmationIdGenerator;
+
+
+
+    public PurchaseConfirmation(int purchaseOfferId, HashMap<Integer, AmountAndPrice> confirmedItems, String note, int warehouseId)
     {
+        this.confirmationIdGenerator = new PurchaseConfirmationIdGenerator();
         this.purchaseOfferId = purchaseOfferId;
-        this.confirmationId = confirmationId;
+        this.confirmationId = confirmationIdGenerator.PurchaseConfirmationIdGenerator();
         this.confirmedItems = confirmedItems;
         this.makingDate = Instant.now();
         this.note = note;
         this.warehouseId = warehouseId;
     }
-    public PurchaseConfirmation(int purchaseOfferId, int confirmationId, HashMap<Integer, AmountAndPrice> confirmedItems, int warehouseId)
+    public PurchaseConfirmation(int purchaseOfferId, HashMap<Integer, AmountAndPrice> confirmedItems, int warehouseId)
     {
+        this.confirmationIdGenerator = new PurchaseConfirmationIdGenerator();
         this.purchaseOfferId = purchaseOfferId;
-        this.confirmationId = confirmationId;
+        this.confirmationId = confirmationIdGenerator.PurchaseConfirmationIdGenerator();
         this.confirmedItems = confirmedItems;
         this.makingDate = Instant.now();
         this.warehouseId = warehouseId;

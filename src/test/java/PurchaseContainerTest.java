@@ -10,6 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PurchaseContainerTest
 {
+    HashMap<Integer, PurchaseOffer> purchaseOffers;
+    HashMap<Integer, PurchaseConfirmation> purchaseConfirmations;
+    HashMap<Integer, PurchaseFinal> purchaseFinals;
+    PurchaseOfferIdGenerator offerIdGenerator;
+    PurchaseConfirmationIdGenerator confirmationIdGenerator;
+    PurchaseFinalIdGenerator finalIdGenerator;
     Address address;
     AmountAndPrice aAP;
     HashMap<Integer, AmountAndPrice> items;
@@ -22,20 +28,29 @@ class PurchaseContainerTest
     @BeforeEach
     public void setUp()
     {
+        offerIdGenerator = new PurchaseOfferIdGenerator();
+        confirmationIdGenerator = new PurchaseConfirmationIdGenerator();
+        finalIdGenerator = new PurchaseFinalIdGenerator();
+        purchaseOffers = new HashMap<>();
+        purchaseConfirmations = new HashMap<>();
+        purchaseFinals = new HashMap<>();
+        pc = new PurchaseContainer(purchaseOffers, purchaseConfirmations, purchaseFinals);
         address = new Address(3903, "Pososványoslép", "Kikötő utca", "01", "+36909999999");
         aAP = new AmountAndPrice(5.0, 10.0, Currency.EUR);
         items = new HashMap<>();
         items.put(9000, aAP);
-        pc = new PurchaseContainer();
-        po = new PurchaseOffer(1111,  items, address, LocalDate.now(), 501);
+        po = new PurchaseOffer(items, address, LocalDate.now(), 501);
         pc.addOffer(po);
         newAAP = new AmountAndPrice(4.0, 11.0, Currency.EUR);
         newItems = new HashMap<>();
         newItems.put(9000, newAAP);
-        pC = new PurchaseConfirmation(1111, 2111, items, "Gyurikám!?", 501);
+        pC = new PurchaseConfirmation(1, items, "Gyurikám!?", 501);
         pc.addConfirmation(pC);
-        pF = new PurchaseFinal(2111, 3111, items, "Köszi Feri!", 501);
+        pF = new PurchaseFinal(9999, items, "Köszi", 501);
         pc.addFinal(pF);
+        purchaseOffers.put(offerIdGenerator.PurchaseOfferIdGenerator(), po);
+        purchaseConfirmations.put(confirmationIdGenerator.PurchaseConfirmationIdGenerator(), pC);
+        purchaseFinals.put(finalIdGenerator.PurchaseFinalIdGenerator(), pF);
     }
     @Test
     void addOffer()
@@ -58,36 +73,36 @@ class PurchaseContainerTest
     @Test
     void getPurchaseOfferById()
     {
-        assertTrue(po == pc.getPurchaseOfferById(1111));
+        assertTrue(po == pc.getPurchaseOfferById(0));
     }
 
     @Test
     void getPurchaseConfirmationById()
     {
-        assertTrue(pC == pc.getPurchaseConfirmationById(2111));
+        assertTrue(pC == pc.getPurchaseConfirmationById(9999));
     }
 
     @Test
     void getPurchaseFinalById()
     {
-        assertTrue(pF == pc.getPurchaseFinalById(3111));
+        assertTrue(pF == pc.getPurchaseFinalById(99999));
     }
 
     @Test
     void isContainOffer()
     {
-        assertTrue(true == pc.isContainOffer(1111));
+        assertTrue(true == pc.isContainOffer(0));
     }
 
     @Test
     void isContainConfirmation()
     {
-        assertTrue(true == pc.isContainConfirmation(2111));
+        assertTrue(true == pc.isContainConfirmation(9999));
     }
 
     @Test
     void isContainFinal()
     {
-        assertTrue(true == pc.isContainFinal(3111));
+        assertTrue(true == pc.isContainFinal(99999));
     }
 }

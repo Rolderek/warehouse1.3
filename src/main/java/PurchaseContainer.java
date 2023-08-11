@@ -7,28 +7,64 @@ import java.util.HashMap;
 public class PurchaseContainer
 {
 
-    private HashMap<Integer, PurchaseOffer> purchaseOffers = new HashMap<>();
+    private PurchaseOfferIdGenerator offerIdGenerator;
 
-    private HashMap<Integer, PurchaseConfirmation> purchaseConfirmations = new HashMap<>();
+    private PurchaseConfirmationIdGenerator confirmationIdGenerator;
 
-    private HashMap<Integer, PurchaseFinal> purchaseFinals = new HashMap<>();
+    private PurchaseFinalIdGenerator finalIdGenerator;
+
+    private HashMap<Integer, PurchaseOffer> purchaseOffers;
+
+    private HashMap<Integer, PurchaseConfirmation> purchaseConfirmations;
+
+    private HashMap<Integer, PurchaseFinal> purchaseFinals;
+
+    public PurchaseContainer(HashMap<Integer, PurchaseOffer> purchaseOffers, HashMap<Integer, PurchaseConfirmation> purchaseConfirmations, HashMap<Integer, PurchaseFinal> purchaseFinals)
+    {
+        this.offerIdGenerator = new PurchaseOfferIdGenerator();
+        this.confirmationIdGenerator = new PurchaseConfirmationIdGenerator();
+        this.finalIdGenerator = new PurchaseFinalIdGenerator();
+        this.purchaseOffers = purchaseOffers;
+        this.purchaseConfirmations = purchaseConfirmations;
+        this.purchaseFinals = purchaseFinals;
+    }
 
     public void addOffer(PurchaseOffer newOffer)
     {
-        int id = newOffer.getId();
-        purchaseOffers.put(id, newOffer);
+        purchaseOffers.put(offerIdGenerator.PurchaseOfferIdGenerator(), newOffer);
+        /**
+         * int size = purchaseOffers.size();
+         *         int id = newOffer.getId();
+         *         purchaseOffers.put(id, newOffer);
+         *         if (purchaseOffers.size() != size + 1)
+         *         {
+         *             System.out.println("Something went wrong!");
+         *         }
+         */
     }
 
     public void addConfirmation(PurchaseConfirmation newConfirmation)
     {
         int id = newConfirmation.getConfirmationId();
         purchaseConfirmations.put(id, newConfirmation);
+        if (!purchaseConfirmations.containsKey(id))
+        {
+            System.out.println("Cannot put new confirmation to purchaseConfirmations HasMap");
+        }
+        /**
+         * int size = purchaseConfirmations.size();
+         *         int id = newConfirmation.getConfirmationId();
+         *         purchaseConfirmations.put(id, newConfirmation);
+         *         if (size != size + 1)
+         *         {
+         *             System.out.println("Something went wrong!");
+         *         }
+         */
     }
 
     public void addFinal(PurchaseFinal newFinal)
     {
-        int id = newFinal.getPurchaseFinalId();
-        purchaseFinals.put(id, newFinal);
+        purchaseFinals.put(finalIdGenerator.PurchaseFinalIdGenerator(), newFinal);
     }
 
     public PurchaseOffer getPurchaseOfferById(int id)
