@@ -25,6 +25,8 @@ class PurchaseContainerTest
     HashMap<Integer, AmountAndPrice> newItems;
     PurchaseConfirmation pC;
     PurchaseFinal pF;
+    PurchaseContainer purchaseContainer;
+
     @BeforeEach
     public void setUp()
     {
@@ -51,6 +53,7 @@ class PurchaseContainerTest
         purchaseOffers.put(offerIdGenerator.PurchaseOfferIdGenerator(), po);
         purchaseConfirmations.put(confirmationIdGenerator.PurchaseConfirmationIdGenerator(), pC);
         purchaseFinals.put(finalIdGenerator.PurchaseFinalIdGenerator(), pF);
+        purchaseContainer = new PurchaseContainer(purchaseOffers, purchaseConfirmations, purchaseFinals);
     }
     @Test
     void addOffer()
@@ -104,5 +107,18 @@ class PurchaseContainerTest
     void isContainFinal()
     {
         assertTrue(true == pc.isContainFinal(99999));
+    }
+
+    @Test
+    void getAllFinishedPurchaseFinal()
+    {
+        purchaseFinals.get(99999).setStatusToRecived();
+        assertEquals(1, purchaseContainer.getAllFinishedPurchaseFinal().size());
+    }
+
+    @Test
+    void getAllNotFinishedPurchaseFinal()
+    {
+        assertEquals(1, purchaseContainer.getAllNotFinishedPurchaseFinal().size());
     }
 }

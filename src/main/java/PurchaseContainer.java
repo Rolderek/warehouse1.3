@@ -1,17 +1,13 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
   * Tárolja az össze Purchase-t minden stádiumában.
+  * Bármikor le lehet kérdezni melyik purchase hogy áll.
   */
 
 public class PurchaseContainer
 {
-
-    private PurchaseOfferIdGenerator offerIdGenerator;
-
-    private PurchaseConfirmationIdGenerator confirmationIdGenerator;
-
-    private PurchaseFinalIdGenerator finalIdGenerator;
 
     private HashMap<Integer, PurchaseOffer> purchaseOffers;
 
@@ -21,9 +17,6 @@ public class PurchaseContainer
 
     public PurchaseContainer(HashMap<Integer, PurchaseOffer> purchaseOffers, HashMap<Integer, PurchaseConfirmation> purchaseConfirmations, HashMap<Integer, PurchaseFinal> purchaseFinals)
     {
-        this.offerIdGenerator = new PurchaseOfferIdGenerator();
-        this.confirmationIdGenerator = new PurchaseConfirmationIdGenerator();
-        this.finalIdGenerator = new PurchaseFinalIdGenerator();
         this.purchaseOffers = purchaseOffers;
         this.purchaseConfirmations = purchaseConfirmations;
         this.purchaseFinals = purchaseFinals;
@@ -31,40 +24,17 @@ public class PurchaseContainer
 
     public void addOffer(PurchaseOffer newOffer)
     {
-        purchaseOffers.put(offerIdGenerator.PurchaseOfferIdGenerator(), newOffer);
-        /**
-         * int size = purchaseOffers.size();
-         *         int id = newOffer.getId();
-         *         purchaseOffers.put(id, newOffer);
-         *         if (purchaseOffers.size() != size + 1)
-         *         {
-         *             System.out.println("Something went wrong!");
-         *         }
-         */
+        purchaseOffers.put(newOffer.getId(), newOffer);
     }
 
     public void addConfirmation(PurchaseConfirmation newConfirmation)
     {
-        int id = newConfirmation.getConfirmationId();
-        purchaseConfirmations.put(id, newConfirmation);
-        if (!purchaseConfirmations.containsKey(id))
-        {
-            System.out.println("Cannot put new confirmation to purchaseConfirmations HasMap");
-        }
-        /**
-         * int size = purchaseConfirmations.size();
-         *         int id = newConfirmation.getConfirmationId();
-         *         purchaseConfirmations.put(id, newConfirmation);
-         *         if (size != size + 1)
-         *         {
-         *             System.out.println("Something went wrong!");
-         *         }
-         */
+        purchaseConfirmations.put(newConfirmation.getConfirmationId(), newConfirmation);
     }
 
     public void addFinal(PurchaseFinal newFinal)
     {
-        purchaseFinals.put(finalIdGenerator.PurchaseFinalIdGenerator(), newFinal);
+        purchaseFinals.put(newFinal.getPurchaseFinalId(), newFinal);
     }
 
     public PurchaseOffer getPurchaseOfferById(int id)
@@ -98,8 +68,35 @@ public class PurchaseContainer
     }
 
     /**
-     * ezek lehet nem fognak kelleni:
-     */
+      * itt lehet a HashMap jobb mivel nem indokolt az ArrayList
+      * Bálintot megkérdezni!
+      */
+    public ArrayList<PurchaseFinal> getAllFinishedPurchaseFinal()
+    {
+        ArrayList<PurchaseFinal> finals = new ArrayList<>();
+        for (int i : purchaseFinals.keySet())
+        {
+            if (purchaseFinals.get(i).getStatus() == PurchaseFinalStatus.RECIVED)
+            {
+                finals.add(purchaseFinals.get(i));
+            }
+        }
+        return finals;
+    }
+
+    public ArrayList<PurchaseFinal> getAllNotFinishedPurchaseFinal()
+    {
+        ArrayList<PurchaseFinal> finals = new ArrayList<>();
+        for (int i : purchaseFinals.keySet())
+        {
+            if (purchaseFinals.get(i).getStatus() == PurchaseFinalStatus.JUSTORDER)
+            {
+                finals.add(purchaseFinals.get(i));
+            }
+        }
+        return finals;
+    }
+
     public boolean isContainOffer(int id)
     {
         if (purchaseOffers.containsKey(id) == true)

@@ -128,17 +128,17 @@ class InventoryMoverTest
     @Test
     void findPurchaseFinalInPurchaseContainer()
     {
-        assertEquals(purchaseFinal,  mover.findPurchaseFinalInPurchaseContainer(26));
+        assertEquals(99999,  mover.findPurchaseFinalInPurchaseContainer(purchaseFinal.getPurchaseFinalId()).getPurchaseFinalId());
     }
 
     @Test
     void recivePurchase()
     {
-        mover.recivePurchase(mover.findPurchaseFinalInPurchaseContainer(26));
+        mover.recivePurchase(mover.findPurchaseFinalInPurchaseContainer(99999));
         assertEquals(15.0, mover.getProvider().getInventories().getInventory(501).getItemAmount(9000).getTotalAmount());
         assertEquals(12.0, mover.getProvider().getInventories().getInventory(501).getItemAmount(8000).getTotalAmount());
         assertEquals(9.0, mover.getProvider().getInventories().getInventory(501).getItemAmount(50).getTotalAmount());
-        assertEquals(PurchaseFinalStatus.RECIVED, mover.findPurchaseFinalInPurchaseContainer(26).getStatus());
+        assertEquals(PurchaseFinalStatus.RECIVED, mover.findPurchaseFinalInPurchaseContainer(99999).getStatus());
     }
 
     @Test

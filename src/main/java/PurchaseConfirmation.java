@@ -21,8 +21,6 @@ public class PurchaseConfirmation
 
     private PurchaseConfirmationIdGenerator confirmationIdGenerator;
 
-
-
     public PurchaseConfirmation(int purchaseOfferId, HashMap<Integer, AmountAndPrice> confirmedItems, String note, int warehouseId)
     {
         this.confirmationIdGenerator = new PurchaseConfirmationIdGenerator();
