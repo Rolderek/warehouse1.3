@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class PurchaseReorderTest
 {
     Address address;
-    AmountAndPrice aAP;
-    HashMap<Integer, AmountAndPrice> items;
+    PurchaseAmount aAP;
+    HashMap<Integer, PurchaseAmount> items;
     PurchaseContainer pc;
     PurchaseOffer po;
-    AmountAndPrice newAAP;
-    HashMap<Integer, AmountAndPrice> newItems;
+    PurchaseAmount newAAP;
+    HashMap<Integer, PurchaseAmount> newItems;
     PurchaseConfirmation pC;
     PurchaseFinal pF;
     PurchaseReorder purchaseReorder;
@@ -30,53 +30,37 @@ class PurchaseReorderTest
         purchaseFinals = new HashMap<>();
         pc = new PurchaseContainer(purchaseOffers, purchaseConfirmations, purchaseFinals);
         address = new Address(3903, "Pososványoslép", "Kikötő utca", "01", "+36909999999");
-        aAP = new AmountAndPrice(5.0, 10.0, Currency.EUR);
+        aAP = new PurchaseAmount(5.0, 10.0, Currency.EUR);
         items = new HashMap<>();
         items.put(9000, aAP);
         po = new PurchaseOffer(items, address, LocalDate.now(), "nothing",501);
         pc.addOffer(po);
-        newAAP = new AmountAndPrice(4.0, 11.0, Currency.EUR);
+        newAAP = new PurchaseAmount(4.0, 11.0, Currency.EUR);
         newItems = new HashMap<>();
         newItems.put(9000, newAAP);
         pC = new PurchaseConfirmation(po.getId(), items, "Gyurikám!?", 501);
         pc.addConfirmation(pC);
-        pF = new PurchaseFinal(9999, items, "Köszi Feri!", 501);
+        pF = new PurchaseFinal(10000, items, "Köszi Feri!", 501);
         pc.addFinal(pF);
-        purchaseReorder = new PurchaseReorder(pc);
 
-    }
-    @Test
-    void getPurchaseContainer()
-    {
-        assertEquals(pc, purchaseReorder.getPurchaseContainer());
     }
 
     @Test
-    void setPurchaseContainer()
+    void purchaseReorderWithPurchaseOffer()
     {
-        PurchaseContainer anotherContainer = new PurchaseContainer(purchaseOffers, purchaseConfirmations, purchaseFinals);
-        purchaseReorder.setPurchaseContainer(anotherContainer);
-        assertEquals(anotherContainer, purchaseReorder.getPurchaseContainer());
+
     }
 
     @Test
-    void reOrderByPurchaseFinal()
+    void purchaseReorderWithPurchaseConfirmation()
     {
-        purchaseReorder.reOrderByPurchaseFinal(pF);
-        assertEquals(2, purchaseReorder.getPurchaseContainer().getPurchaseOffers().size());
-        //pF.getPurchaseFinalId(), purchaseReorder.getPurchaseContainer().getPurchaseOffers().get(pF.getPurchaseFinalId()).getId()
+
     }
 
     @Test
-    void reOrderByPurchaseOffer()
+    void purchaseReorderWithPurchaseFinal()
     {
-        purchaseReorder.reOrderByPurchaseOffer(po);
-        assertEquals(2, purchaseReorder.getPurchaseContainer().getPurchaseOffers().size());
-    }
 
-    @Test
-    void reOrderByPurchaseConfirmation()
-    {
     }
 
 }

@@ -28,7 +28,7 @@ class SupplierContainerTest {
         scOne = new SupplierContact("Józis", "abraka@darbra.hu", "3");
         scTwo = new SupplierContact("Gizi", "dzson@malkovics.hu", "4");
         addressOne = new Address(1111, "Mygeto", "valami", "10", "2");
-        addressTwo = new Address(2222, "Tatoopne", "akármi", "20", "4");
+        addressTwo = new Address(2222, "Tatooine", "akármi", "20", "4");
         supplierOne = new Supplier(101, "LG", addressOne, scOne, stopOne);
         supplierTwo = new Supplier(303, "Samsung", addressTwo, scTwo, stopTwo);
         supplierThree = new Supplier(202, "izéke", addressTwo, scOne, stopTwo);

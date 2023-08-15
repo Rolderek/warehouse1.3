@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 /**
  * History a korábbi raktárak közötti mozgásokról.
- * megjegyzés: nem aktyv mozgások itt elérhetőek, a még aktívak a TransitInventory-ban vannak.
+ * megjegyzés: nem aktív mozgások itt elérhetőek, a még aktívak a TransitInventory-ban vannak.
  */
 public class ItemMovement
 {

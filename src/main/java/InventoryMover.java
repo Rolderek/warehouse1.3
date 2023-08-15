@@ -1,8 +1,8 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
- * WarehouseInventory-k között mozgatja a készleteket
+ * WarehouseInventory-k között mozgatja a készleteket,
+ * Bevételezések itt történnek a beszállítóktól
  */
 public class InventoryMover
 {
@@ -18,8 +18,8 @@ public class InventoryMover
     }
 
     /**
-      * innen kezdődik a hozzáirt funkció:
-      */
+     * innen kezdődik a hozzáirt funkció:
+     */
 
     public InventoryMover(ItemProvider provider, TransitInventory transit, PurchaseContainer purchaseContainer)
     {
@@ -47,14 +47,13 @@ public class InventoryMover
     }
 
     /**
-     * második
-     */
+      * második
+      */
 
     public void recivePurchase(PurchaseFinal purchaseFinal)
     {
         for (int itemId : purchaseFinal.getItems().keySet())
         {
-            // egyszerűsiteni kell !!!!!!
             provider.getInventories()
                     .getInventory(purchaseFinal
                             .getWarehouseId())

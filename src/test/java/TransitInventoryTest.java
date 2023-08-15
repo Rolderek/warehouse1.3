@@ -29,7 +29,6 @@ class TransitInventoryTest
     HashMap<Integer, WarehouseInventory> inventories;
     HashMap<Integer, TransitBundle> bundles;
     TransitInventory transitInventory;
-    TransitInventory anotherTransitInventory;
     TransitInventory andAnotherTransitInventory;
     InventoryContainer inventoryContainer;
     ItemProvider itemProvider;
@@ -93,7 +92,7 @@ class TransitInventoryTest
     }
 
     @Test
-    void addBoundle()
+    void transitInventoryConstructos()
     {
         andAnotherTransitInventory = new TransitInventory(bundles);
         assertEquals(bundles, andAnotherTransitInventory.getBundles());

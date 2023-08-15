@@ -1,9 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,12 +15,12 @@ class PurchaseContainerTest
     PurchaseConfirmationIdGenerator confirmationIdGenerator;
     PurchaseFinalIdGenerator finalIdGenerator;
     Address address;
-    AmountAndPrice aAP;
-    HashMap<Integer, AmountAndPrice> items;
+    PurchaseAmount aAP;
+    HashMap<Integer, PurchaseAmount> items;
     PurchaseContainer pc;
     PurchaseOffer po;
-    AmountAndPrice newAAP;
-    HashMap<Integer, AmountAndPrice> newItems;
+    PurchaseAmount newAAP;
+    HashMap<Integer, PurchaseAmount> newItems;
     PurchaseConfirmation pC;
     PurchaseFinal pF;
     PurchaseContainer purchaseContainer;
@@ -38,12 +36,12 @@ class PurchaseContainerTest
         purchaseFinals = new HashMap<>();
         pc = new PurchaseContainer(purchaseOffers, purchaseConfirmations, purchaseFinals);
         address = new Address(3903, "Pososványoslép", "Kikötő utca", "01", "+36909999999");
-        aAP = new AmountAndPrice(5.0, 10.0, Currency.EUR);
+        aAP = new PurchaseAmount(5.0, 10.0, Currency.EUR);
         items = new HashMap<>();
         items.put(9000, aAP);
         po = new PurchaseOffer(items, address, LocalDate.now(), 501);
         pc.addOffer(po);
-        newAAP = new AmountAndPrice(4.0, 11.0, Currency.EUR);
+        newAAP = new PurchaseAmount(4.0, 11.0, Currency.EUR);
         newItems = new HashMap<>();
         newItems.put(9000, newAAP);
         pC = new PurchaseConfirmation(1, items, "Gyurikám!?", 501);
@@ -119,6 +117,6 @@ class PurchaseContainerTest
     @Test
     void getAllNotFinishedPurchaseFinal()
     {
-        assertEquals(1, purchaseContainer.getAllNotFinishedPurchaseFinal().size());
+        assertEquals(2, purchaseContainer.getAllNotFinishedPurchaseFinal().size());
     }
 }

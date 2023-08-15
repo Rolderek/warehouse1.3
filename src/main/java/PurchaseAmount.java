@@ -2,16 +2,19 @@
   * segéd osztály a PurchaseOffer-hez
   */
 
-public class AmountAndPrice
+public class PurchaseAmount
 {
 
     private double amount;
 
+    /**
+      * 1 mennyiségi egységű termék ára
+      */
     private double price;
 
     private Currency currency;
 
-    public AmountAndPrice(double amount, double price, Currency currency)
+    public PurchaseAmount(double amount, double price, Currency currency)
     {
         this.amount = amount;
         this.price = price;

@@ -1,4 +1,12 @@
 public enum PurchaseFinalStatus {
 
-    JUSTORDER, RECIVED
+    /**
+     * megrendelt állapot
+     */
+    JUSTORDER,
+
+    /**
+     * bevételezett állapot, megérkezett
+     */
+    RECIVED
 }

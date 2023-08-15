@@ -11,88 +11,74 @@ class PurchaseFinalTest {
 
     PurchaseConfirmation purchaseConfirmation;
     PurchaseFinal purchaseFinal;
-    HashMap<Integer, AmountAndPrice> items;
+    HashMap<Integer, PurchaseAmount> items;
     PurchaseOffer purchaseOffer;
     Address address;
     LocalDate date;
     Instant time;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp()
+    {
         time = Instant.now();
         address = new Address(5, "a", "b", "c", "d");
         date = LocalDate.of(2023, 12, 8);
         items = new HashMap<>();
-        items.put(1, new AmountAndPrice(5.0, 50, Currency.EUR));
-        items.put(2, new AmountAndPrice(3.0, 10, Currency.EUR));
-        items.put(3, new AmountAndPrice(1.0, 5, Currency.EUR));
+        items.put(1, new PurchaseAmount(5.0, 50, Currency.EUR));
+        items.put(2, new PurchaseAmount(3.0, 10, Currency.EUR));
+        items.put(3, new PurchaseAmount(1.0, 5, Currency.EUR));
         purchaseOffer = new PurchaseOffer(items, address, date, 501);
         purchaseConfirmation = new PurchaseConfirmation(1, items, "valami", 501);
-        purchaseFinal = new PurchaseFinal(9999, items, "bombajó a duma", 501);
+
 
     }
 
     @Test
     void purchaseFinalStatusJustOrder()
     {
+        purchaseFinal = new PurchaseFinal(purchaseConfirmation);
         assertEquals(PurchaseFinalStatus.JUSTORDER, purchaseFinal.getStatus());
     }
 
     @Test
-    void getWarehouseId() {
-        assertEquals(501, purchaseFinal.getWarehouseId());
-    }
-
-    @Test
-    void setWarehouseId()
+    void getWarehouseId()
     {
-        purchaseFinal.setWarehouseId(600);
-        assertEquals(600, purchaseFinal.getWarehouseId());
+        purchaseFinal = new PurchaseFinal(purchaseConfirmation);
+        assertEquals(501, purchaseFinal.getWarehouseId());
     }
 
     @Test
     void getPurchaseConfirmationId()
     {
-        assertEquals(48, purchaseFinal.getPurchaseConfirmationId());
+        purchaseFinal = new PurchaseFinal(purchaseConfirmation);
+        assertEquals(10002, purchaseFinal.getPurchaseConfirmationId());
     }
 
     @Test
     void getPurchaseFinalId()
     {
-        assertEquals(26, purchaseFinal.getPurchaseFinalId());
-    }
-
-    @Test
-    void setPurchaseFinalId()
-    {
-        purchaseFinal.setPurchaseFinalId(7);
-        assertEquals(7, purchaseFinal.getPurchaseFinalId());
+        purchaseFinal = new PurchaseFinal(purchaseConfirmation);
+        assertEquals(100004, purchaseFinal.getPurchaseFinalId());
     }
 
     @Test
     void getItems()
     {
+        purchaseFinal = new PurchaseFinal(purchaseConfirmation);
         assertEquals(items, purchaseFinal.getItems());
-    }
-
-    @Test
-    void setItems()
-    {
-        HashMap<Integer, AmountAndPrice> anotherItems = new HashMap<>();
-        anotherItems.put(2, new AmountAndPrice(3.0, 10, Currency.EUR));
-        purchaseFinal.setItems(anotherItems);
-        assertEquals(1, purchaseFinal.getItems().size());
     }
 
     @Test
     void getNote()
     {
-        assertEquals("bombajó a duma", purchaseFinal.getNote());
+        purchaseFinal = new PurchaseFinal(purchaseConfirmation);
+        assertEquals("valami", purchaseFinal.getNote());
     }
 
     @Test
     void setNote()
     {
+        purchaseFinal = new PurchaseFinal(purchaseConfirmation);
         purchaseFinal.setNote("Assetto Corsa");
         assertEquals("Assetto Corsa", purchaseFinal.getNote());
     }

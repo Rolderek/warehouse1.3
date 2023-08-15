@@ -3,6 +3,38 @@ import java.time.LocalDate;
 public class PurchaseReorder
 {
 
+    public PurchaseReorder(PurchaseOffer purchaseOffer)
+    {
+        PurchaseOffer newOffer = new PurchaseOffer(
+              purchaseOffer.getItems(),
+              purchaseOffer.getReceiverAddres(),
+              purchaseOffer.getReceivingDate(),
+              purchaseOffer.getNote(),
+              purchaseOffer.getReceivingWarehouseId()
+        );
+    }
+
+    public PurchaseReorder(PurchaseConfirmation purchaseConfirmation)
+    {
+        PurchaseConfirmation newConfirmation = new PurchaseConfirmation(
+                purchaseConfirmation.getPurchaseOfferId(),
+                purchaseConfirmation.getConfirmedItems(),
+                purchaseConfirmation.getNote(),
+                purchaseConfirmation.getReceivingWarehouseId()
+        );
+    }
+
+    public PurchaseReorder(PurchaseFinal purchaseFinal)
+    {
+        PurchaseFinal newFinal = new PurchaseFinal(
+                purchaseFinal.getPurchaseConfirmationId(),
+                purchaseFinal.getItems(),
+                purchaseFinal.getNote(),
+                purchaseFinal.getWarehouseId()
+        );
+    }
+
+    /**
     private PurchaseContainer purchaseContainer;
 
     public PurchaseReorder(PurchaseContainer purchaseContainer)
@@ -22,10 +54,10 @@ public class PurchaseReorder
 
     public PurchaseOffer reOrderByPurchaseFinal(PurchaseFinal purchaseFinal)
     {
-        int warehouseId = purchaseContainer.getPurchaseOfferById(purchaseContainer.getPurchaseConfirmationById(purchaseFinal.getPurchaseConfirmationId()).getPurchaseOfferId()).getWarehouseId();
+        int warehouseId = purchaseContainer.getPurchaseOfferById(purchaseContainer.getPurchaseConfirmationById(purchaseFinal.getPurchaseConfirmationId()).getPurchaseOfferId()).getReceivingWarehouseId();
         PurchaseOffer purchaseOffer = new PurchaseOffer(
                 purchaseFinal.getItems(),
-                purchaseContainer.getPurchaseOffers().get(purchaseContainer.getPurchaseConfirmations().get(purchaseFinal.getPurchaseConfirmationId()).getPurchaseOfferId()).getReciverAddres(),
+                purchaseContainer.getPurchaseOffers().get(purchaseContainer.getPurchaseConfirmations().get(purchaseFinal.getPurchaseConfirmationId()).getPurchaseOfferId()).getReceiverAddres(),
                 LocalDate.now(),
                 warehouseId);
         purchaseContainer.addOffer(purchaseOffer);
@@ -36,10 +68,10 @@ public class PurchaseReorder
     {
         PurchaseOffer newOffer = new PurchaseOffer(
                 purchaseOffer.getItems(),
-                purchaseOffer.getReciverAddres(),
-                purchaseOffer.getRecivingDate(),
+                purchaseOffer.getReceiverAddres(),
+                purchaseOffer.getReceivingDate(),
                 purchaseOffer.getNote(),
-                purchaseOffer.getWarehouseId());
+                purchaseOffer.getReceivingWarehouseId());
         purchaseContainer.addOffer(purchaseOffer);
         return newOffer;
     }
@@ -48,11 +80,12 @@ public class PurchaseReorder
     {
         PurchaseOffer purchaseOffer = new PurchaseOffer(
                 purchaseConfirmation.getConfirmedItems(),
-                purchaseContainer.getPurchaseOfferById(purchaseConfirmation.getPurchaseOfferId()).getReciverAddres(),
-                purchaseContainer.getPurchaseOfferById(purchaseConfirmation.getPurchaseOfferId()).getRecivingDate(),
+                purchaseContainer.getPurchaseOfferById(purchaseConfirmation.getPurchaseOfferId()).getReceiverAddres(),
+                purchaseContainer.getPurchaseOfferById(purchaseConfirmation.getPurchaseOfferId()).getReceivingDate(),
                 purchaseContainer.getPurchaseOfferById(purchaseConfirmation.getPurchaseOfferId()).getNote(),
-                purchaseContainer.getPurchaseOfferById(purchaseConfirmation.getPurchaseOfferId()).getWarehouseId());
+                purchaseContainer.getPurchaseOfferById(purchaseConfirmation.getPurchaseOfferId()).getReceivingWarehouseId());
         purchaseContainer.addOffer(purchaseOffer);
         return purchaseOffer;
     }
+     */
 }

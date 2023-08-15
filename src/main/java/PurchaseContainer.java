@@ -9,11 +9,17 @@ import java.util.HashMap;
 public class PurchaseContainer
 {
 
+    /**
+      * Purchase id és class kulcs/érték párokat tartalmaznak
+      */
+
     private HashMap<Integer, PurchaseOffer> purchaseOffers;
 
     private HashMap<Integer, PurchaseConfirmation> purchaseConfirmations;
 
     private HashMap<Integer, PurchaseFinal> purchaseFinals;
+
+    private PurchaseReorder purchaseReorder;
 
     public PurchaseContainer(HashMap<Integer, PurchaseOffer> purchaseOffers, HashMap<Integer, PurchaseConfirmation> purchaseConfirmations, HashMap<Integer, PurchaseFinal> purchaseFinals)
     {

@@ -9,7 +9,7 @@ public class TransitInventory implements Inventory
 
     private HashMap<Integer, TransitBundle> bundles;
 
-    private GreviousGenerator counter = new GreviousGenerator();
+    private GreviousGeneratorForTransitBundle counter = new GreviousGeneratorForTransitBundle();
 
     public TransitInventory(HashMap<Integer, TransitBundle> bundles)
     {

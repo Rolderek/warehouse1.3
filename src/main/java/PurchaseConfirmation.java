@@ -6,49 +6,56 @@ import java.util.HashMap;
   */
 public class PurchaseConfirmation
 {
+    private PurchaseOffer purchaseOffer;
 
     private int purchaseOfferId;
 
     private int confirmationId;
 
-    private HashMap<Integer, AmountAndPrice> confirmedItems;
+    private HashMap<Integer, PurchaseAmount> confirmedItems;
 
-    private Instant makingDate;
+    private Instant creationDate;
 
     private String note;
 
-    private int warehouseId;
+    private int receivingWarehouseId;
 
-    private PurchaseConfirmationIdGenerator confirmationIdGenerator;
+    private static PurchaseConfirmationIdGenerator confirmationIdGenerator = new PurchaseConfirmationIdGenerator();
 
-    public PurchaseConfirmation(int purchaseOfferId, HashMap<Integer, AmountAndPrice> confirmedItems, String note, int warehouseId)
+    /**
+     * új konstruktor, majd az egyik régit törölni kell
+     */
+    public PurchaseConfirmation(PurchaseOffer purchaseOffer)
     {
-        this.confirmationIdGenerator = new PurchaseConfirmationIdGenerator();
+        this.confirmationId = confirmationIdGenerator.PurchaseConfirmationIdGenerator();
+        this.purchaseOfferId = purchaseOffer.getId();
+        this.confirmedItems = purchaseOffer.getItems();
+        this.creationDate = Instant.now();
+        this.receivingWarehouseId = purchaseOffer.getReceivingWarehouseId();
+    }
+
+    public PurchaseConfirmation(int purchaseOfferId, HashMap<Integer, PurchaseAmount> confirmedItems, String note, int receivingWarehouseId)
+    {
         this.purchaseOfferId = purchaseOfferId;
         this.confirmationId = confirmationIdGenerator.PurchaseConfirmationIdGenerator();
         this.confirmedItems = confirmedItems;
-        this.makingDate = Instant.now();
+        this.creationDate = Instant.now();
         this.note = note;
-        this.warehouseId = warehouseId;
+        this.receivingWarehouseId = receivingWarehouseId;
     }
-    public PurchaseConfirmation(int purchaseOfferId, HashMap<Integer, AmountAndPrice> confirmedItems, int warehouseId)
+    public PurchaseConfirmation(int purchaseOfferId, HashMap<Integer, PurchaseAmount> confirmedItems, int receivingWarehouseId)
     {
         this.confirmationIdGenerator = new PurchaseConfirmationIdGenerator();
         this.purchaseOfferId = purchaseOfferId;
         this.confirmationId = confirmationIdGenerator.PurchaseConfirmationIdGenerator();
         this.confirmedItems = confirmedItems;
-        this.makingDate = Instant.now();
-        this.warehouseId = warehouseId;
+        this.creationDate = Instant.now();
+        this.receivingWarehouseId = receivingWarehouseId;
     }
 
-    public int getWarehouseId()
+    public int getReceivingWarehouseId()
     {
-        return warehouseId;
-    }
-
-    public void setWarehouseId(int newId)
-    {
-        warehouseId = newId;
+        return receivingWarehouseId;
     }
 
     public String getNote()
@@ -71,18 +78,8 @@ public class PurchaseConfirmation
         return confirmationId;
     }
 
-    public void setConfirmationId(int confirmationId)
-    {
-        this.confirmationId = confirmationId;
-    }
-
-    public HashMap<Integer, AmountAndPrice> getConfirmedItems()
+    public HashMap<Integer, PurchaseAmount> getConfirmedItems()
     {
         return confirmedItems;
-    }
-
-    public void setConfirmedItems(HashMap<Integer, AmountAndPrice> confirmedItems)
-    {
-        this.confirmedItems = confirmedItems;
     }
 }

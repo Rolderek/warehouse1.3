@@ -6,11 +6,14 @@ import java.util.HashMap;
   */
 public class PurchaseFinal
 {
+
+    private PurchaseConfirmation purchaseConfirmation;
+
     private int purchaseConfirmationId;
 
     private int purchaseFinalId;
 
-    private HashMap<Integer, AmountAndPrice> items;
+    private HashMap<Integer, PurchaseAmount> items;
 
     private Instant makingDate;
 
@@ -20,13 +23,23 @@ public class PurchaseFinal
 
     private PurchaseFinalStatus status;
 
-    private PurchaseFinalIdGenerator finalIdGenerator;
+    private static GreviousGeneratorForTransitBundle finalIdGenerator = new GreviousGeneratorForTransitBundle(GreviousType.FINAL);
 
-    public PurchaseFinal(int purchaseConfirmationId, HashMap<Integer, AmountAndPrice> items, String note, int warehouseId)
+    public PurchaseFinal(PurchaseConfirmation purchaseConfirmation)
     {
-        this.finalIdGenerator = new PurchaseFinalIdGenerator();
+        this.purchaseConfirmationId = purchaseConfirmation.getConfirmationId();
+        this.purchaseFinalId = finalIdGenerator.generateBundleId();
+        this.items = purchaseConfirmation.getConfirmedItems();
+        this.note = purchaseConfirmation.getNote();
+        this.makingDate = Instant.now();
+        this.warehouseId = purchaseConfirmation.getReceivingWarehouseId();
+        this.status = PurchaseFinalStatus.JUSTORDER;
+    }
+
+    public PurchaseFinal(int purchaseConfirmationId, HashMap<Integer, PurchaseAmount> items, String note, int warehouseId)
+    {
         this.purchaseConfirmationId = purchaseConfirmationId;
-        this.purchaseFinalId = finalIdGenerator.PurchaseFinalIdGenerator();
+        this.purchaseFinalId = finalIdGenerator.generateBundleId();
         this.items = items;
         this.note = note;
         this.makingDate = Instant.now();
@@ -34,14 +47,19 @@ public class PurchaseFinal
         this.status = PurchaseFinalStatus.JUSTORDER;
     }
 
-    public PurchaseFinal(int purchaseConfirmationId, HashMap<Integer, AmountAndPrice> items, int warehouseId)
+    public PurchaseFinal(int purchaseConfirmationId, HashMap<Integer, PurchaseAmount> items, int warehouseId)
     {
         this.purchaseConfirmationId = purchaseConfirmationId;
-        this.purchaseFinalId = finalIdGenerator.PurchaseFinalIdGenerator();
+        this.purchaseFinalId = finalIdGenerator.generateBundleId();
         this.items = items;
         this.makingDate = Instant.now();
         this.warehouseId = warehouseId;
         this.status = PurchaseFinalStatus.JUSTORDER;
+    }
+
+    public PurchaseConfirmation getPurchaseConfirmation()
+    {
+        return purchaseConfirmation;
     }
 
     public PurchaseFinalStatus getStatus()
@@ -59,11 +77,6 @@ public class PurchaseFinal
         return warehouseId;
     }
 
-    public void setWarehouseId(int newId)
-    {
-        warehouseId = newId;
-    }
-
     public int getPurchaseConfirmationId()
     {
         return purchaseConfirmationId;
@@ -74,19 +87,9 @@ public class PurchaseFinal
         return purchaseFinalId;
     }
 
-    public void setPurchaseFinalId(int purchaseFinalId)
-    {
-        this.purchaseFinalId = purchaseFinalId;
-    }
-
-    public HashMap<Integer, AmountAndPrice> getItems()
+    public HashMap<Integer, PurchaseAmount> getItems()
     {
         return items;
-    }
-
-    public void setItems(HashMap<Integer, AmountAndPrice> items)
-    {
-        this.items = items;
     }
 
     public String getNote()

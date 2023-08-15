@@ -7,13 +7,14 @@ import java.util.HashMap;
 public class InventoryContainer
 {
 
-    /** stores Inventory and TransitInventory classes */
+    /**
+      * stores Inventory and TransitInventory classes
+      */
 
     private HashMap<Integer, WarehouseInventory> inventories;
 
     private TransitInventory transitInventory;
 
-    /** nem kerül be a listába a foglalás */
     private ItemMovement reservations;
 
     public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories, TransitInventory transitInventory, ItemMovement reservations)
@@ -34,9 +35,6 @@ public class InventoryContainer
         return reservations;
     }
 
-    /**
-      * valami nem kóser vele!
-      */
     public ArrayList<TransitBundle> getMyReservation(int senderId)
     {
         ArrayList<TransitBundle> sortedList = new ArrayList<>();

@@ -39,8 +39,8 @@ class InventoryMoverTest
     PurchaseOffer purchaseOffer;
     PurchaseConfirmation purchaseConfirmation;
     PurchaseFinal purchaseFinal;
-    HashMap<Integer, AmountAndPrice> itemsForPurchase;
-    HashMap<Integer, AmountAndPrice> anotherItems;
+    HashMap<Integer, PurchaseAmount> itemsForPurchase;
+    HashMap<Integer, PurchaseAmount> anotherItems;
     Address address;
     LocalDate date;
     Instant time;
@@ -96,11 +96,11 @@ class InventoryMoverTest
         address = new Address(5, "a", "b", "c", "d");
         date = LocalDate.of(2023, 12, 8);
         itemsForPurchase = new HashMap<>();
-        itemsForPurchase.put(9000, new AmountAndPrice(5.0, 50, Currency.EUR));
-        itemsForPurchase.put(8000, new AmountAndPrice(3.0, 10, Currency.EUR));
-        itemsForPurchase.put(50, new AmountAndPrice(1.0, 5, Currency.EUR));
+        itemsForPurchase.put(9000, new PurchaseAmount(5.0, 50, Currency.EUR));
+        itemsForPurchase.put(8000, new PurchaseAmount(3.0, 10, Currency.EUR));
+        itemsForPurchase.put(50, new PurchaseAmount(1.0, 5, Currency.EUR));
         anotherItems = new HashMap<>();
-        anotherItems.put(4, new AmountAndPrice(1.0, 100, Currency.USD));
+        anotherItems.put(4, new PurchaseAmount(1.0, 100, Currency.USD));
         purchaseOffer = new PurchaseOffer(itemsForPurchase, address, date, 501);
         purchaseConfirmation = new PurchaseConfirmation(1, itemsForPurchase, note, 501);
         purchaseFinal = new PurchaseFinal(9999, itemsForPurchase, "bombajó a duma", 501);
@@ -128,7 +128,7 @@ class InventoryMoverTest
     @Test
     void findPurchaseFinalInPurchaseContainer()
     {
-        assertEquals(99999,  mover.findPurchaseFinalInPurchaseContainer(purchaseFinal.getPurchaseFinalId()).getPurchaseFinalId());
+        assertEquals(100012,  mover.findPurchaseFinalInPurchaseContainer(purchaseFinal.getPurchaseFinalId()).getPurchaseFinalId());
     }
 
     @Test

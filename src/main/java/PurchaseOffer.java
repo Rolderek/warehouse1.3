@@ -8,55 +8,55 @@ import java.util.HashMap;
 public class PurchaseOffer
 {
 
+    private static PurchaseOfferIdGenerator idGenerator = new PurchaseOfferIdGenerator();
+
     private int id;
 
-    private HashMap<Integer, AmountAndPrice> items;
+    /**
+      * itemId és amountPrice
+      */
+    private HashMap<Integer, PurchaseAmount> items;
 
-    private Instant makingDate;
+    private Instant creationDate;
 
-    private Address reciverAddres;
+    private Address receiverAddress;
 
-    private LocalDate recivingDate;
+    private LocalDate receivingDate;
 
     private String note;
 
-    private int warehouseId;
+    private int receivingWarehouseId;
 
 
-    public PurchaseOffer(HashMap<Integer, AmountAndPrice> items, Address address, LocalDate recivingDate, String note, int warehouseId)
+    public PurchaseOffer(HashMap<Integer, PurchaseAmount> items, Address address, LocalDate receivingDate, String note, int receivingWarehouseId)
     {
-        this.id = new PurchaseOfferIdGenerator().PurchaseOfferIdGenerator();
+        this.id = idGenerator.PurchaseOfferIdGenerator();
         this.items = items;
-        this.makingDate = Instant.now();
-        this.reciverAddres = address;
-        this.recivingDate = recivingDate;
+        this.creationDate = Instant.now();
+        this.receiverAddress = address;
+        this.receivingDate = receivingDate;
         this.note = note;
-        this.warehouseId = warehouseId;
+        this.receivingWarehouseId = receivingWarehouseId;
     }
 
-    public PurchaseOffer(HashMap<Integer, AmountAndPrice> items, Address address, LocalDate recivingDate, int warehouseId)
+    public PurchaseOffer(HashMap<Integer, PurchaseAmount> items, Address address, LocalDate receivingDate, int receivingWarehouseId)
     {
-        this.id = new PurchaseOfferIdGenerator().PurchaseOfferIdGenerator();
+        this.id = idGenerator.PurchaseOfferIdGenerator();
         this.items = items;
-        this.makingDate = Instant.now();
-        this.reciverAddres = address;
-        this.recivingDate = recivingDate;
-        this.warehouseId = warehouseId;
+        this.creationDate = Instant.now();
+        this.receiverAddress = address;
+        this.receivingDate = receivingDate;
+        this.receivingWarehouseId = receivingWarehouseId;
     }
 
-    public void setRecivingDate(LocalDate newDate)
+    public void setReceivingDate(LocalDate newDate)
     {
-        recivingDate = newDate;
+        receivingDate = newDate;
     }
 
-    public int getWarehouseId()
+    public int getReceivingWarehouseId()
     {
-        return warehouseId;
-    }
-
-    public void setWarehouseId(int newId)
-    {
-        warehouseId = newId;
+        return receivingWarehouseId;
     }
 
     public int getId()
@@ -64,24 +64,24 @@ public class PurchaseOffer
         return id;
     }
 
-    public HashMap<Integer, AmountAndPrice> getItems()
+    public HashMap<Integer, PurchaseAmount> getItems()
     {
         return items;
     }
 
-    public Address getReciverAddres()
+    public Address getReceiverAddres()
     {
-        return reciverAddres;
+        return receiverAddress;
     }
 
-    public LocalDate getRecivingDate()
+    public LocalDate getReceivingDate()
     {
-        return recivingDate;
+        return receivingDate;
     }
 
-    public Instant getMakingDate()
+    public Instant getCreationDate()
     {
-        return makingDate;
+        return creationDate;
     }
 
     public String getNote()
