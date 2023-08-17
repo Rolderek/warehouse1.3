@@ -48,7 +48,7 @@ class ItemAmountTest
     }
 
     @Test
-    void removeReservedAmount()
+    void removeReservedAmountIfItRun()
     {
         itemAmount.removeReservedAmount(5.0);
         assertEquals(10.0, itemAmount.getFreeAmount());
@@ -57,12 +57,54 @@ class ItemAmountTest
     @Test
     void removeReservedAmountNotEnought()
     {
-        //befejezni!
+        Throwable exception = assertThrows(InputMismatchException.class,
+                ()->
+                {
+                    itemAmount.removeReservedAmount(6.0);
+                });
+        assertEquals(5.0, itemAmount.getReservedAmount());
     }
 
     @Test
-    void sendAmount()
+    void removeReservedAmountThrowMessage()
     {
-        //befejezni!
+        InputMismatchException thrown = assertThrows(
+                InputMismatchException.class,
+                /**
+                 * ezt a lambdát meg kell néznem!
+                 */
+                () -> itemAmount.removeReservedAmount(6.0),
+                "maximum reserved amount can be removed"
+        );
+
+        assertTrue(thrown.getMessage().contains("maximum reserved amount can be removed"));
+    }
+
+    @Test
+    void removeReservedAmountInputZero()
+    {
+        InputMismatchException thrown = assertThrows(
+                InputMismatchException.class,
+                () -> itemAmount.removeReservedAmount(0.0),
+                "amount must be positive"
+        );
+
+        assertTrue(thrown.getMessage().contains("amount must be positive"));
+    }
+
+    @Test
+    void sendAmountIfItRun()
+    {
+        itemAmount.sendAmount(5.0);
+    }
+
+    @Test
+    void sendAmountWrongInput()
+    {
+        Throwable exception = assertThrows(InputMismatchException.class,
+                ()->
+                {
+                    itemAmount.sendAmount(6.0);
+                });
     }
 }

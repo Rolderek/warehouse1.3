@@ -8,53 +8,58 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * BeforeEach-et még röviditeni kell!
+ */
 class InventoryMoverTest
 {
-    Address address1;
-    Address address2;
-    Item itemOne;
-    Item itemTwo;
-    Item itemThree;
-    ItemAmount itemOneAmount;
-    ItemAmount itemTwoAmount;
-    ItemAmount itemThreeAmount;
-    ItemAmount itemOneAmountW2;
-    ItemAmount itemTwoAmountW2;
-    ItemAmount itemThreeAmountW2;
-    HashMap<Integer, ItemAmount> items;
-    HashMap<Integer, ItemAmount> itemsW2;
-    WarehouseInventory w1;
-    WarehouseInventory w2;
-    HashMap<Integer, Double> itemsToSend1;
-    HashMap<Integer, Double> itemsToSend2;
-    HashMap<Integer, WarehouseInventory> inventories;
-    HashMap<Integer, TransitBundle> bundles;
-    TransitInventory transitInventory;
-    TransitInventory anotherTransitInventory;
-    InventoryContainer inventoryContainer;
-    ItemProvider itemProvider;
-    ItemProvider anotherItemProvider;
-    InventoryMover mover;
-    PurchaseContainer purchaseContainer;
-    PurchaseOffer purchaseOffer;
-    PurchaseConfirmation purchaseConfirmation;
-    PurchaseFinal purchaseFinal;
-    HashMap<Integer, PurchaseAmount> itemsForPurchase;
-    HashMap<Integer, PurchaseAmount> anotherItems;
-    Address address;
-    LocalDate date;
-    Instant time;
-    String note;
-    HashMap<Integer, PurchaseOffer> purchaseOffers;
-    HashMap<Integer, PurchaseConfirmation> purchaseConfirmations;
-    HashMap<Integer, PurchaseFinal> purchaseFinals;
+          Address address1;
+          Address address2;
+          Item itemOne;
+          Item itemTwo;
+          Item itemThree;
+          ItemAmount itemOneAmount;
+          ItemAmount itemTwoAmount;
+          ItemAmount itemThreeAmount;
+          ItemAmount itemOneAmountW2;
+          ItemAmount itemTwoAmountW2;
+          ItemAmount itemThreeAmountW2;
+          HashMap<Integer, ItemAmount> items;
+          HashMap<Integer, ItemAmount> itemsW2;
+          WarehouseInventory w1;
+          WarehouseInventory w2;
+          HashMap<Integer, Double> itemsToSend1;
+          HashMap<Integer, Double> itemsToSend2;
+          HashMap<Integer, WarehouseInventory> inventories;
+          HashMap<Integer, TransitBundle> bundles;
+          TransitInventory transitInventory;
+          TransitInventory anotherTransitInventory;
+          InventoryContainer inventoryContainer;
+          ItemProvider itemProvider;
+          ItemProvider anotherItemProvider;
+          InventoryMover mover;
+          PurchaseContainer purchaseContainer;
+          PurchaseOffer purchaseOffer;
+          PurchaseConfirmation purchaseConfirmation;
+          PurchaseFinal purchaseFinal;
+          HashMap<Integer, PurchaseAmount> itemsForPurchase;
+          HashMap<Integer, PurchaseAmount> anotherItems;
+          Address address;
+          LocalDate date;
+          Instant time;
+          String note;
+          HashMap<Integer, PurchaseOffer> purchaseOffers;
+          HashMap<Integer, PurchaseConfirmation> purchaseConfirmations;
+          HashMap<Integer, PurchaseFinal> purchaseFinals;
 
     @BeforeEach
     public void setUp()
     {
+
         purchaseOffers = new HashMap<>();
         purchaseConfirmations = new HashMap<>();
         purchaseFinals = new HashMap<>();
+        address = new Address(5, "a", "b", "c", "d");
         address1 = new Address(3903, "Bekecs", "Tűzoltó út", "28", "06901123456");
         address2 = new Address(4000, "Debrecen", "Fing utca", "3", "11111111111");
         itemOne = new Item(9000, "Toll", "sima kék", "XZ789", 700.50, 900.50);
@@ -76,6 +81,13 @@ class InventoryMoverTest
         itemsW2.put(itemThree.getIdentifier(), itemThreeAmountW2);
         w1 = new WarehouseInventory(501, "Központ", address1, items);
         w2 = new WarehouseInventory(102, "Dábrechen", address2, itemsW2);
+        itemsForPurchase = new HashMap<>();
+        itemsForPurchase.put(9000, new PurchaseAmount(10.0, 100.0, Currency.USD));
+        itemsForPurchase.put(8000, new PurchaseAmount(10.0, 50.0, Currency.USD));
+        itemsForPurchase.put(50, new PurchaseAmount(10.0, 10.0, Currency.USD));
+        purchaseOffer = new PurchaseOffer(itemsForPurchase, address, date, 501);
+        purchaseConfirmation = new PurchaseConfirmation(purchaseOffer);
+        purchaseFinal = new PurchaseFinal(purchaseConfirmation);
         itemsToSend1 = new HashMap<Integer, Double>();
         itemsToSend1.put(itemOne.getIdentifier(), 3.0);
         itemsToSend1.put(itemTwo.getIdentifier(), 2.0);
@@ -93,22 +105,15 @@ class InventoryMoverTest
         itemProvider = new ItemProvider(inventoryContainer);
         note = "valami";
         time = Instant.now();
-        address = new Address(5, "a", "b", "c", "d");
         date = LocalDate.of(2023, 12, 8);
-        itemsForPurchase = new HashMap<>();
-        itemsForPurchase.put(9000, new PurchaseAmount(5.0, 50, Currency.EUR));
-        itemsForPurchase.put(8000, new PurchaseAmount(3.0, 10, Currency.EUR));
-        itemsForPurchase.put(50, new PurchaseAmount(1.0, 5, Currency.EUR));
         anotherItems = new HashMap<>();
         anotherItems.put(4, new PurchaseAmount(1.0, 100, Currency.USD));
-        purchaseOffer = new PurchaseOffer(itemsForPurchase, address, date, 501);
-        purchaseConfirmation = new PurchaseConfirmation(1, itemsForPurchase, note, 501);
-        purchaseFinal = new PurchaseFinal(9999, itemsForPurchase, "bombajó a duma", 501);
         purchaseContainer = new PurchaseContainer(purchaseOffers, purchaseConfirmations, purchaseFinals);
         purchaseContainer.addOffer(purchaseOffer);
         purchaseContainer.addConfirmation(purchaseConfirmation);
         purchaseContainer.addFinal(purchaseFinal);
         mover = new InventoryMover(itemProvider, transitInventory, purchaseContainer);
+        
     }
 
     @Test
@@ -128,17 +133,17 @@ class InventoryMoverTest
     @Test
     void findPurchaseFinalInPurchaseContainer()
     {
-        assertEquals(100012,  mover.findPurchaseFinalInPurchaseContainer(purchaseFinal.getPurchaseFinalId()).getPurchaseFinalId());
+        assertEquals(100001,  mover.findPurchaseFinalInPurchaseContainer(purchaseFinal.getPurchaseFinalId()).getPurchaseFinalId());
     }
 
     @Test
     void recivePurchase()
     {
-        mover.recivePurchase(mover.findPurchaseFinalInPurchaseContainer(99999));
-        assertEquals(15.0, mover.getProvider().getInventories().getInventory(501).getItemAmount(9000).getTotalAmount());
-        assertEquals(12.0, mover.getProvider().getInventories().getInventory(501).getItemAmount(8000).getTotalAmount());
-        assertEquals(9.0, mover.getProvider().getInventories().getInventory(501).getItemAmount(50).getTotalAmount());
-        assertEquals(PurchaseFinalStatus.RECIVED, mover.findPurchaseFinalInPurchaseContainer(99999).getStatus());
+        mover.recivePurchase(purchaseFinal);
+        assertEquals(20.0, mover.getProvider().getInventories().getInventory(501).getItemAmount(9000).getTotalAmount());
+        assertEquals(19.0, mover.getProvider().getInventories().getInventory(501).getItemAmount(8000).getTotalAmount());
+        assertEquals(18.0, mover.getProvider().getInventories().getInventory(501).getItemAmount(50).getTotalAmount());
+        assertEquals(PurchaseFinalStatus.RECIVED, purchaseFinal.getStatus());
     }
 
     @Test

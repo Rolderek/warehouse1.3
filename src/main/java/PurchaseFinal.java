@@ -27,6 +27,7 @@ public class PurchaseFinal
 
     public PurchaseFinal(PurchaseConfirmation purchaseConfirmation)
     {
+        this.purchaseConfirmation = purchaseConfirmation;
         this.purchaseConfirmationId = purchaseConfirmation.getConfirmationId();
         this.purchaseFinalId = finalIdGenerator.generateBundleId();
         this.items = purchaseConfirmation.getConfirmedItems();

@@ -3,7 +3,7 @@ import java.time.LocalDate;
 public class PurchaseReorder
 {
 
-    public PurchaseReorder(PurchaseOffer purchaseOffer)
+    public PurchaseOffer reorderByPurchaseOffer(PurchaseOffer purchaseOffer)
     {
         PurchaseOffer newOffer = new PurchaseOffer(
               purchaseOffer.getItems(),
@@ -12,26 +12,31 @@ public class PurchaseReorder
               purchaseOffer.getNote(),
               purchaseOffer.getReceivingWarehouseId()
         );
+        return newOffer;
     }
 
-    public PurchaseReorder(PurchaseConfirmation purchaseConfirmation)
+    public PurchaseOffer reorderByPurchaseConfirmation(PurchaseConfirmation purchaseConfirmation)
     {
-        PurchaseConfirmation newConfirmation = new PurchaseConfirmation(
-                purchaseConfirmation.getPurchaseOfferId(),
+        PurchaseOffer newOffer = new PurchaseOffer(
                 purchaseConfirmation.getConfirmedItems(),
+                purchaseConfirmation.getPurchaseOffer().getReceiverAddres(),
+                purchaseConfirmation.getPurchaseOffer().getReceivingDate(),
                 purchaseConfirmation.getNote(),
                 purchaseConfirmation.getReceivingWarehouseId()
         );
+        return newOffer;
     }
 
-    public PurchaseReorder(PurchaseFinal purchaseFinal)
+    public PurchaseOffer reorderByPurchaseFinal(PurchaseFinal purchaseFinal)
     {
-        PurchaseFinal newFinal = new PurchaseFinal(
-                purchaseFinal.getPurchaseConfirmationId(),
+        PurchaseOffer newOffer = new PurchaseOffer(
                 purchaseFinal.getItems(),
+                purchaseFinal.getPurchaseConfirmation().getPurchaseOffer().getReceiverAddres(),
+                purchaseFinal.getPurchaseConfirmation().getPurchaseOffer().getReceivingDate(),
                 purchaseFinal.getNote(),
                 purchaseFinal.getWarehouseId()
         );
+        return newOffer;
     }
 
     /**

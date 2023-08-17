@@ -6,6 +6,9 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * átnézve és kicsit leröviditve a BeforeEach
+ */
 class InventoryContainerTest {
     Item itemOne;
     Item itemTwo;
@@ -27,13 +30,10 @@ class InventoryContainerTest {
     WarehouseInventory w3;
     InventoryContainer inventoryContainer;
     HashMap<Integer, Double> itemsToSend1;
-    HashMap<Integer, Double> itemsToSend2;
     HashMap<Integer, WarehouseInventory> inventories;
     HashMap<Integer, TransitBundle> bundles;
     TransitInventory transitInventory;
-    ItemProvider itemProvider;
     ItemMovement itemMovement;
-    InventoryMover mover;
 
     @BeforeEach
     public void setUp() {
@@ -90,11 +90,6 @@ class InventoryContainerTest {
         itemsToSend1.put(itemOne.getIdentifier(), 3.0);
         itemsToSend1.put(itemTwo.getIdentifier(), 2.0);
         itemsToSend1.put(itemThree.getIdentifier(), 1.0);
-
-        itemsToSend2 = new HashMap<Integer, Double>();
-        itemsToSend2.put(itemOne.getIdentifier(), 2.0);
-        itemsToSend2.put(itemTwo.getIdentifier(), 2.0);
-        itemsToSend2.put(itemThree.getIdentifier(), 2.0);
         /**
          * WarehouseInventory létrehozása
          */
@@ -110,23 +105,24 @@ class InventoryContainerTest {
         /**
          * InventoryContainer létrehozása
          */
-        inventoryContainer = new InventoryContainer(inventories, transitInventory, new ItemMovement(new ArrayList<TransitBundle>()));
-        itemProvider = new ItemProvider(inventoryContainer);
         itemMovement = new ItemMovement(new ArrayList<TransitBundle>());
+        inventoryContainer = new InventoryContainer(inventories, transitInventory, itemMovement);
         /**
          * InventoryMover létrehozása
          */
-        mover = new InventoryMover(itemProvider, transitInventory);
 
     }
 
     @Test
-    void getAllInventories() {
+    void getAllInventories()
+    {
         assertEquals(inventories, inventoryContainer.getAllInventories());
     }
 
     @Test
-    void getReservation() {
+    void getReservation()
+    {
+        ItemProvider itemProvider = new ItemProvider(inventoryContainer);
         itemProvider.reserveAllAmountAndMakeTransitBundle(itemsToSend1, 501, 102);
         assertEquals(1, inventoryContainer.getMyReservation(501).size());
     }
@@ -145,8 +141,33 @@ class InventoryContainerTest {
         assertTrue(inventoryContainer.addInventory(w4));
     }
 
-    /**
-      * megcsinálni mindne más ,etódust is!!!
-      */
+    @Test
+    void inventoryContainerConstructorWithTwo()
+    {
+        InventoryContainer inventoryContainer1 = new InventoryContainer(inventories, transitInventory);
+        assertEquals(inventories, inventoryContainer1.getAllInventories());
+        assertEquals(transitInventory, inventoryContainer1.getTransitInvertory());
+    }
+
+    @Test
+    void inventoryContainerConstructorWithOne()
+    {
+        InventoryContainer inventoryContainer1 = new InventoryContainer(inventories);
+        assertEquals(inventories, inventoryContainer1.getAllInventories());
+    }
+
+    @Test
+    void getReservationsAllInOne()
+    {
+        assertEquals(itemMovement, inventoryContainer.getReservationsAllInOne());
+    }
+
+    @Test
+    void setReservations()
+    {
+        ItemMovement itemMovement1 = new ItemMovement(new ArrayList<TransitBundle>());
+        itemMovement1.addBundleToWasMovingList(new TransitBundle(itemsToSend1, 501, 102));
+        assertNotEquals(itemMovement.getWasMoving(), itemMovement1.getWasMoving());
+    }
 
 }

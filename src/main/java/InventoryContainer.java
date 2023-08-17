@@ -30,6 +30,11 @@ public class InventoryContainer
         this.transitInventory = transitInventory;
     }
 
+    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories)
+    {
+        this.inventories = inventories;
+    }
+
     public ItemMovement getReservationsAllInOne()
     {
         return reservations;
@@ -49,10 +54,6 @@ public class InventoryContainer
         return sortedList;
     }
 
-    public InventoryContainer(HashMap<Integer, WarehouseInventory> inventories)
-    {
-        this.inventories = inventories;
-    }
 
     public HashMap<Integer, WarehouseInventory> getAllInventories()
     {

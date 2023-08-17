@@ -6,6 +6,10 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * szerintem elég rövid, Bálint majd megmondja
+ */
+
 class ItemPackageTest
 {
     HashMap<Integer, Double> items;

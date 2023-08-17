@@ -38,29 +38,32 @@ class PurchaseReorderTest
         newAAP = new PurchaseAmount(4.0, 11.0, Currency.EUR);
         newItems = new HashMap<>();
         newItems.put(9000, newAAP);
-        pC = new PurchaseConfirmation(po.getId(), items, "Gyurikám!?", 501);
+        pC = new PurchaseConfirmation(po);
         pc.addConfirmation(pC);
-        pF = new PurchaseFinal(10000, items, "Köszi Feri!", 501);
+        pF = new PurchaseFinal(pC);
         pc.addFinal(pF);
+        purchaseReorder = new PurchaseReorder();
 
     }
 
     @Test
     void purchaseReorderWithPurchaseOffer()
     {
-
+        assertEquals(2, purchaseReorder.reorderByPurchaseOffer(po).getId());
     }
 
     @Test
     void purchaseReorderWithPurchaseConfirmation()
     {
-
+        assertEquals(1, purchaseReorder.reorderByPurchaseConfirmation(pC).getId());
+        assertEquals(2, purchaseReorder.reorderByPurchaseConfirmation(pC).getId());
     }
 
     @Test
     void purchaseReorderWithPurchaseFinal()
     {
-
+        assertEquals(1, purchaseReorder.reorderByPurchaseFinal(pF).getId());
+        assertEquals(2, purchaseReorder.reorderByPurchaseFinal(pF).getId());
     }
 
 }

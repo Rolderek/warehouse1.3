@@ -71,4 +71,11 @@ class PurchaseConfirmationTest
     {
         assertEquals(items, purchaseConfirmation.getConfirmedItems());
     }
+
+    @Test
+    void getPurchaseOffer()
+    {
+        PurchaseConfirmation newConfirmation = new PurchaseConfirmation(purchaseOffer);
+        assertEquals(purchaseOffer, newConfirmation.getPurchaseOffer());
+    }
 }

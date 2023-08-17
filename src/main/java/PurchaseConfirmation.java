@@ -27,6 +27,7 @@ public class PurchaseConfirmation
      */
     public PurchaseConfirmation(PurchaseOffer purchaseOffer)
     {
+        this.purchaseOffer = purchaseOffer;
         this.confirmationId = confirmationIdGenerator.PurchaseConfirmationIdGenerator();
         this.purchaseOfferId = purchaseOffer.getId();
         this.confirmedItems = purchaseOffer.getItems();
@@ -51,6 +52,11 @@ public class PurchaseConfirmation
         this.confirmedItems = confirmedItems;
         this.creationDate = Instant.now();
         this.receivingWarehouseId = receivingWarehouseId;
+    }
+
+    public PurchaseOffer getPurchaseOffer()
+    {
+        return purchaseOffer;
     }
 
     public int getReceivingWarehouseId()

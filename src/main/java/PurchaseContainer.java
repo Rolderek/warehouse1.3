@@ -28,6 +28,11 @@ public class PurchaseContainer
         this.purchaseFinals = purchaseFinals;
     }
 
+    public PurchaseReorder getPurchaseReorder()
+    {
+        return purchaseReorder;
+    }
+
     public void addOffer(PurchaseOffer newOffer)
     {
         purchaseOffers.put(newOffer.getId(), newOffer);
