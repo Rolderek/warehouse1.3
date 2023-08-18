@@ -68,7 +68,7 @@ public class ItemProvider
 
     public Boolean itemListCheck(InventoryContainer inventoryContainer, HashMap<Integer, Double> itemsToReservate, int senderId)
     {
-        /** ellenőrzi az szabad készletet és visszaad egy listát vagy hibát */
+        /** ellenőrzi a szabad készletet és visszaad egy listát vagy hibát */
         HashMap<Integer, Double> gooditems = new HashMap<Integer, Double>();
         HashMap<Integer, Double> missingItems = new HashMap<Integer, Double>();
         for (int key : itemsToReservate.keySet())
