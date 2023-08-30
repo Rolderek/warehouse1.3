@@ -6,8 +6,8 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SupplierContainerTest {
-
+class SupplierContainerTest
+{
     SupplierContainer sc;
     Supplier supplierOne;
     Supplier supplierTwo;
@@ -36,6 +36,7 @@ class SupplierContainerTest {
         suppliers.put(101, supplierOne);
         suppliers.put(303, supplierTwo);
         sc = new SupplierContainer(suppliers);
+
     }
     @Test
     void getSuppliers()

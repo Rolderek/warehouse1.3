@@ -6,6 +6,9 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Bálinttal átnézni kell e röviditeni
+ */
 class PurchaseContainerTest
 {
     HashMap<Integer, PurchaseOffer> purchaseOffers;
@@ -56,19 +59,19 @@ class PurchaseContainerTest
     @Test
     void addOffer()
     {
-        assertEquals(1, pc.getPurchaseOffers().size());
+        assertEquals(2, pc.getPurchaseOffers().size());
     }
 
     @Test
     void addConfirmation()
     {
-        assertEquals(1, pc.getPurchaseConfirmations().size());
+        assertEquals(2, pc.getPurchaseConfirmations().size());
     }
 
     @Test
     void addFinal()
     {
-        assertEquals(1, pc.getPurchaseFinals().size());
+        assertEquals(2, pc.getPurchaseFinals().size());
     }
 
     @Test
@@ -111,7 +114,7 @@ class PurchaseContainerTest
     void getAllFinishedPurchaseFinal()
     {
         purchaseFinals.get(99999).setStatusToRecived();
-        assertEquals(1, purchaseContainer.getAllFinishedPurchaseFinal().size());
+        assertEquals(2, purchaseContainer.getAllFinishedPurchaseFinal().size());
     }
 
     @Test

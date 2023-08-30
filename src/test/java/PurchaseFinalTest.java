@@ -7,7 +7,8 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PurchaseFinalTest {
+class PurchaseFinalTest
+{
 
     PurchaseConfirmation purchaseConfirmation;
     PurchaseFinal purchaseFinal;
@@ -25,8 +26,6 @@ class PurchaseFinalTest {
         date = LocalDate.of(2023, 12, 8);
         items = new HashMap<>();
         items.put(1, new PurchaseAmount(5.0, 50, Currency.EUR));
-        items.put(2, new PurchaseAmount(3.0, 10, Currency.EUR));
-        items.put(3, new PurchaseAmount(1.0, 5, Currency.EUR));
         purchaseOffer = new PurchaseOffer(items, address, date, 501);
         purchaseConfirmation = new PurchaseConfirmation(1, items, "valami", 501);
 

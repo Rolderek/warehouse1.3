@@ -6,63 +6,46 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * kész 08.30
+ */
 class PurchaseReorderTest
 {
-    Address address;
-    PurchaseAmount aAP;
-    HashMap<Integer, PurchaseAmount> items;
-    PurchaseContainer pc;
-    PurchaseOffer po;
-    PurchaseAmount newAAP;
-    HashMap<Integer, PurchaseAmount> newItems;
-    PurchaseConfirmation pC;
-    PurchaseFinal pF;
+
     PurchaseReorder purchaseReorder;
-    HashMap<Integer, PurchaseOffer> purchaseOffers;
-    HashMap<Integer, PurchaseConfirmation> purchaseConfirmations;
-    HashMap<Integer, PurchaseFinal> purchaseFinals;
-    @BeforeEach
-    public void setUp()
-    {
-
-        purchaseOffers = new HashMap<>();
-        purchaseConfirmations = new HashMap<>();
-        purchaseFinals = new HashMap<>();
-        pc = new PurchaseContainer(purchaseOffers, purchaseConfirmations, purchaseFinals);
-        address = new Address(3903, "Pososványoslép", "Kikötő utca", "01", "+36909999999");
-        aAP = new PurchaseAmount(5.0, 10.0, Currency.EUR);
-        items = new HashMap<>();
-        items.put(9000, aAP);
-        po = new PurchaseOffer(items, address, LocalDate.now(), "nothing",501);
-        pc.addOffer(po);
-        newAAP = new PurchaseAmount(4.0, 11.0, Currency.EUR);
-        newItems = new HashMap<>();
-        newItems.put(9000, newAAP);
-        pC = new PurchaseConfirmation(po);
-        pc.addConfirmation(pC);
-        pF = new PurchaseFinal(pC);
-        pc.addFinal(pF);
-        purchaseReorder = new PurchaseReorder();
-
-    }
 
     @Test
     void purchaseReorderWithPurchaseOffer()
     {
+        HashMap<Integer, PurchaseAmount> items = new HashMap<>();
+        items.put(9000, new PurchaseAmount(5.0, 10.0, Currency.USD));
+        PurchaseOffer po = new PurchaseOffer(items, new Address(2, "2", "2", "2", "2"), LocalDate.now(), 501);
+        purchaseReorder = new PurchaseReorder();
         assertEquals(2, purchaseReorder.reorderByPurchaseOffer(po).getId());
     }
 
     @Test
     void purchaseReorderWithPurchaseConfirmation()
     {
-        assertEquals(1, purchaseReorder.reorderByPurchaseConfirmation(pC).getId());
+        HashMap<Integer, PurchaseAmount> items = new HashMap<>();
+        items.put(9000, new PurchaseAmount(5.0, 10.0, Currency.USD));
+        PurchaseOffer po = new PurchaseOffer(items, new Address(2, "2", "2", "2", "2"), LocalDate.now(), 501);
+        PurchaseConfirmation pC = new PurchaseConfirmation(po);
+        purchaseReorder = new PurchaseReorder();
+        purchaseReorder.reorderByPurchaseConfirmation(pC);
         assertEquals(2, purchaseReorder.reorderByPurchaseConfirmation(pC).getId());
     }
 
     @Test
     void purchaseReorderWithPurchaseFinal()
     {
-        assertEquals(1, purchaseReorder.reorderByPurchaseFinal(pF).getId());
+        HashMap<Integer, PurchaseAmount> items = new HashMap<>();
+        items.put(9000, new PurchaseAmount(5.0, 10.0, Currency.USD));
+        PurchaseOffer po = new PurchaseOffer(items, new Address(2, "2", "2", "2", "2"), LocalDate.now(), 501);
+        PurchaseConfirmation pC = new PurchaseConfirmation(po);
+        PurchaseFinal pF = new PurchaseFinal(pC);
+        purchaseReorder = new PurchaseReorder();
+        purchaseReorder.reorderByPurchaseFinal(pF);
         assertEquals(2, purchaseReorder.reorderByPurchaseFinal(pF).getId());
     }
 

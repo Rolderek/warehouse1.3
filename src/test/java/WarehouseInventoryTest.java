@@ -3,10 +3,12 @@ import junit.framework.TestCase;
 import java.util.HashMap;
 
 
-public class WarehouseInventoryTest extends TestCase {
+public class WarehouseInventoryTest extends TestCase
+{
 
 
-    public void testGetId() {
+    public void testGetId()
+    {
         Address address = new Address(
                 1234,
                 "Pest",
@@ -23,7 +25,8 @@ public class WarehouseInventoryTest extends TestCase {
         assertEquals(010, warehouseInventory.getWarehouseId());
     }
 
-    public void testSetId() {
+    public void testSetId()
+    {
         Address address = new Address(
                 1234,
                 "Pest",
@@ -40,7 +43,8 @@ public class WarehouseInventoryTest extends TestCase {
         assertEquals(999, warehouseInventory.getWarehouseId());
     }
 
-    public void testTestGetName() {
+    public void testTestGetName()
+    {
         Address address = new Address(
                 1234,
                 "Pest",
@@ -56,7 +60,8 @@ public class WarehouseInventoryTest extends TestCase {
         assertEquals("Raktár", warehouseInventory.getName());
     }
 
-    public void testTestSetName() {
+    public void testTestSetName()
+    {
         Address address = new Address(
                 1234,
                 "Pest",
@@ -73,7 +78,8 @@ public class WarehouseInventoryTest extends TestCase {
         assertEquals("Valami", warehouseInventory.getName());
     }
 
-    public void testGetAddress() {
+    public void testGetAddress()
+    {
         Address address = new Address(
                 1234,
                 "Pest",
@@ -89,7 +95,8 @@ public class WarehouseInventoryTest extends TestCase {
         assertEquals(address, warehouseInventory.getAddress());
     }
 
-    public void testSetAddress() {
+    public void testSetAddress()
+    {
         Address address = new Address(
                 1234,
                 "Pest",
@@ -112,7 +119,8 @@ public class WarehouseInventoryTest extends TestCase {
         assertEquals(addy, warehouseInventory.getAddress());
     }
 
-    public void testGetAllItems() {
+    public void testGetAllItems()
+    {
         Address address = new Address(
                 1234,
                 "Pest",
@@ -153,7 +161,8 @@ public class WarehouseInventoryTest extends TestCase {
         assertEquals(items.toString(), warehouseInventory.getAllItems().toString());
     }
 
-    public void testGetItemAmount() {
+    public void testGetItemAmount()
+    {
         Address address = new Address(
                 1234,
                 "Pest",
@@ -197,7 +206,8 @@ public class WarehouseInventoryTest extends TestCase {
         assertEquals(200.0, warehouseInventory.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
     }
 
-    public void testAddItem() {
+    public void testAddItem()
+    {
         Address address = new Address(
             1234,
             "Pest",
@@ -224,7 +234,8 @@ public class WarehouseInventoryTest extends TestCase {
         assertEquals(60.0, warehouseInventory.getItemAmount(itemOne.getIdentifier()).getTotalAmount());
     }
 
-    public void testSetItems() {
+    public void testSetItems()
+    {
         /**
         ez még nem biztos hogy jó, mert önmagát hasonlitja magához
          */
