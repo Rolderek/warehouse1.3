@@ -1,4 +1,4 @@
-public class EmailFormPurchase
+public class EmailDataToFormByAnyPurchase
 {
 
     private Supplier supplier;
@@ -19,7 +19,7 @@ public class EmailFormPurchase
 
     private String message;
 
-    public EmailFormPurchase(Supplier supplier, PurchaseOffer purchaseOffer)
+    public EmailDataToFormByAnyPurchase(Supplier supplier, PurchaseOffer purchaseOffer)
     {
         this.supplier = supplier;
         this.purchaseOffer = purchaseOffer;
@@ -29,7 +29,7 @@ public class EmailFormPurchase
         this.message = purchaseOffer.getItems().toString();
     }
 
-    public EmailFormPurchase(Supplier supplier, PurchaseOffer purchaseOffer, String note)
+    public EmailDataToFormByAnyPurchase(Supplier supplier, PurchaseOffer purchaseOffer, String note)
     {
         this.note = note;
         this.supplier = supplier;
@@ -40,7 +40,7 @@ public class EmailFormPurchase
         this.message = purchaseOffer.getItems().toString();
     }
 
-    public EmailFormPurchase(Supplier supplier, PurchaseConfirmation purchaseConfirmation, String note)
+    public EmailDataToFormByAnyPurchase(Supplier supplier, PurchaseConfirmation purchaseConfirmation, String note)
     {
         this.note = note;
         this.supplier = supplier;
@@ -51,7 +51,7 @@ public class EmailFormPurchase
         this.message = purchaseConfirmation.getConfirmedItems().toString();
     }
 
-    public EmailFormPurchase(Supplier supplier, PurchaseConfirmation purchaseConfirmation)
+    public EmailDataToFormByAnyPurchase(Supplier supplier, PurchaseConfirmation purchaseConfirmation)
     {
         this.supplier = supplier;
         this.purchaseConfirmation = purchaseConfirmation;
@@ -61,7 +61,7 @@ public class EmailFormPurchase
         this.message = purchaseConfirmation.getConfirmedItems().toString();
     }
 
-    public EmailFormPurchase(Supplier supplier, PurchaseFinal purchaseFinal)
+    public EmailDataToFormByAnyPurchase(Supplier supplier, PurchaseFinal purchaseFinal)
     {
         this.supplier = supplier;
         this.purchaseFinal = purchaseFinal;
@@ -71,7 +71,7 @@ public class EmailFormPurchase
         this.message = purchaseFinal.getItems().toString();
     }
 
-    public EmailFormPurchase(Supplier supplier, PurchaseFinal purchaseFinal, String note)
+    public EmailDataToFormByAnyPurchase(Supplier supplier, PurchaseFinal purchaseFinal, String note)
     {
         this.note = note;
         this.supplier = supplier;

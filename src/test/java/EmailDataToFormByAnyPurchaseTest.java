@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EmailFormPurchaseTest
+class EmailDataToFormByAnyPurchaseTest
 {
 
     PurchaseOffer purchaseOffer;
@@ -21,9 +21,9 @@ class EmailFormPurchaseTest
         supplierContact = new SupplierContact("a", "b", "c");
         supplier = new Supplier(1, "a", address ,"c" ,supplierContact, new SupplierTermOfPayment("a"));
         purchaseOffer = new PurchaseOffer(new HashMap<>(), address, LocalDate.now(), "x", 501);
-        EmailFormPurchase emailFormPurchase = new EmailFormPurchase(supplier, purchaseOffer);
+        EmailDataToFormByAnyPurchase emailDataToFormByAnyPurchase = new EmailDataToFormByAnyPurchase(supplier, purchaseOffer);
 
-        assertEquals(purchaseOffer, emailFormPurchase.getPurchaseOffer());
+        assertEquals(purchaseOffer, emailDataToFormByAnyPurchase.getPurchaseOffer());
     }
 
     @Test
@@ -33,9 +33,9 @@ class EmailFormPurchaseTest
         supplier = new Supplier(1, "a", address ,"c" ,supplierContact, new SupplierTermOfPayment("a"));
         purchaseOffer = new PurchaseOffer(new HashMap<>(), address, LocalDate.now(), "x", 501);
         purchaseConfirmation = new PurchaseConfirmation(purchaseOffer);
-        EmailFormPurchase emailFormPurchase = new EmailFormPurchase(supplier, purchaseConfirmation, "y");
+        EmailDataToFormByAnyPurchase emailDataToFormByAnyPurchase = new EmailDataToFormByAnyPurchase(supplier, purchaseConfirmation, "y");
 
-        assertNull(emailFormPurchase.getPurchaseOffer());
+        assertNull(emailDataToFormByAnyPurchase.getPurchaseOffer());
     }
 
     @Test
@@ -45,9 +45,9 @@ class EmailFormPurchaseTest
         supplier = new Supplier(1, "a", address ,"c" ,supplierContact, new SupplierTermOfPayment("a"));
         purchaseOffer = new PurchaseOffer(new HashMap<>(), address, LocalDate.now(), "x", 501);
         purchaseConfirmation = new PurchaseConfirmation(purchaseOffer);
-        EmailFormPurchase emailFormPurchase = new EmailFormPurchase(supplier, purchaseConfirmation, "y");
+        EmailDataToFormByAnyPurchase emailDataToFormByAnyPurchase = new EmailDataToFormByAnyPurchase(supplier, purchaseConfirmation, "y");
 
-        assertEquals(purchaseConfirmation, emailFormPurchase.getPurchaseConfirmation());
+        assertEquals(purchaseConfirmation, emailDataToFormByAnyPurchase.getPurchaseConfirmation());
     }
 
     @Test
@@ -58,9 +58,9 @@ class EmailFormPurchaseTest
         purchaseOffer = new PurchaseOffer(new HashMap<>(), address, LocalDate.now(), "x", 501);
         purchaseConfirmation = new PurchaseConfirmation(purchaseOffer);
         purchaseFinal = new PurchaseFinal(purchaseConfirmation);
-        EmailFormPurchase emailFormPurchase = new EmailFormPurchase(supplier, purchaseFinal);
+        EmailDataToFormByAnyPurchase emailDataToFormByAnyPurchase = new EmailDataToFormByAnyPurchase(supplier, purchaseFinal);
 
-        assertNull(emailFormPurchase.getPurchaseConfirmation());
+        assertNull(emailDataToFormByAnyPurchase.getPurchaseConfirmation());
     }
 
     @Test
@@ -71,9 +71,9 @@ class EmailFormPurchaseTest
         purchaseOffer = new PurchaseOffer(new HashMap<>(), address, LocalDate.now(), "x", 501);
         purchaseConfirmation = new PurchaseConfirmation(purchaseOffer);
         purchaseFinal = new PurchaseFinal(purchaseConfirmation);
-        EmailFormPurchase emailFormPurchase = new EmailFormPurchase(supplier, purchaseFinal, "y");
+        EmailDataToFormByAnyPurchase emailDataToFormByAnyPurchase = new EmailDataToFormByAnyPurchase(supplier, purchaseFinal, "y");
 
-        assertEquals(purchaseFinal, emailFormPurchase.getPurchaseFinal());
+        assertEquals(purchaseFinal, emailDataToFormByAnyPurchase.getPurchaseFinal());
     }
 
     @Test
@@ -83,9 +83,9 @@ class EmailFormPurchaseTest
         supplier = new Supplier(1, "a", address ,"c" ,supplierContact, new SupplierTermOfPayment("a"));
         purchaseOffer = new PurchaseOffer(new HashMap<>(), address, LocalDate.now(), "x", 501);
         purchaseConfirmation = new PurchaseConfirmation(purchaseOffer);
-        EmailFormPurchase emailFormPurchase = new EmailFormPurchase(supplier, purchaseConfirmation, "y");
+        EmailDataToFormByAnyPurchase emailDataToFormByAnyPurchase = new EmailDataToFormByAnyPurchase(supplier, purchaseConfirmation, "y");
 
-        assertNull(emailFormPurchase.getPurchaseFinal());
+        assertNull(emailDataToFormByAnyPurchase.getPurchaseFinal());
     }
 
     @Test
@@ -94,9 +94,9 @@ class EmailFormPurchaseTest
         supplierContact = new SupplierContact("a", "b", "c");
         supplier = new Supplier(1, "a", address ,"c" ,supplierContact, new SupplierTermOfPayment("a"));
         purchaseOffer = new PurchaseOffer(new HashMap<>(), address, LocalDate.now(), "x", 501);
-        EmailFormPurchase emailFormPurchase = new EmailFormPurchase(supplier, purchaseOffer);
+        EmailDataToFormByAnyPurchase emailDataToFormByAnyPurchase = new EmailDataToFormByAnyPurchase(supplier, purchaseOffer);
 
-        assertEquals(supplier, emailFormPurchase.getSupplier());
+        assertEquals(supplier, emailDataToFormByAnyPurchase.getSupplier());
     }
 
     @Test
@@ -105,9 +105,9 @@ class EmailFormPurchaseTest
         supplierContact = new SupplierContact("a", "b", "c");
         supplier = new Supplier(1, "a", address ,"c" ,supplierContact, new SupplierTermOfPayment("a"));
         purchaseOffer = new PurchaseOffer(new HashMap<>(), address, LocalDate.now(), "x", 501);
-        EmailFormPurchase emailFormPurchase = new EmailFormPurchase(supplier, purchaseOffer, "y");
+        EmailDataToFormByAnyPurchase emailDataToFormByAnyPurchase = new EmailDataToFormByAnyPurchase(supplier, purchaseOffer, "y");
 
-        assertEquals("y", emailFormPurchase.getNote());
+        assertEquals("y", emailDataToFormByAnyPurchase.getNote());
     }
 
     @Test
@@ -116,9 +116,9 @@ class EmailFormPurchaseTest
         supplierContact = new SupplierContact("a", "b", "c");
         supplier = new Supplier(1, "a", address ,"c" ,supplierContact, new SupplierTermOfPayment("a"));
         purchaseOffer = new PurchaseOffer(new HashMap<>(), address, LocalDate.now(), "x", 501);
-        EmailFormPurchase emailFormPurchase = new EmailFormPurchase(supplier, purchaseOffer);
+        EmailDataToFormByAnyPurchase emailDataToFormByAnyPurchase = new EmailDataToFormByAnyPurchase(supplier, purchaseOffer);
 
-        assertEquals("beégetett email az adott felhasználónak aki belép", emailFormPurchase.getFrom());
+        assertEquals("beégetett email az adott felhasználónak aki belép", emailDataToFormByAnyPurchase.getFrom());
     }
 
     @Test
@@ -127,9 +127,9 @@ class EmailFormPurchaseTest
         supplierContact = new SupplierContact("a", "b", "c");
         supplier = new Supplier(1, "a", address ,"c" ,supplierContact, new SupplierTermOfPayment("a"));
         purchaseOffer = new PurchaseOffer(new HashMap<>(), address, LocalDate.now(), "x", 501);
-        EmailFormPurchase emailFormPurchase = new EmailFormPurchase(supplier, purchaseOffer);
+        EmailDataToFormByAnyPurchase emailDataToFormByAnyPurchase = new EmailDataToFormByAnyPurchase(supplier, purchaseOffer);
 
-        assertEquals("b", emailFormPurchase.getTo());
+        assertEquals("b", emailDataToFormByAnyPurchase.getTo());
     }
 
     @Test
@@ -138,9 +138,9 @@ class EmailFormPurchaseTest
         supplierContact = new SupplierContact("a", "b", "c");
         supplier = new Supplier(1, "a", address ,"c" ,supplierContact, new SupplierTermOfPayment("a"));
         purchaseOffer = new PurchaseOffer(new HashMap<>(), address, LocalDate.now(), "x", 501);
-        EmailFormPurchase emailFormPurchase = new EmailFormPurchase(supplier, purchaseOffer);
+        EmailDataToFormByAnyPurchase emailDataToFormByAnyPurchase = new EmailDataToFormByAnyPurchase(supplier, purchaseOffer);
 
-        assertEquals("Order PO2", emailFormPurchase.getSubject());
+        assertEquals("Order PO2", emailDataToFormByAnyPurchase.getSubject());
     }
 
     @Test
@@ -149,9 +149,9 @@ class EmailFormPurchaseTest
         supplierContact = new SupplierContact("a", "b", "c");
         supplier = new Supplier(1, "a", address ,"c" ,supplierContact, new SupplierTermOfPayment("a"));
         purchaseOffer = new PurchaseOffer(new HashMap<>(), address, LocalDate.now(), "x", 501);
-        EmailFormPurchase emailFormPurchase = new EmailFormPurchase(supplier, purchaseOffer);
+        EmailDataToFormByAnyPurchase emailDataToFormByAnyPurchase = new EmailDataToFormByAnyPurchase(supplier, purchaseOffer);
 
-        assertEquals("{}", emailFormPurchase.getMessage());
+        assertEquals("{}", emailDataToFormByAnyPurchase.getMessage());
     }
 
     @Test
@@ -160,9 +160,9 @@ class EmailFormPurchaseTest
         supplierContact = new SupplierContact("a", "b", "c");
         supplier = new Supplier(1, "a", address ,"c" ,supplierContact, new SupplierTermOfPayment("a"));
         purchaseOffer = new PurchaseOffer(new HashMap<>(), address, LocalDate.now(), "x", 501);
-        EmailFormPurchase emailFormPurchase = new EmailFormPurchase(supplier, purchaseOffer);
-        emailFormPurchase.setNote("asd");
+        EmailDataToFormByAnyPurchase emailDataToFormByAnyPurchase = new EmailDataToFormByAnyPurchase(supplier, purchaseOffer);
+        emailDataToFormByAnyPurchase.setNote("asd");
 
-        assertEquals("asd", emailFormPurchase.getNote());
+        assertEquals("asd", emailDataToFormByAnyPurchase.getNote());
     }
 }
