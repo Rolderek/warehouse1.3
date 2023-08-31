@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * kommissiós listát készit (lehet hogy tárolja is azt)
@@ -10,7 +8,7 @@ import java.util.List;
 public class ListOfItems
 {
 
-    private InventoryContainer inventoryContainer; // ez sem kell még neki egyenlőre?!
+    private InventoryContainer inventoryContainer; // ezt nem használja egyenlőre
 
     private TransitInventory transitInventory;
 
@@ -92,6 +90,14 @@ public class ListOfItems
      * elküldi a listát
      */
     public void sendTheList()
+    {
+
+    }
+
+    /**
+     * valamilyne olvasható formába kell öntenie a lista generáló függvéyeket
+     */
+    public void makeItReadable()
     {
 
     }
