@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * kész 08.30
+ * akkor fut le ha ezt az osztályt futtatom csak, más esetben a generátor miatt változnak a számok
  */
 class PurchaseReorderTest
 {
@@ -21,7 +22,7 @@ class PurchaseReorderTest
         items.put(9000, new PurchaseAmount(5.0, 10.0, Currency.USD));
         PurchaseOffer po = new PurchaseOffer(items, new Address(2, "2", "2", "2", "2"), LocalDate.now(), 501);
         purchaseReorder = new PurchaseReorder();
-        assertEquals(2, purchaseReorder.reorderByPurchaseOffer(po).getId());
+        assertEquals(4, purchaseReorder.reorderByPurchaseOffer(po).getId());
     }
 
     @Test
@@ -33,7 +34,7 @@ class PurchaseReorderTest
         PurchaseConfirmation pC = new PurchaseConfirmation(po);
         purchaseReorder = new PurchaseReorder();
         purchaseReorder.reorderByPurchaseConfirmation(pC);
-        assertEquals(2, purchaseReorder.reorderByPurchaseConfirmation(pC).getId());
+        assertEquals(7, purchaseReorder.reorderByPurchaseConfirmation(pC).getId());
     }
 
     @Test

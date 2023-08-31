@@ -4,6 +4,7 @@ import java.util.HashMap;
  * raktárak közötti elindított/feladott mozgás tárolója TransitBundle alapján
  * Itt a foglalt és küldés alatt lévő tételek vannak.
  */
+
 public class TransitInventory implements Inventory
 {
 
