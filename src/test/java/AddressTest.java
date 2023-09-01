@@ -1,5 +1,9 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.restlet.resource.ClientResource;
+import org.json.*;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,6 +17,26 @@ class AddressTest
     {
      address = new Address(3903, "Bekecs", "Tűzoltó út", "28", "+36901112222");
     }
+
+    @Test
+    void request()
+    {
+        String apiKey = "";
+        ClientResource resource = new ClientResource("http://data.fixer.io/api/latest?access_key="+ apiKey +"&symbols=HUF%2CUSD%2CGBP");
+        try
+        {
+            String response = resource.get().getText();
+            System.out.println(response);
+            JSONObject responseObject = new JSONObject(response);
+            System.out.println("Base: " + responseObject.get("base"));
+            System.out.println("USD: " + ((JSONObject)responseObject.get("rates")).get("USD"));
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Test
     void getZipcode()
     {
