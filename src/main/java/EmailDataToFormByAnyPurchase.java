@@ -1,3 +1,8 @@
+/**
+ * email generátor
+ * egyszerűsiteni, bármibő tudjon emailt generálni!
+ */
+
 public class EmailDataToFormByAnyPurchase
 {
 
