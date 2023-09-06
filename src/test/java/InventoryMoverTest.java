@@ -159,7 +159,7 @@ class InventoryMoverTest
     void sendItemsBundleStatus()
     {
         mover.sendItems(itemProvider.reserveAllAmountAndMakeTransitBundle(itemsToSend1, w1.getWarehouseId(), w2.getWarehouseId()));
-        assertEquals(TranstiBundleStatus.SENT, transitInventory.getBundles().get(0).getStatus());
+        assertEquals(TransitBundleStatus.SENT, transitInventory.getBundles().get(0).getStatus());
     }
 
     @Test

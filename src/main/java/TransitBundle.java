@@ -20,7 +20,7 @@ public class TransitBundle
 
     private String notes;
 
-    private TranstiBundleStatus status;
+    private TransitBundleStatus status;
 
     public TransitBundle(HashMap<Integer, Double> items, int senderId, int recipientId)
     {
@@ -28,7 +28,7 @@ public class TransitBundle
         this.senderId = senderId;
         this.recipientId = recipientId;
         this.sendTime = Instant.now();
-        this.status = TranstiBundleStatus.RESERVED;
+        this.status = TransitBundleStatus.RESERVED;
     }
 
     public TransitBundle(HashMap<Integer, Double> items, int senderId, int recipientId, String notes)
@@ -38,7 +38,7 @@ public class TransitBundle
         this.recipientId = recipientId;
         this.sendTime = Instant.now();
         this.notes = notes;
-        this.status = TranstiBundleStatus.RESERVED;
+        this.status = TransitBundleStatus.RESERVED;
     }
 
     public HashMap<Integer, Double> getItems()
@@ -66,14 +66,14 @@ public class TransitBundle
         return notes;
     }
 
-    public TranstiBundleStatus getStatus()
+    public TransitBundleStatus getStatus()
     {
         return status;
     }
 
     public void setStatusToSent()
     {
-        status = TranstiBundleStatus.SENT;
+        status = TransitBundleStatus.SENT;
     }
 
     public void addNotes(String newNote)

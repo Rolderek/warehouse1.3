@@ -60,15 +60,15 @@ class TransitBundleTest
     @Test
     void getStatus()
     {
-        assertEquals(TranstiBundleStatus.RESERVED, tbOne.getStatus());
-        assertEquals(TranstiBundleStatus.RESERVED, tbTwo.getStatus());
+        assertEquals(TransitBundleStatus.RESERVED, tbOne.getStatus());
+        assertEquals(TransitBundleStatus.RESERVED, tbTwo.getStatus());
     }
 
     @Test
     void setStatusToSent()
     {
         tbOne.setStatusToSent();
-        assertEquals(TranstiBundleStatus.SENT, tbOne.getStatus());
+        assertEquals(TransitBundleStatus.SENT, tbOne.getStatus());
     }
 
     @Test

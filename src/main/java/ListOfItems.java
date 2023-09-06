@@ -42,7 +42,7 @@ public class ListOfItems
              * végigmászik a tranzitban lévő TransitBundle-eken és aminek megegyezik a küldő raktárID-ja + csak foglalva van azokat beteszi egy listába.
              * igy elérhető lesz később a cimzett paraméter is [transitBundle.getSenderId()]
              */
-            if (warehouseId == transitInventory.getBundles().get(id).getSenderId() && transitInventory.getBundles().get(id).getStatus() == TranstiBundleStatus.RESERVED)
+            if (warehouseId == transitInventory.getBundles().get(id).getSenderId() && transitInventory.getBundles().get(id).getStatus() == TransitBundleStatus.RESERVED)
             {
                 actualList.add(transitInventory.getBundles().get(id));
                 savedList.add(transitInventory.getBundles().get(id));
@@ -59,7 +59,7 @@ public class ListOfItems
         ArrayList<TransitBundle> actualList = new ArrayList<>();
         for (int id : transitInventory.getBundles().keySet())
         {
-            if (transitInventory.getBundles().get(id).getStatus() == TranstiBundleStatus.RESERVED)
+            if (transitInventory.getBundles().get(id).getStatus() == TransitBundleStatus.RESERVED)
             {
                 actualList.add(transitInventory.getBundles().get(id));
             }
@@ -75,7 +75,7 @@ public class ListOfItems
     {
         for (int id : transitInventory.getBundles().keySet())
         {
-            if (warehouseId == transitInventory.getBundles().get(id).getSenderId() && transitInventory.getBundles().get(id).getStatus() == TranstiBundleStatus.RESERVED)
+            if (warehouseId == transitInventory.getBundles().get(id).getSenderId() && transitInventory.getBundles().get(id).getStatus() == TransitBundleStatus.RESERVED)
             {
                 if (!savedList.contains(transitInventory.getBundles().get(id)))
                 {
