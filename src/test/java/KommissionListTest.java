@@ -113,12 +113,12 @@ class KommissionListTest
         HashMap<Integer, HashMap<Integer, Double>> monza = new HashMap<>();
         monza.put(0, items);
         kommissionList.allKommissionListOfAllWarehouse();
-        assertEquals(monza, kommissionList.getAllwarehouseList());
+        assertEquals(monza, kommissionList.getAllWarehouseList());
         TransitBundle transitBundle2 = new TransitBundle(items2, 1, 90);
         transitInventory.addBoundle(transitBundle2);
         monza.put(1, items2);
         kommissionList.refreshAKommissionListOfAllWarehouse();
-        assertEquals(monza, kommissionList.getAllwarehouseList());
+        assertEquals(monza, kommissionList.getAllWarehouseList());
     }
 
     @Test
@@ -151,7 +151,7 @@ class KommissionListTest
         monza.put(0, items);
         monza.put(1, items2);
         kommissionList.allKommissionListOfAllWarehouse();
-        assertEquals(monza, kommissionList.getAllwarehouseList());
+        assertEquals(monza, kommissionList.getAllWarehouseList());
 
     }
 

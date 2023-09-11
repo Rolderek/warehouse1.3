@@ -10,6 +10,7 @@ public class InventoryMover
     private ItemProvider provider;
     private TransitInventory transit;
     private PurchaseContainer purchaseContainer;
+    private KommissionList kommissionList;
 
     public InventoryMover(ItemProvider provider, TransitInventory transit)
     {
@@ -21,11 +22,25 @@ public class InventoryMover
      * innen kezdődik a hozzáirt funkció:
      */
 
-    public InventoryMover(ItemProvider provider, TransitInventory transit, PurchaseContainer purchaseContainer)
+    public InventoryMover(ItemProvider provider, TransitInventory transit, PurchaseContainer purchaseContainer, KommissionList kommissionList)
     {
         this.provider = provider;
         this.transit = transit;
         this.purchaseContainer = purchaseContainer;
+        this.kommissionList = kommissionList;
+    }
+
+    /**
+     * kommissiós lista alapján elküldi a tételeket
+     */
+    public void sendKommissionList(int warehouseid)
+    {
+        //itt tartok
+    }
+
+    public KommissionList getKommissionList()
+    {
+        return kommissionList;
     }
 
     public PurchaseContainer getPurchaseContainer()

@@ -51,6 +51,7 @@ class InventoryMoverTest
           HashMap<Integer, PurchaseOffer> purchaseOffers;
           HashMap<Integer, PurchaseConfirmation> purchaseConfirmations;
           HashMap<Integer, PurchaseFinal> purchaseFinals;
+          KommissionList kommissionList;
 
     @BeforeEach
     public void setUp()
@@ -102,6 +103,7 @@ class InventoryMoverTest
         bundles = new HashMap<>();
         transitInventory = new TransitInventory(bundles);
         inventoryContainer = new InventoryContainer(inventories, transitInventory, new ItemMovement(new ArrayList<TransitBundle>()));
+        kommissionList = new KommissionList(inventoryContainer);
         itemProvider = new ItemProvider(inventoryContainer);
         note = "valami";
         time = Instant.now();
@@ -112,8 +114,14 @@ class InventoryMoverTest
         purchaseContainer.addOffer(purchaseOffer);
         purchaseContainer.addConfirmation(purchaseConfirmation);
         purchaseContainer.addFinal(purchaseFinal);
-        mover = new InventoryMover(itemProvider, transitInventory, purchaseContainer);
+        mover = new InventoryMover(itemProvider, transitInventory, purchaseContainer, kommissionList);
         
+    }
+
+    @Test
+    void getKommission()
+    {
+        assertEquals(kommissionList, mover.getKommissionList());
     }
 
     @Test

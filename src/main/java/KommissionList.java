@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class KommissionList
@@ -7,7 +8,7 @@ public class KommissionList
 
     private HashMap<Integer, HashMap<Integer, Double>> dedicatedWarehouseList = new HashMap<>();
 
-    private HashMap<Integer, HashMap<Integer, Double>> allwarehouseList = new HashMap<>();
+    private HashMap<Integer, HashMap<Integer, Double>> allWarehouseList = new HashMap<>();
 
     public KommissionList(InventoryContainer inventoryContainer)
     {
@@ -42,6 +43,22 @@ public class KommissionList
     }
 
     /**
+     * lehet hogy itt az elv rossz és TransitBundle-eket kellene visszaadnom mert azokat egyszerűbb küldeni az InventoryMover-ben
+     */
+    public HashMap<Integer, HashMap<Integer, Double>> kommissionListOfOneWarehouseWithTransitBundleId(int id)
+    {
+        HashMap<Integer, HashMap<Integer, Double>> resultList = new HashMap<>();
+        for (int transitBundleId : inventoryContainer.getTransitInvertory().getBundles().keySet())
+        {
+            if (id == inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getRecipientId())
+            {
+                resultList.put(transitBundleId, inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getItems());
+            }
+        }
+        return resultList;
+    }
+
+    /**
      * szűrés nélkül visszaadja az összes csak lefoglalt, de még el nem küldött tételt, az összes raktárban
      */
     public HashMap<Integer, HashMap<Integer, Double>> allKommissionListOfAllWarehouse()
@@ -58,7 +75,7 @@ public class KommissionList
             }
 
         }
-        allwarehouseList = resultList;
+        allWarehouseList = resultList;
         return resultList;
     }
 
@@ -87,23 +104,16 @@ public class KommissionList
     {
         for (int transitBundleId : inventoryContainer.getTransitInvertory().getBundles().keySet())
         {
-            if (!allwarehouseList.containsKey(transitBundleId))
+            if (!allWarehouseList.containsKey(transitBundleId))
             {
-                allwarehouseList.put(transitBundleId, inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getItems());
+                allWarehouseList.put(transitBundleId, inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getItems());
             }
         }
     }
 
-    public void sendKommissionList()
+    public HashMap<Integer, HashMap<Integer, Double>> getAllWarehouseList()
     {
-        /**
-          * egy kommisiós lista alapján elküldi a tételeket
-          */
-    }
-
-    public HashMap<Integer, HashMap<Integer, Double>> getAllwarehouseList()
-    {
-        return allwarehouseList;
+        return allWarehouseList;
     }
 
     public HashMap<Integer, HashMap<Integer, Double>> getDedicatedWarehouseList()
@@ -114,5 +124,38 @@ public class KommissionList
     public InventoryContainer getInventoryContainer()
     {
         return inventoryContainer;
+    }
+
+    /**
+     * TransitBundle HashMap visszatérési értékkel a lsitázások
+     */
+    public HashMap<Integer, TransitBundle> getOneWarehouseList(int warehoiseId)
+    {
+
+        HashMap<Integer, TransitBundle> resultList = new HashMap<>();
+        for (int transitBunddleId : inventoryContainer.getTransitInvertory().getBundles().keySet())
+        {
+            int bundleRecicpientId = inventoryContainer.getTransitInvertory().getBundles().get(transitBunddleId).getRecipientId();
+            if (warehoiseId == bundleRecicpientId)
+            {
+                resultList.put(transitBunddleId, inventoryContainer.getTransitInvertory().getBundles().get(transitBunddleId));
+            }
+        }
+
+        return resultList;
+    }
+
+    /**
+     * ennek lehet nem lesz létjogosultsága, de meglátjuk
+     */
+    public HashMap<Integer, HashMap<Integer, Double>> transitBundleToItemAndAmountList(HashMap<Integer, TransitBundle> sortedBundleList)
+    {
+        HashMap<Integer, HashMap<Integer, Double>> resultList = new HashMap<>();
+        for (int transitBundleId : sortedBundleList.keySet())
+        {
+            resultList.put(transitBundleId, sortedBundleList.get(transitBundleId).getItems());
+        }
+
+        return resultList;
     }
 }
