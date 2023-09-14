@@ -32,10 +32,16 @@ public class InventoryMover
 
     /**
      * kommissiós lista alapján elküldi a tételeket
+     * még új tesztelni kell!
      */
     public void sendKommissionList(int warehouseid)
     {
-        //itt tartok
+        kommissionList.makeOneWarehouseList(warehouseid);
+        for (int transitbundleId : kommissionList.getOnlyOneWarehouseList().keySet())
+        {
+            sendItems(kommissionList.getOnlyOneWarehouseList().get(transitbundleId));
+        }
+
     }
 
     public KommissionList getKommissionList()
@@ -99,7 +105,9 @@ public class InventoryMover
 
     public void reciveItems(TransitBundle transitBundle)
     {
-        /** megkap egy bundle-t és kiveszi a transit-ból és átteszi a fogadó félhez */
+        /**
+         * megkap egy bundle-t és kiveszi a transit-ból és átteszi a fogadó félhez
+         */
         for (int itemId : transitBundle.getItems().keySet())
         {
             provider.getInventories().getInventory(transitBundle.getRecipientId()).getItemAmount(itemId).addAmount(transitBundle.getItems().get(itemId));

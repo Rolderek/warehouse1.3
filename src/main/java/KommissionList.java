@@ -1,14 +1,17 @@
-import java.util.ArrayList;
 import java.util.HashMap;
+
+/**
+ * készit egy listás a még el nem küldött rendelésekről TransitBundle-ök alapján
+ */
 
 public class KommissionList
 {
 
     private InventoryContainer inventoryContainer;
 
-    private HashMap<Integer, HashMap<Integer, Double>> dedicatedWarehouseList = new HashMap<>();
+    private HashMap<Integer, TransitBundle> onlyOneWarehouseList = new HashMap<>();
 
-    private HashMap<Integer, HashMap<Integer, Double>> allWarehouseList = new HashMap<>();
+    private HashMap<Integer, TransitBundle> allWarehouseList = new HashMap<>();
 
     public KommissionList(InventoryContainer inventoryContainer)
     {
@@ -23,47 +26,31 @@ public class KommissionList
     /**
      * egy adott raktár összes fogalat elemét visszaadja egy listában
      * (optimalizált kürölményekre van most irva)
+     * @param id
+     * az a WarehouseId amiből küldeni akarunk
      * @return
-     * cimzett raktár kódja, küldendő elemek listája
+     * TransitBundleId a TransitInventory-ból, adott TransitBundle
      */
-    public HashMap<Integer, HashMap<Integer, Double>> kommissionListOfOneWarehouse(int id)
+    public HashMap<Integer, TransitBundle> makeKommissionListOfOneWarehouse(int id)
     {
-        int recipientIp;
-        HashMap<Integer, HashMap<Integer, Double>> resultList = new HashMap<>();
+        HashMap<Integer, TransitBundle> resultList = new HashMap<>();
         for (int transitBundleId : inventoryContainer.getTransitInvertory().getBundles().keySet())
         {
-            recipientIp = inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getRecipientId();
             if (id == inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getSenderId() && inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getStatus() == TransitBundleStatus.RESERVED)
             {
-                resultList.put(recipientIp, inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getItems());
+                resultList.put(transitBundleId, inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId));
             }
         }
-        dedicatedWarehouseList = resultList;
-        return resultList;
-    }
-
-    /**
-     * lehet hogy itt az elv rossz és TransitBundle-eket kellene visszaadnom mert azokat egyszerűbb küldeni az InventoryMover-ben
-     */
-    public HashMap<Integer, HashMap<Integer, Double>> kommissionListOfOneWarehouseWithTransitBundleId(int id)
-    {
-        HashMap<Integer, HashMap<Integer, Double>> resultList = new HashMap<>();
-        for (int transitBundleId : inventoryContainer.getTransitInvertory().getBundles().keySet())
-        {
-            if (id == inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getRecipientId())
-            {
-                resultList.put(transitBundleId, inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getItems());
-            }
-        }
+        onlyOneWarehouseList = resultList;
         return resultList;
     }
 
     /**
      * szűrés nélkül visszaadja az összes csak lefoglalt, de még el nem küldött tételt, az összes raktárban
      */
-    public HashMap<Integer, HashMap<Integer, Double>> allKommissionListOfAllWarehouse()
+    public HashMap<Integer, TransitBundle> makeAllKommissionListOfAllWarehouse()
     {
-        HashMap<Integer, HashMap<Integer, Double>> resultList = new HashMap<>();
+        HashMap<Integer, TransitBundle> resultList = new HashMap<>();
         for (int transitBundleId : inventoryContainer.getTransitInvertory().getBundles().keySet())
         {
             /**
@@ -71,28 +58,22 @@ public class KommissionList
              */
             if (inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getStatus() == TransitBundleStatus.RESERVED)
             {
-                resultList.put(transitBundleId, inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getItems());
+                resultList.put(transitBundleId, inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId));
             }
-
         }
         allWarehouseList = resultList;
         return resultList;
     }
 
 
-    /**
-     * itt a fogadó kódja az első int érték a HashMap-ben
-     * lehet a duplikált rendeléseknél gondot fog okozni, majd átirjuk ha igen
-     */
-    public void refreshAKommissionListOneWarehouse(int warehouseId)
+
+    public void refreshKommissionListOneWarehouse(int recipientWarehouseId)
     {
-        int recipientId;
         for (int transitBundleId : inventoryContainer.getTransitInvertory().getBundles().keySet())
         {
-            recipientId = inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getRecipientId();
-            if (warehouseId == inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getSenderId() && !dedicatedWarehouseList.containsKey(transitBundleId))
+            if (recipientWarehouseId == inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getSenderId() && !onlyOneWarehouseList.containsKey(transitBundleId))
             {
-                dedicatedWarehouseList.put(recipientId, inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getItems());
+                onlyOneWarehouseList.put(transitBundleId, inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId));
             }
         }
     }
@@ -100,25 +81,20 @@ public class KommissionList
     /**
      * itt a TransitBundle sorszáma az első int érték a HashMap-ben
      */
-    public void refreshAKommissionListOfAllWarehouse()
+    public void refreshKommissionListOfAllWarehouse()
     {
         for (int transitBundleId : inventoryContainer.getTransitInvertory().getBundles().keySet())
         {
             if (!allWarehouseList.containsKey(transitBundleId))
             {
-                allWarehouseList.put(transitBundleId, inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId).getItems());
+                allWarehouseList.put(transitBundleId, inventoryContainer.getTransitInvertory().getBundles().get(transitBundleId));
             }
         }
     }
 
-    public HashMap<Integer, HashMap<Integer, Double>> getAllWarehouseList()
+    public HashMap<Integer, TransitBundle> getAllWarehouseList()
     {
         return allWarehouseList;
-    }
-
-    public HashMap<Integer, HashMap<Integer, Double>> getDedicatedWarehouseList()
-    {
-        return dedicatedWarehouseList;
     }
 
     public InventoryContainer getInventoryContainer()
@@ -126,36 +102,8 @@ public class KommissionList
         return inventoryContainer;
     }
 
-    /**
-     * TransitBundle HashMap visszatérési értékkel a lsitázások
-     */
-    public HashMap<Integer, TransitBundle> getOneWarehouseList(int warehoiseId)
+    public HashMap<Integer, TransitBundle> getOnlyOneWarehouseList()
     {
-
-        HashMap<Integer, TransitBundle> resultList = new HashMap<>();
-        for (int transitBunddleId : inventoryContainer.getTransitInvertory().getBundles().keySet())
-        {
-            int bundleRecicpientId = inventoryContainer.getTransitInvertory().getBundles().get(transitBunddleId).getRecipientId();
-            if (warehoiseId == bundleRecicpientId)
-            {
-                resultList.put(transitBunddleId, inventoryContainer.getTransitInvertory().getBundles().get(transitBunddleId));
-            }
-        }
-
-        return resultList;
-    }
-
-    /**
-     * ennek lehet nem lesz létjogosultsága, de meglátjuk
-     */
-    public HashMap<Integer, HashMap<Integer, Double>> transitBundleToItemAndAmountList(HashMap<Integer, TransitBundle> sortedBundleList)
-    {
-        HashMap<Integer, HashMap<Integer, Double>> resultList = new HashMap<>();
-        for (int transitBundleId : sortedBundleList.keySet())
-        {
-            resultList.put(transitBundleId, sortedBundleList.get(transitBundleId).getItems());
-        }
-
-        return resultList;
+        return onlyOneWarehouseList;
     }
 }
