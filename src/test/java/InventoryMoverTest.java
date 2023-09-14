@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * BeforeEach-et még röviditeni kell!
+ * az új sendKommissionList tesztjét megírni!!!!!
  */
 class InventoryMoverTest
 {

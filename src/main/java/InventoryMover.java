@@ -36,7 +36,7 @@ public class InventoryMover
      */
     public void sendKommissionList(int warehouseid)
     {
-        kommissionList.makeOneWarehouseList(warehouseid);
+        kommissionList.makeKommissionListOfOneWarehouse(warehouseid);
         for (int transitbundleId : kommissionList.getOnlyOneWarehouseList().keySet())
         {
             sendItems(kommissionList.getOnlyOneWarehouseList().get(transitbundleId));

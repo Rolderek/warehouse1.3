@@ -171,22 +171,4 @@ class KommissionListTest
         assertEquals(inventoryContainer, kommissionList.getInventoryContainer());
     }
 
-    @Test
-    void makeKommissionListOfOneWarehouseWithTransitBundleId()
-    {
-        HashMap<Integer, Double> items = new HashMap<>();
-        items.put(9000, 10.0);
-        ArrayList<TransitBundle> wasMoving = new ArrayList<>();
-        HashMap<Integer, WarehouseInventory> inventories = new HashMap<>();
-        ItemMovement reservations = new ItemMovement(wasMoving);
-        HashMap<Integer, TransitBundle> bundles = new HashMap<>();
-        TransitInventory transitInventory = new TransitInventory(bundles);
-        TransitBundle transitBundle = new TransitBundle(items, 501, 102);
-        transitInventory.addBoundle(transitBundle);
-        inventoryContainer = new InventoryContainer(inventories, transitInventory, reservations);
-        KommissionList kommissionList = new KommissionList(inventoryContainer);
-        HashMap<Integer, HashMap<Integer, Double>> valami = kommissionList.makeKommissionListOfOneWarehouseWithTransitBundleId(501);
-        assertEquals(valami, kommissionList.makeKommissionListOfOneWarehouseWithTransitBundleId(501));
-    }
-
 }
