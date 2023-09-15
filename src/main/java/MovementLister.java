@@ -1,5 +1,5 @@
 /**
- * Szűrt listákat csinál a mindenkori mozgásokról
+ * Szűrt listákat csinál a mindenkori mozgásokról, még nem biztos hogy kelleni fog, Mr.Architect majd megmondja
  */
 
 public class MovementLister

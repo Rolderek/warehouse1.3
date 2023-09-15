@@ -59,6 +59,11 @@ public class InventoryMover
         purchaseContainer = newContainer;
     }
 
+    public void setKommissionList(KommissionList newKommissionList)
+    {
+        kommissionList = newKommissionList;
+    }
+
     /**
       * első
       */

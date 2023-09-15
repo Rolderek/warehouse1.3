@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * BeforeEach-et még röviditeni kell!
- * az új sendKommissionList tesztjét megírni!!!!!
  */
 class InventoryMoverTest
 {
@@ -117,6 +116,38 @@ class InventoryMoverTest
         purchaseContainer.addFinal(purchaseFinal);
         mover = new InventoryMover(itemProvider, transitInventory, purchaseContainer, kommissionList);
         
+    }
+
+    /**
+     * darabszámot kell adni a tételeknek, nem tudja elküldeni ha nincs
+     */
+    @Test
+    void sendKommissionList()
+    {
+        itemOneAmount = new ItemAmount(10.0, 2.0);
+        HashMap<Integer, Double> itemss = new HashMap<>();
+        items.put(itemOne.getIdentifier(), itemOneAmount);
+        itemss.put(9000, 2.0);
+        ArrayList<TransitBundle> wasMoving = new ArrayList<>();
+        HashMap<Integer, WarehouseInventory> inventories = new HashMap<>();
+        ItemMovement reservations = new ItemMovement(wasMoving);
+        HashMap<Integer, TransitBundle> bundles = new HashMap<>();
+        TransitInventory transitInventory = new TransitInventory(bundles);
+        TransitBundle transitBundle = new TransitBundle(itemss, 501, 102);
+        transitInventory.addBoundle(transitBundle);
+        inventoryContainer = new InventoryContainer(inventories, transitInventory, reservations);
+        KommissionList kommissionList = new KommissionList(inventoryContainer);
+        mover = new InventoryMover(itemProvider, transitInventory, purchaseContainer, kommissionList);
+        /**
+         * beteszi a lostába
+         */
+        mover.getKommissionList().makeKommissionListOfOneWarehouse(501);
+        mover.sendKommissionList(501);
+        /**
+         * frissiti a listát
+         */
+        mover.getKommissionList().makeKommissionListOfOneWarehouse(501);
+        assertEquals(0, mover.getKommissionList().getOnlyOneWarehouseList().size());
     }
 
     @Test
